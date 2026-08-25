@@ -1,0 +1,2512 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Эрүүл Алхам — хүүхдийн гутлын онлайн дэлгүүр">
+<title>Эрүүл Алхам</title>
+<link rel="icon" type="image/jpeg" href="logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+  /* ============ TOKENS ============ */
+  :root{
+    --bg: #FFFFFF;
+    --surface: #FFFFFF;
+    --surface-2: #F5F5F5;
+    --surface-3: #FAFAFA;
+    --ink: #111111;
+    --ink-soft: #707072;
+    --ink-faint: #9E9E9E;
+    --brand: #FA5400;
+    --brand-hover: #D84900;
+    --brand-deep: #D84900;
+    --brand-ink: #ffffff;
+    --brand-tint: #FFE9DE;
+    --mint: #1B7A3D;
+    --mint-hover: #146430;
+    --mint-tint: #E3F3E8;
+    --gold: #B07A1E;
+    --gold-tint: #FBEBD2;
+    --error: #C0392B;
+    --error-tint: #FBE3E0;
+    --border: #E5E5E5;
+    --border-soft: #EEEEEE;
+    --shadow-color: 0 0% 0%;
+    --shadow-sm: 0 1px 2px hsl(var(--shadow-color) / 0.06), 0 1px 1px hsl(var(--shadow-color) / 0.04);
+    --shadow-md: 0 8px 24px hsl(var(--shadow-color) / 0.08), 0 2px 6px hsl(var(--shadow-color) / 0.05);
+    --shadow-lg: 0 20px 48px hsl(var(--shadow-color) / 0.14), 0 6px 16px hsl(var(--shadow-color) / 0.08);
+    --r-sm: 6px;
+    --r-md: 10px;
+    --r-lg: 14px;
+    --r-pill: 999px;
+    --font-display: 'Helvetica Neue', 'Inter', Arial, sans-serif;
+    --font-body: 'Helvetica Neue', 'Inter', Arial, sans-serif;
+    --font-mono: 'Helvetica Neue', 'Inter', Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #111111;
+      --surface: #1A1A1A;
+      --surface-2: #242424;
+      --surface-3: #1F1F1F;
+      --ink: #FFFFFF;
+      --ink-soft: #B5B5B5;
+      --ink-faint: #7A7A7A;
+      --brand: #FF7A33;
+      --brand-hover: #FF925C;
+      --brand-deep: #FF925C;
+      --brand-ink: #1A1000;
+      --brand-tint: #3A2213;
+      --mint: #5FCB84;
+      --mint-hover: #7FDB9E;
+      --mint-tint: #1B3324;
+      --gold: #E7B65C;
+      --gold-tint: #423420;
+      --error: #FF8A7A;
+      --error-tint: #452420;
+      --border: #333333;
+      --border-soft: #262626;
+      --shadow-color: 0 0% 0%;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #111111;
+    --surface: #1A1A1A;
+    --surface-2: #242424;
+    --surface-3: #1F1F1F;
+    --ink: #FFFFFF;
+    --ink-soft: #B5B5B5;
+    --ink-faint: #7A7A7A;
+    --brand: #FF7A33;
+    --brand-hover: #FF925C;
+    --brand-deep: #FF925C;
+    --brand-ink: #1A1000;
+    --brand-tint: #3A2213;
+    --mint: #5FCB84;
+    --mint-hover: #7FDB9E;
+    --mint-tint: #1B3324;
+    --gold: #E7B65C;
+    --gold-tint: #423420;
+    --error: #FF8A7A;
+    --error-tint: #452420;
+    --border: #333333;
+    --border-soft: #262626;
+    --shadow-color: 0 0% 0%;
+  }
+
+  /* ============ BASE ============ */
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ -webkit-text-size-adjust:100%; }
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--font-body); font-size:16px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{ font-family:var(--font-display); font-weight:700; margin:0; text-wrap:balance; color:var(--ink); }
+  p{ margin:0; }
+  a{ color:inherit; }
+  button{ font-family:inherit; color:inherit; }
+  ul{ margin:0; padding:0; list-style:none; }
+  img,svg{ display:block; max-width:100%; }
+  input,select,textarea{ font-family:inherit; font-size:1rem; color:var(--ink); background:var(--surface); }
+  ::selection{ background:var(--brand-tint); color:var(--brand-deep); }
+  :focus-visible{ outline:3px solid var(--mint); outline-offset:2px; border-radius:6px; }
+  .visually-hidden{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+  }
+
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 24px; }
+  [hidden]{ display:none !important; }
+
+  /* ============ HEADER ============ */
+  .site-header{
+    position:sticky; top:0; z-index:40;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .header-row{ display:flex; align-items:center; gap:20px; padding:14px 24px; max-width:1180px; margin:0 auto; }
+  .brandmark{ display:flex; align-items:center; gap:12px; background:none; border:0; cursor:pointer; padding:4px; border-radius:var(--r-md); }
+  .brandmark:hover{ opacity:0.85; }
+  .logo-badge{ width:44px; height:44px; border-radius:50%; background:var(--brand); display:flex; align-items:center; justify-content:center; flex:none; box-shadow:var(--shadow-sm); overflow:hidden; }
+  .logo-badge svg{ width:26px; height:26px; }
+  .logo-badge img{ width:100%; height:100%; object-fit:cover; }
+  .wordmark{ font-family:var(--font-display); font-weight:800; font-size:1.05rem; letter-spacing:0.01em; line-height:1.1; text-align:left; }
+  .wordmark small{ display:block; font-family:var(--font-body); font-weight:700; font-size:0.65rem; letter-spacing:0.14em; color:var(--brand); text-transform:uppercase; margin-top:2px; }
+  .main-nav{ display:flex; gap:20px; margin-left:12px; }
+  .main-nav button{ border:0; border-bottom:2px solid transparent; background:none; padding:10px 2px; border-radius:0; font-weight:500; font-size:0.95rem; color:var(--ink); cursor:pointer; transition:border-color .15s, color .15s; }
+  .main-nav button:hover{ color:var(--ink); border-color:var(--ink-faint); }
+  .main-nav button.active{ background:none; color:var(--ink); border-color:var(--ink); font-weight:700; }
+  .header-spacer{ flex:1; }
+  .cart-btn{ position:relative; display:flex; align-items:center; gap:8px; border:0; background:none; padding:10px 4px; border-radius:0; font-weight:500; cursor:pointer; color:var(--ink); box-shadow:none; }
+  .cart-btn:hover{ opacity:0.7; }
+  .cart-btn svg{ width:20px; height:20px; }
+  .cart-count{ position:absolute; top:-6px; right:-6px; background:var(--brand); color:var(--brand-ink); font-size:0.7rem; font-weight:800; min-width:20px; height:20px; border-radius:var(--r-pill); display:flex; align-items:center; justify-content:center; padding:0 5px; }
+  @media (max-width:760px){ .main-nav{ display:none; } .wordmark{ font-size:0.9rem; } }
+
+  /* ============ SEARCH ============ */
+  .header-actions{ display:flex; align-items:center; gap:10px; }
+  .search-bar{ border-top:1px solid var(--border-soft); background:var(--surface); }
+  .search-bar-inner{ max-width:1180px; margin:0 auto; display:flex; align-items:center; gap:12px; padding:12px 24px; }
+  .search-bar-inner svg{ width:20px; height:20px; color:var(--ink-faint); flex:none; }
+  .search-bar-inner input{ border:0; background:none; flex:1; font-size:1rem; font-weight:700; color:var(--ink); }
+  .search-bar-inner input:focus{ outline:none; }
+
+  main{ min-height:60vh; }
+
+  /* ============ HERO ============ */
+  .hero{ padding:56px 0 40px; position:relative; overflow:hidden; }
+  .hero-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center; }
+  .eyebrow{ display:inline-flex; align-items:center; gap:8px; background:var(--mint-tint); color:var(--mint); font-weight:800; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; padding:7px 14px; border-radius:var(--r-pill); }
+  .hero h1{ font-size:clamp(2.1rem, 4.4vw, 3.1rem); line-height:1.08; margin:18px 0 16px; }
+  .hero h1 em{ font-style:normal; color:var(--brand); }
+  .hero p.lead{ font-size:1.1rem; color:var(--ink-soft); max-width:46ch; margin-bottom:26px; }
+  .hero-ctas{ display:flex; gap:12px; flex-wrap:wrap; }
+  .hero-art{ position:relative; aspect-ratio:1/1; }
+  .hero-art .footprint-orbit{ position:absolute; inset:0; }
+  .hero-blob{ position:absolute; inset:6%; background:var(--brand-tint); border-radius:44% 56% 62% 38% / 48% 42% 58% 52%; }
+  .hero-shoe{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+  .hero-shoe svg{ width:72%; height:72%; filter:drop-shadow(0 18px 30px hsl(var(--shadow-color) / 0.22)); }
+  .hero-chip{ position:absolute; background:var(--surface); border-radius:var(--r-md); padding:10px 14px; box-shadow:var(--shadow-md); display:flex; align-items:center; gap:8px; font-weight:800; font-size:0.85rem; }
+  .hero-chip.c1{ top:6%; right:2%; color:var(--mint); }
+  .hero-chip.c2{ bottom:10%; left:0%; color:var(--brand-deep); }
+  .hero-chip svg{ width:18px; height:18px; }
+  @media (max-width:860px){ .hero-grid{ grid-template-columns:1fr; } .hero-art{ order:-1; width:100%; max-width:340px; margin:0 auto; } }
+
+  /* ============ BUTTONS ============ */
+  .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; border-radius:var(--r-pill); padding:13px 26px; font-weight:600; font-size:0.98rem; cursor:pointer; border:1.5px solid transparent; transition:transform .12s, background .15s, border-color .15s, box-shadow .15s; text-decoration:none; }
+  .btn:active{ transform:scale(0.97); }
+  .btn-primary{ background:var(--ink); color:var(--bg); box-shadow:var(--shadow-sm); }
+  .btn-primary:hover{ background:var(--ink-soft); }
+  .btn-primary:disabled{ opacity:0.5; cursor:not-allowed; transform:none; }
+  .btn-outline{ background:var(--surface); border-color:var(--ink); color:var(--ink); }
+  .btn-outline:hover{ background:var(--surface-2); }
+  .btn-ghost{ background:none; border-color:transparent; color:var(--ink-soft); padding:13px 18px; }
+  .btn-ghost:hover{ color:var(--ink); background:var(--surface-2); }
+  .btn-mint{ background:var(--mint); color:#fff; }
+  .btn-mint:hover{ background:var(--mint-hover); }
+  .btn-block{ width:100%; }
+  .btn-sm{ padding:8px 16px; font-size:0.85rem; }
+  .icon-btn{ width:38px; height:38px; border-radius:50%; border:1.5px solid var(--border); background:var(--surface); display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--ink); }
+  .icon-btn:hover{ border-color:var(--brand); color:var(--brand-deep); }
+  .icon-btn svg{ width:18px; height:18px; }
+
+  /* ============ SECTION HEADINGS ============ */
+  .section-head{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin:0 0 22px; flex-wrap:wrap; }
+  .section-head h2{ font-size:1.6rem; }
+  .section-head .hint{ color:var(--ink-soft); font-weight:700; font-size:0.9rem; }
+
+  /* ============ SHOP HEAD ============ */
+  .shop-head{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; margin-bottom:22px; }
+  .shop-head h2{ font-size:1.5rem; }
+  .shop-controls{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .ghost-toggle{ display:flex; align-items:center; gap:8px; background:var(--surface); border:1.5px solid var(--border); padding:9px 16px; border-radius:var(--r-pill); font-weight:800; font-size:0.85rem; cursor:pointer; color:var(--ink); }
+  .ghost-toggle:hover{ border-color:var(--brand); }
+  .ghost-toggle svg{ width:16px; height:16px; }
+  .sort-wrap select{ border:1.5px solid var(--border); border-radius:var(--r-pill); padding:9px 16px; font-weight:800; font-size:0.85rem; background:var(--surface); color:var(--ink); cursor:pointer; }
+
+  /* ============ SHOP LAYOUT / SIDEBAR ============ */
+  .shop-layout{ display:grid; grid-template-columns:230px 1fr; gap:32px; align-items:start; }
+  .shop-layout.no-sidebar{ grid-template-columns:1fr; }
+  .shop-layout.no-sidebar .shop-sidebar{ display:none; }
+  .shop-sidebar{ position:sticky; top:96px; padding-bottom:20px; }
+  .sidebar-toggle-row{ display:flex; justify-content:space-between; align-items:center; gap:10px; font-weight:800; font-size:0.9rem; padding:4px 2px 16px; }
+  .switch{ width:42px; height:24px; border-radius:var(--r-pill); background:var(--border); position:relative; border:0; cursor:pointer; flex:none; transition:background .15s; padding:0; }
+  .switch .switch-dot{ position:absolute; top:3px; left:3px; width:18px; height:18px; border-radius:50%; background:#fff; box-shadow:var(--shadow-sm); transition:transform .15s; }
+  .switch.on{ background:var(--brand); }
+  .switch.on .switch-dot{ transform:translateX(18px); }
+  .sidebar-divider{ height:1px; background:var(--border-soft); margin:14px 0; }
+  .cat-list{ display:flex; flex-direction:column; gap:2px; }
+  .cat-list li{ list-style:none; }
+  .cat-list button{ display:block; width:100%; text-align:left; background:none; border:0; padding:9px 10px; border-radius:var(--r-sm); font-weight:500; color:var(--ink-soft); cursor:pointer; font-size:0.92rem; }
+  .cat-list button:hover{ background:var(--surface-2); color:var(--ink); }
+  .cat-list button.active{ background:none; color:var(--ink); font-weight:700; }
+  .accordion{ border-bottom:1px solid var(--border-soft); }
+  .accordion-head{ width:100%; display:flex; justify-content:space-between; align-items:center; background:none; border:0; padding:14px 2px; font-weight:800; font-size:0.9rem; cursor:pointer; color:var(--ink); }
+  .accordion-head svg{ width:16px; height:16px; transition:transform .15s; color:var(--ink-faint); }
+  .accordion.open .accordion-head svg{ transform:rotate(180deg); }
+  .accordion-body{ padding-bottom:16px; }
+  .filter-size-chip-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+  .filter-size-chip{ border:1.5px solid var(--border); background:var(--surface); border-radius:var(--r-sm); padding:8px 0; text-align:center; font-weight:800; font-family:var(--font-mono); font-size:0.8rem; cursor:pointer; color:var(--ink); }
+  .filter-size-chip:hover{ border-color:var(--brand); }
+  .filter-size-chip.active{ background:var(--ink); border-color:var(--ink); color:var(--bg); }
+  .price-list{ display:flex; flex-direction:column; gap:12px; }
+  .price-list label{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:0.88rem; color:var(--ink-soft); cursor:pointer; }
+  .price-list input{ accent-color:var(--brand); width:16px; height:16px; flex:none; }
+  @media (max-width:900px){ .shop-layout{ grid-template-columns:1fr; } .shop-sidebar{ position:static; } }
+
+  /* ============ PRODUCT GRID ============ */
+  .product-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(230px,1fr)); gap:22px; padding-bottom:60px; }
+  .product-card{ background:none; border:0; border-radius:0; padding:0; cursor:pointer; text-align:left; display:flex; flex-direction:column; gap:12px; box-shadow:none; transition:opacity .18s; }
+  .product-card:hover{ opacity:0.9; box-shadow:none; transform:none; border-color:transparent; }
+  .product-card:hover .product-media{ box-shadow:inset 0 0 0 1px var(--border); }
+  .product-media{ aspect-ratio:1/0.82; border-radius:var(--r-md); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+  .product-media svg{ width:74%; height:74%; }
+  .product-media img{ width:100%; height:100%; object-fit:cover; }
+  .product-badge{ position:absolute; top:10px; left:10px; font-size:0.68rem; font-weight:800; letter-spacing:0.04em; text-transform:uppercase; padding:5px 10px; border-radius:var(--r-pill); background:var(--surface); box-shadow:var(--shadow-sm); }
+  .product-badge.new{ color:var(--mint); }
+  .product-badge.hot{ color:var(--brand-deep); }
+  .product-heart{ position:absolute; top:10px; right:10px; width:32px; height:32px; border-radius:50%; background:var(--surface); border:0; display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-sm); cursor:pointer; color:var(--ink-faint); z-index:2; }
+  .product-heart:hover{ color:var(--brand-deep); }
+  .product-heart.active{ color:var(--brand-deep); }
+  .product-heart svg{ width:16px; height:16px; }
+  .product-heart.active svg{ animation:heart-pop .28s ease; }
+  @keyframes heart-pop{ 0%{ transform:scale(1); } 45%{ transform:scale(1.35); } 100%{ transform:scale(1); } }
+  .detail-heart{ display:inline-flex; align-items:center; gap:7px; border:1.5px solid var(--border); background:var(--surface); border-radius:var(--r-pill); padding:8px 16px; font-weight:800; font-size:0.85rem; color:var(--ink-soft); cursor:pointer; }
+  .detail-heart svg{ width:16px; height:16px; }
+  .detail-heart.active{ color:var(--brand-deep); border-color:var(--brand-tint); background:var(--brand-tint); }
+  .product-info{ display:flex; flex-direction:column; gap:4px; }
+  .product-cat{ font-size:0.74rem; font-weight:800; color:var(--ink-faint); text-transform:uppercase; letter-spacing:0.06em; }
+  .product-name{ font-family:var(--font-display); font-size:1.02rem; font-weight:700; line-height:1.3; }
+  .product-price{ font-family:var(--font-mono); font-weight:600; font-size:1.05rem; color:var(--brand-deep); margin-top:4px; font-variant-numeric:tabular-nums; }
+  .product-sizes-hint{ font-size:0.78rem; color:var(--ink-soft); font-weight:700; }
+
+  /* ============ PRODUCT DETAIL ============ */
+  .back-link{ display:inline-flex; align-items:center; gap:6px; color:var(--ink-soft); font-weight:800; background:none; border:0; cursor:pointer; padding:8px 0; margin-bottom:18px; font-size:0.92rem; }
+  .back-link:hover{ color:var(--brand-deep); }
+  .back-link svg{ width:18px; height:18px; }
+  .detail-grid{ display:grid; grid-template-columns:1fr 1fr; gap:48px; padding-bottom:70px; align-items:start; }
+  .detail-media{ position:sticky; top:96px; aspect-ratio:1/1; border-radius:var(--r-lg); display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-sm); }
+  .detail-media svg{ width:64%; height:64%; filter:drop-shadow(0 16px 26px hsl(var(--shadow-color) / 0.2)); }
+  .detail-media img{ width:100%; height:100%; object-fit:cover; border-radius:var(--r-lg); }
+  .detail-cat{ font-size:0.8rem; font-weight:800; color:var(--mint); text-transform:uppercase; letter-spacing:0.07em; }
+  .detail-title{ font-size:2rem; margin:10px 0 12px; }
+  .detail-price{ font-family:var(--font-mono); font-size:1.5rem; color:var(--brand-deep); font-weight:600; margin-bottom:18px; font-variant-numeric:tabular-nums; }
+  .detail-desc{ color:var(--ink-soft); font-size:1rem; line-height:1.7; margin-bottom:26px; max-width:52ch; }
+  .field-label{ font-weight:800; font-size:0.85rem; letter-spacing:0.03em; margin-bottom:10px; display:block; }
+  .size-grid{ display:grid; grid-template-columns:repeat(6, 1fr); gap:8px; max-width:380px; margin-bottom:8px; }
+  .size-opt{ border:1.5px solid var(--border); background:var(--surface); border-radius:var(--r-sm); padding:10px 0; text-align:center; font-weight:800; font-family:var(--font-mono); cursor:pointer; font-size:0.92rem; }
+  .size-opt:hover:not(:disabled){ border-color:var(--brand); }
+  .size-opt.selected{ background:var(--ink); border-color:var(--ink); color:var(--bg); }
+  .size-opt:disabled{ opacity:0.3; text-decoration:line-through; cursor:not-allowed; }
+  .size-note{ font-size:0.82rem; color:var(--ink-faint); margin:8px 0 24px; }
+  .qty-row{ display:flex; align-items:center; gap:14px; margin-bottom:26px; }
+  .stepper{ display:flex; align-items:center; border:1.5px solid var(--border); border-radius:var(--r-pill); overflow:hidden; }
+  .stepper button{ width:40px; height:40px; border:0; background:var(--surface); font-size:1.1rem; font-weight:800; cursor:pointer; color:var(--ink); }
+  .stepper button:hover{ background:var(--surface-2); }
+  .stepper span{ width:40px; text-align:center; font-weight:800; font-family:var(--font-mono); }
+  .detail-actions{ display:flex; gap:12px; flex-wrap:wrap; }
+  .inline-error{ color:var(--error); font-weight:700; font-size:0.86rem; margin-top:10px; display:flex; align-items:center; gap:6px; }
+  .detail-features{ display:flex; gap:18px; margin-top:30px; padding-top:26px; border-top:1px solid var(--border-soft); flex-wrap:wrap; }
+  .feature{ display:flex; align-items:center; gap:8px; font-size:0.86rem; font-weight:700; color:var(--ink-soft); }
+  .feature svg{ width:20px; height:20px; color:var(--mint); flex:none; }
+  @media (max-width:820px){ .detail-grid{ grid-template-columns:1fr; gap:26px; } .detail-media{ position:static; max-width:340px; margin:0 auto; } }
+
+  /* ============ TOAST ============ */
+  .toast{ position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--ink); color:var(--bg); padding:14px 22px; border-radius:var(--r-pill); font-weight:800; box-shadow:var(--shadow-lg); display:flex; align-items:center; gap:10px; z-index:100; opacity:0; pointer-events:none; transition:opacity .22s, transform .22s; font-size:0.92rem; }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+  .toast svg{ width:20px; height:20px; color:var(--mint); flex:none; }
+
+  /* ============ STEPPER TRAIL ============ */
+  .step-trail{ display:flex; align-items:center; justify-content:center; gap:0; margin:8px 0 44px; }
+  .step-trail .step{ display:flex; flex-direction:column; align-items:center; gap:8px; position:relative; }
+  .step-trail .step .dot{ width:38px; height:38px; border-radius:50%; border:2px solid var(--border); background:var(--surface); display:flex; align-items:center; justify-content:center; color:var(--ink-faint); }
+  .step-trail .step .dot svg{ width:18px; height:18px; }
+  .step-trail .step .lbl{ font-size:0.76rem; font-weight:800; color:var(--ink-faint); white-space:nowrap; }
+  .step-trail .connector{ width:56px; height:2px; background:var(--border); margin:0 4px 22px; border-radius:2px; }
+  .step-trail .step.done .dot{ background:var(--mint); border-color:var(--mint); color:#fff; }
+  .step-trail .step.done .lbl{ color:var(--mint); }
+  .step-trail .connector.done{ background:var(--mint); }
+  .step-trail .step.current .dot{ background:var(--brand); border-color:var(--brand); color:var(--brand-ink); }
+  .step-trail .step.current .lbl{ color:var(--brand-deep); }
+  @media (max-width:600px){ .step-trail .connector{ width:24px; } .step-trail .step .lbl{ display:none; } }
+
+  /* ============ CART ============ */
+  .cart-layout{ display:grid; grid-template-columns:1.6fr 1fr; gap:36px; align-items:start; padding-bottom:70px; }
+  .cart-list{ display:flex; flex-direction:column; gap:14px; }
+  .cart-item{ display:grid; grid-template-columns:74px 1fr auto; gap:16px; background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--r-md); padding:14px; align-items:center; }
+  .cart-item-media{ width:74px; height:74px; border-radius:var(--r-sm); display:flex; align-items:center; justify-content:center; }
+  .cart-item-media svg{ width:60%; height:60%; }
+  .cart-item-media img{ width:100%; height:100%; object-fit:cover; border-radius:var(--r-sm); }
+  .cart-item-name{ font-weight:800; font-family:var(--font-display); font-size:0.95rem; margin-bottom:2px; }
+  .cart-item-meta{ font-size:0.82rem; color:var(--ink-soft); font-weight:700; margin-bottom:8px; }
+  .cart-item-row{ display:flex; align-items:center; gap:14px; }
+  .cart-item-price{ font-family:var(--font-mono); font-weight:700; text-align:right; font-variant-numeric:tabular-nums; }
+  .cart-item-remove{ background:none; border:0; color:var(--ink-faint); cursor:pointer; font-size:0.78rem; font-weight:800; text-decoration:underline; padding:2px 0; margin-top:8px; }
+  .cart-item-remove:hover{ color:var(--error); }
+  .mini-stepper{ display:flex; align-items:center; border:1.5px solid var(--border); border-radius:var(--r-pill); }
+  .mini-stepper button{ width:28px; height:28px; border:0; background:none; font-weight:800; cursor:pointer; color:var(--ink); }
+  .mini-stepper span{ width:24px; text-align:center; font-weight:800; font-size:0.85rem; font-family:var(--font-mono); }
+  .summary-card{ background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--r-lg); padding:24px; position:sticky; top:96px; box-shadow:var(--shadow-sm); }
+  .summary-card h3{ font-size:1.15rem; margin-bottom:18px; }
+  .summary-row{ display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; font-weight:700; color:var(--ink-soft); font-size:0.94rem; }
+  .summary-row span:last-child{ font-family:var(--font-mono); color:var(--ink); font-variant-numeric:tabular-nums; }
+  .summary-total{ display:flex; justify-content:space-between; align-items:center; padding-top:16px; margin-top:8px; border-top:1px solid var(--border-soft); font-weight:800; font-size:1.15rem; }
+  .summary-total span:last-child{ font-family:var(--font-mono); color:var(--brand-deep); font-variant-numeric:tabular-nums; }
+  .empty-state{ text-align:center; padding:70px 20px; color:var(--ink-soft); }
+  .empty-state svg{ width:64px; height:64px; margin:0 auto 18px; color:var(--ink-faint); }
+  .empty-state h3{ font-size:1.3rem; margin-bottom:10px; color:var(--ink); }
+  @media (max-width:820px){ .cart-layout{ grid-template-columns:1fr; } .summary-card{ position:static; } }
+
+  /* ============ FORMS ============ */
+  .form-card{ background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--r-lg); padding:30px; box-shadow:var(--shadow-sm); }
+  .form-card h3{ font-size:1.2rem; margin-bottom:4px; }
+  .form-card .form-sub{ color:var(--ink-soft); font-size:0.88rem; font-weight:700; margin-bottom:22px; }
+  .form-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .form-field{ display:flex; flex-direction:column; gap:6px; margin-bottom:16px; }
+  .form-field.full{ grid-column:1/-1; }
+  .form-field label{ font-size:0.82rem; font-weight:800; color:var(--ink-soft); }
+  .form-field label .req{ color:var(--brand-deep); }
+  .form-field input, .form-field select, .form-field textarea{
+    border:1.5px solid var(--border); border-radius:var(--r-sm); padding:12px 14px; font-weight:600;
+    background:var(--surface); width:100%;
+  }
+  .form-field input:focus, .form-field select:focus, .form-field textarea:focus{ border-color:var(--brand); }
+  .form-field input.invalid, .form-field select.invalid{ border-color:var(--error); background:var(--error-tint); }
+  .field-err{ color:var(--error); font-size:0.78rem; font-weight:700; min-height:1em; }
+  .field-help{ color:var(--ink-faint); font-size:0.78rem; font-weight:600; }
+  .form-actions{ display:flex; justify-content:space-between; align-items:center; margin-top:8px; gap:12px; flex-wrap:wrap; }
+  .checkout-layout{ display:grid; grid-template-columns:1.5fr 1fr; gap:36px; align-items:start; padding-bottom:70px; }
+  @media (max-width:820px){ .form-grid{ grid-template-columns:1fr; } .checkout-layout{ grid-template-columns:1fr; } }
+
+  /* invoice type / registration lookup */
+  .input-with-btn{ display:flex; gap:0; }
+  .input-with-btn input{ border-top-right-radius:0; border-bottom-right-radius:0; border-right:0; }
+  .btn-fetch{ flex:none; border:1.5px solid var(--brand); border-radius:0 var(--r-sm) var(--r-sm) 0; background:var(--brand); color:var(--brand-ink); font-weight:700; font-size:0.85rem; padding:0 18px; cursor:pointer; }
+  .btn-fetch:hover{ background:var(--brand-hover); border-color:var(--brand-hover); }
+  #invoice-orgname-wrap input:disabled{ background:var(--surface-2); color:var(--ink-soft); cursor:not-allowed; }
+
+  /* ============ PAYMENT ============ */
+  .pay-summary-list{ display:flex; flex-direction:column; gap:10px; margin-bottom:18px; }
+  .pay-summary-list .r{ display:flex; justify-content:space-between; font-size:0.9rem; }
+  .pay-summary-list .r span:first-child{ color:var(--ink-soft); font-weight:700; }
+  .pay-summary-list .r span:last-child{ font-weight:700; text-align:right; }
+  .qpay-panel{ background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--r-lg); padding:26px; text-align:center; box-shadow:var(--shadow-sm); }
+  .qpay-logo{ display:inline-flex; align-items:center; gap:8px; background:var(--ink); color:#fff; font-family:var(--font-display); font-weight:800; padding:8px 16px; border-radius:var(--r-pill); font-size:0.9rem; margin-bottom:16px; }
+  .qpay-amount{ font-family:var(--font-mono); font-size:2.1rem; font-weight:600; margin:6px 0 4px; font-variant-numeric:tabular-nums; }
+  .qpay-sub{ color:var(--ink-soft); font-weight:700; font-size:0.85rem; margin-bottom:22px; }
+  .demo-note{ display:flex; gap:8px; background:var(--gold-tint); color:var(--gold); border-radius:var(--r-sm); padding:10px 14px; font-size:0.78rem; font-weight:700; text-align:left; margin-top:18px; }
+  .demo-note svg{ width:16px; height:16px; flex:none; margin-top:1px; }
+
+  /* modal */
+  .modal-overlay{ position:fixed; inset:0; background:hsl(var(--shadow-color)/0.45); backdrop-filter:blur(3px); display:flex; align-items:center; justify-content:center; z-index:200; padding:20px; }
+  .modal-card{ background:var(--surface); border-radius:var(--r-lg); padding:34px; max-width:400px; width:100%; text-align:center; box-shadow:var(--shadow-lg); }
+  .modal-spinner{ width:56px; height:56px; margin:0 auto 20px; border-radius:50%; border:5px solid var(--border); border-top-color:var(--brand); animation:spin 0.9s linear infinite; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .modal-stage-list{ display:flex; flex-direction:column; gap:10px; margin:20px 0; text-align:left; }
+  .modal-stage{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:0.88rem; color:var(--ink-faint); }
+  .modal-stage svg{ width:18px; height:18px; flex:none; }
+  .modal-stage.active{ color:var(--ink); }
+  .modal-stage.done{ color:var(--mint); }
+  .modal-success-icon{ width:64px; height:64px; margin:0 auto 18px; border-radius:50%; background:var(--mint-tint); display:flex; align-items:center; justify-content:center; color:var(--mint); }
+  .modal-success-icon svg{ width:34px; height:34px; }
+
+  /* ============ SUCCESS VIEW ============ */
+  .success-wrap{ max-width:640px; margin:0 auto; padding:20px 0 80px; text-align:center; }
+  .success-hero{ position:relative; height:120px; margin-bottom:8px; }
+  .success-icon{ width:88px; height:88px; border-radius:50%; background:var(--mint-tint); color:var(--mint); display:flex; align-items:center; justify-content:center; margin:0 auto 22px; }
+  .success-icon svg{ width:48px; height:48px; }
+  .trail{ display:flex; justify-content:center; gap:14px; margin:0 auto 26px; }
+  .trail svg{ width:22px; height:22px; color:var(--brand); opacity:0; animation:pop .5s ease forwards; }
+  .trail svg:nth-child(1){ animation-delay:.05s; } .trail svg:nth-child(2){ animation-delay:.15s; transform:translateY(6px) } .trail svg:nth-child(3){ animation-delay:.25s; } .trail svg:nth-child(4){ animation-delay:.35s; transform:translateY(6px) } .trail svg:nth-child(5){ animation-delay:.45s; }
+  @keyframes pop{ from{ opacity:0; transform:translateY(10px) scale(0.6); } to{ opacity:1; transform:translateY(0) scale(1); } }
+  .order-code{ font-family:var(--font-mono); font-size:1.3rem; font-weight:600; background:var(--surface-2); border-radius:var(--r-sm); padding:10px 18px; display:inline-block; margin:6px 0 26px; letter-spacing:0.02em; }
+  .receipt-card{ background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--r-lg); padding:26px; text-align:left; margin-bottom:22px; box-shadow:var(--shadow-sm); }
+  .receipt-card h4{ font-size:1rem; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+  .receipt-card h4 svg{ width:18px; height:18px; color:var(--mint); }
+  .receipt-row{ display:flex; justify-content:space-between; gap:16px; padding:8px 0; border-bottom:1px dashed var(--border-soft); font-size:0.9rem; }
+  .receipt-row:last-child{ border-bottom:0; }
+  .receipt-row span:first-child{ color:var(--ink-soft); font-weight:700; }
+  .receipt-row span:last-child{ font-weight:700; text-align:right; }
+  .delivery-banner{ display:flex; align-items:center; gap:14px; background:var(--mint-tint); color:var(--mint); border-radius:var(--r-md); padding:16px 18px; margin-bottom:22px; text-align:left; font-weight:700; }
+  .delivery-banner svg{ width:30px; height:30px; flex:none; }
+  .delivery-banner b{ display:block; font-size:1rem; color:var(--mint); }
+  .delivery-banner span{ font-size:0.82rem; opacity:0.85; }
+  .success-actions{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+  /* ============ ORDERS LIST ============ */
+  .orders-list{ display:flex; flex-direction:column; gap:14px; padding-bottom:70px; }
+  .order-card{ background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--r-md); padding:18px 20px; }
+  .order-card-head{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
+  .order-id{ font-family:var(--font-mono); font-weight:700; }
+  .order-status{ font-size:0.72rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; background:var(--mint-tint); color:var(--mint); padding:5px 12px; border-radius:var(--r-pill); }
+  .order-date{ font-size:0.8rem; color:var(--ink-faint); font-weight:700; }
+  .order-items-line{ font-size:0.88rem; color:var(--ink-soft); font-weight:700; margin-bottom:6px; }
+  .order-total-line{ font-family:var(--font-mono); font-weight:700; font-size:1.05rem; }
+
+  /* ============ TRUST STRIP ============ */
+  .trust-strip{ border-top:1px solid var(--border-soft); background:var(--surface-2); padding:28px 0; margin-top:40px; }
+  .trust-strip-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
+  .trust-item{ display:flex; align-items:flex-start; gap:12px; }
+  .trust-item svg{ width:24px; height:24px; color:var(--brand); flex:none; margin-top:2px; }
+  .trust-item b{ display:block; font-size:0.9rem; margin-bottom:2px; }
+  .trust-item span{ display:block; font-size:0.8rem; color:var(--ink-soft); font-weight:600; line-height:1.4; }
+  @media (max-width:820px){ .trust-strip-grid{ grid-template-columns:repeat(2,1fr); row-gap:20px; } }
+  @media (max-width:480px){ .trust-strip-grid{ grid-template-columns:1fr; } }
+
+  /* ============ FOOTER ============ */
+  .site-footer{ border-top:1px solid var(--border-soft); padding:44px 0 30px; }
+  .footer-grid{ display:grid; grid-template-columns:1.2fr 1fr 1fr 1fr; gap:32px; margin-bottom:30px; }
+  .footer-brand p{ color:var(--ink-soft); font-size:0.9rem; margin-top:12px; max-width:34ch; line-height:1.6; }
+  .footer-col h5{ font-size:0.78rem; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint); margin-bottom:12px; }
+  .footer-col ul{ display:flex; flex-direction:column; gap:8px; font-size:0.9rem; color:var(--ink-soft); font-weight:700; }
+  .footer-link{ background:none; border:0; padding:0; margin:0; color:var(--ink-soft); font-weight:700; font-size:0.9rem; text-align:left; cursor:pointer; font-family:inherit; }
+  .footer-link:hover{ color:var(--ink); text-decoration:underline; text-underline-offset:2px; }
+  .footer-bottom{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; padding-top:20px; border-top:1px solid var(--border-soft); font-size:0.8rem; color:var(--ink-faint); font-weight:700; }
+  .footer-admin-link{ background:none; border:0; color:var(--ink-faint); opacity:0.4; cursor:pointer; padding:4px; display:flex; align-items:center; }
+  .footer-admin-link:hover{ opacity:0.7; }
+  @media (max-width:820px){ .footer-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:520px){ .footer-grid{ grid-template-columns:1fr; } }
+
+  /* ============ ADMIN ============ */
+  .admin-message{ padding:12px 16px; border-radius:var(--r-sm); font-weight:700; font-size:0.88rem; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
+  .admin-message.info{ background:var(--mint-tint); color:var(--mint); }
+  .admin-message.error{ background:var(--error-tint); color:var(--error); }
+  .admin-toolbar{ display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px; }
+  .admin-product-row{ display:grid; grid-template-columns:56px 1fr auto; gap:14px; align-items:center; background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--r-md); padding:12px 14px; margin-bottom:10px; }
+  .admin-product-thumb{ width:56px; height:56px; border-radius:var(--r-sm); display:flex; align-items:center; justify-content:center; flex:none; }
+  .admin-product-thumb svg{ width:70%; height:70%; }
+  .admin-product-thumb img{ width:100%; height:100%; object-fit:cover; border-radius:var(--r-sm); }
+  .admin-product-name{ font-weight:800; font-family:var(--font-display); font-size:0.92rem; }
+  .admin-product-meta{ font-size:0.8rem; color:var(--ink-soft); font-weight:700; margin-top:2px; }
+  .admin-product-actions{ display:flex; gap:8px; align-items:center; }
+  .admin-confirm{ display:flex; gap:8px; align-items:center; font-size:0.82rem; font-weight:700; color:var(--error); }
+  .admin-color-row{ display:flex; align-items:center; gap:14px; }
+  .admin-color-row input[type=color]{ width:52px; height:42px; border:1.5px solid var(--border); border-radius:var(--r-sm); padding:2px; cursor:pointer; background:var(--surface); }
+  .admin-swatch-preview{ display:flex; gap:6px; align-items:center; }
+  .admin-swatch-preview span{ width:22px; height:22px; border-radius:50%; border:1.5px solid var(--border-soft); display:inline-block; }
+  .admin-photo-row{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .admin-photo-preview{ width:76px; height:76px; border-radius:var(--r-sm); background:var(--surface-2); display:flex; align-items:center; justify-content:center; overflow:hidden; flex:none; border:1.5px solid var(--border-soft); }
+  .admin-photo-preview img{ width:100%; height:100%; object-fit:cover; }
+  .admin-photo-preview svg{ width:60%; height:60%; opacity:0.5; }
+  .admin-photo-hint{ font-size:0.78rem; color:var(--ink-faint); margin-top:4px; }
+  .admin-empty{ text-align:center; padding:50px 20px; color:var(--ink-soft); font-weight:700; }
+  .admin-stock-section{ border:1px solid var(--border-soft); border-radius:var(--r-sm); padding:12px 14px; margin-top:10px; background:var(--surface-2); }
+  .admin-stock-row{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:7px 2px; border-bottom:1px solid var(--border-soft); }
+  .admin-stock-row:last-child{ border-bottom:0; }
+  .admin-stock-row label{ font-weight:800; font-size:0.86rem; font-family:var(--font-mono); }
+  .admin-stock-row input[type=number]{ width:76px; padding:6px 8px; border:1.5px solid var(--border); border-radius:var(--r-sm); font-family:var(--font-mono); font-weight:700; text-align:center; background:var(--surface); color:var(--ink); }
+  .admin-stock-empty{ color:var(--ink-faint); font-size:0.84rem; padding:4px 2px; }
+  .low-stock-note{ font-size:0.82rem; font-weight:700; color:var(--error); margin-top:10px; display:flex; align-items:center; gap:6px; }
+  .product-badge.outofstock{ color:var(--ink-soft); }
+  .product-media.outofstock svg{ opacity:0.35; }
+</style>
+</head>
+<body>
+
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+  <symbol id="ic-footprint" viewBox="0 0 24 24"><path fill="currentColor" d="M12 14.2c-2.1 0-3.6 2-3.6 4.4 0 2 1.1 3.4 2.7 3.4.9 0 1.4-.4 1.9-1 .2-.2.4-.4.6-.4s.4.2.6.4c.5.6 1 1 1.9 1 1.6 0 2.7-1.4 2.7-3.4 0-2.4-1.5-4.4-3.6-4.4H12z"/><ellipse fill="currentColor" cx="8.2" cy="8" rx="1.5" ry="2"/><ellipse fill="currentColor" cx="11.3" cy="6" rx="1.4" ry="1.9"/><ellipse fill="currentColor" cx="14.6" cy="5.6" rx="1.3" ry="1.7"/><ellipse fill="currentColor" cx="17.7" cy="6.4" rx="1.2" ry="1.5"/><path fill="currentColor" d="M9.7 9.2c-1.8-.3-3.4.9-3.7 2.9-.3 1.9.8 3.4 2.5 3.7 1.6.2 2.5-.7 3.3-1.9.6-.9 1-2 .8-3.1-.2-1.2-1.2-1.4-2.9-1.6z"/></symbol>
+  <symbol id="ic-cart" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 4h2l2.4 12.4a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L21 8H6"/><circle cx="9.5" cy="20.5" r="1.5" fill="currentColor"/><circle cx="17" cy="20.5" r="1.5" fill="currentColor"/></symbol>
+  <symbol id="ic-arrow-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m0 0 6-6m-6 6 6 6"/></symbol>
+  <symbol id="ic-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="ic-check-circle" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></symbol>
+  <symbol id="ic-truck" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M2 6h11v10H2zM13 10h4l4 4v2h-8zM6 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM17.5 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></symbol>
+  <symbol id="ic-shield" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></symbol>
+  <symbol id="ic-leaf" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 20c8 0 15-6 16-16C11 5 5 12 5 20"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 20c0-3 2-6 5-8"/></symbol>
+  <symbol id="ic-star" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5l2.9 6 6.6.7-4.9 4.5 1.3 6.5L12 16.9 6.1 20.2l1.3-6.5L2.5 9.2l6.6-.7L12 2.5z"/></symbol>
+  <symbol id="ic-bolt" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></symbol>
+  <symbol id="ic-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path fill="currentColor" d="M11 10h2v7h-2zM11 7h2v2h-2z"/></symbol>
+  <symbol id="ic-doc" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M6 2h9l5 5v15H6z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 12h6M9 16h6M9 8h3"/></symbol>
+  <symbol id="ic-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M6.6 3h3l1.2 5-2.4 1.6a13 13 0 0 0 6 6l1.6-2.4 5 1.2v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.6 5.2 2 2 0 0 1 6.6 3z"/></symbol>
+  <symbol id="ic-mail" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 5h18v14H3zM3 6l9 7 9-7"/></symbol>
+  <symbol id="ic-map" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.4" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="ic-box" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M21 8l-9-5-9 5 9 5 9-5zM3 8v9l9 5m0-14v14m9-14v9l-9 5"/></symbol>
+  <symbol id="ic-close" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="ic-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M21 21l-4.3-4.3"/></symbol>
+  <symbol id="ic-heart" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.5-4.6-10-9.3C.5 8.4 2 4.8 5.6 4.1c2-.4 4 .5 5 2.2 1-1.7 3-2.6 5-2.2 3.6.7 5.1 4.3 3.6 7.6-2.5 4.7-10 9.3-10 9.3z"/></symbol>
+  <symbol id="ic-sliders" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 6h10M18 6h2M4 12h2M8 12h12M4 18h14M22 18h-2"/><circle cx="16" cy="6" r="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18" r="2" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="ic-chevron" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="ic-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+
+  <symbol id="shoe-sneaker" viewBox="0 0 200 140">
+    <path class="sole" fill="var(--s2)" d="M8 108c0-6 5-9 12-10l14-2 148-4c10 0 14 5 14 12 0 9-8 15-20 15H26C15 119 8 116 8 108z"/>
+    <path class="upper" fill="var(--s1)" d="M18 96c-2-10 2-19 12-24 8-4 10-11 10-20 0-14 12-24 27-22 10 1 16 7 24 15 14 15 33 20 55 22 14 1 24 6 27 18 2 8-1 15-9 17-30 6-100 8-130 6-8-1-14-6-16-12z"/>
+    <path class="accent" fill="var(--s3)" opacity="0.85" d="M60 46c9 10 24 16 42 19 8 1 13 6 12 13-1 5-6 8-13 7-22-3-42-11-52-24-4-5-3-11 2-15 3-2 6-2 9 0z"/>
+    <path fill="none" stroke="var(--s2)" stroke-width="3" stroke-linecap="round" d="M92 42l8 10M104 40l7 11M116 40l6 12M128 42l5 12"/>
+    <path fill="none" stroke="var(--s2)" stroke-width="4" stroke-linecap="round" d="M20 94c30 5 92 7 128 2"/>
+  </symbol>
+
+  <symbol id="shoe-sandal" viewBox="0 0 200 140">
+    <ellipse cx="100" cy="132" rx="42" ry="6" fill="var(--s2)" opacity="0.16"/>
+    <path class="sole" fill="var(--s2)" d="M100,8 C133,8 151,31 154,54 C157,81 144,99 133,110 C125,118 120,125 117,132 C114,138 108,141 100,141 C92,141 86,138 83,132 C80,125 75,118 67,110 C56,99 43,81 46,54 C49,31 67,8 100,8 Z"/>
+    <path class="footbed" fill="var(--s1)" d="M100,15 C129,15 144,35 147,55 C150,79 138,95 128,105 C121,112 117,119 114,126 C112,131 107,134 100,134 C93,134 88,131 86,126 C83,119 79,112 72,105 C62,95 50,79 53,55 C56,35 71,15 100,15 Z"/>
+    <path class="accent" fill="none" stroke="var(--s3)" stroke-width="15" stroke-linecap="round" d="M54,57 L141,81"/>
+    <path class="accent" fill="none" stroke="var(--s3)" stroke-width="15" stroke-linecap="round" d="M141,57 L54,81"/>
+    <path fill="none" stroke="var(--s2)" stroke-width="11" stroke-linecap="round" d="M62,111 C77,122 123,122 138,111"/>
+    <circle cx="97.5" cy="69" r="7" fill="var(--s2)"/>
+  </symbol>
+
+  <symbol id="shoe-boot" viewBox="0 0 200 140">
+    <path class="sole" fill="var(--s2)" d="M10 108c0-7 6-11 15-11l150-3c11 0 17 6 17 14 0 9-8 16-20 16H30c-11 0-20-7-20-16z"/>
+    <path class="upper" fill="var(--s1)" d="M28 94c-3-8 0-16 8-20 6-3 8-8 8-15V22c0-8 6-14 15-14h30c9 0 15 6 15 14v8c0 10 6 15 16 17l28 6c10 2 16 9 17 19 1 8-3 15-11 16-30 5-98 8-118 5-4-1-6-3-8-6z"/>
+    <path class="accent" fill="var(--s3)" d="M44 40h30v10c0 6-4 9-10 9H54c-6 0-10-4-10-9V40z" opacity="0.9"/>
+    <circle cx="59" cy="30" r="3" fill="var(--s2)"/><circle cx="59" cy="46" r="3" fill="var(--s2)"/><circle cx="59" cy="62" r="3" fill="var(--s2)"/>
+    <path fill="none" stroke="var(--s2)" stroke-width="3" stroke-linecap="round" d="M52 24l14 10M52 40l14 10M52 56l14 10"/>
+  </symbol>
+</defs>
+</svg>
+
+<header class="site-header">
+  <div class="header-row">
+    <button class="brandmark" id="btn-home" aria-label="Нүүр хуудас">
+      <span class="logo-badge"><img src="logo.jpg" alt="Эрүүл Алхам лого"></span>
+      <span class="wordmark">Эрүүл Алхам<small>хүүхдийн гутлын дэлгүүр</small></span>
+    </button>
+    <nav class="main-nav" aria-label="Үндсэн цэс">
+      <button data-nav="home" class="active">Дэлгүүр</button>
+      <button data-nav="orders">Захиалгын түүх</button>
+    </nav>
+    <div class="header-spacer"></div>
+    <div class="header-actions">
+      <button class="icon-btn" id="btn-search-toggle" aria-label="Хайх" aria-expanded="false"><svg><use href="#ic-search"/></svg></button>
+      <button class="icon-btn" id="btn-wishlist" aria-label="Хадгалсан загвар" style="position:relative;">
+        <svg><use href="#ic-heart"/></svg>
+        <span class="cart-count" id="wishlist-count" hidden>0</span>
+      </button>
+      <button class="cart-btn" id="btn-cart" aria-label="Сагс">
+        <svg><use href="#ic-cart"/></svg> Сагс
+        <span class="cart-count" id="cart-count" hidden>0</span>
+      </button>
+    </div>
+  </div>
+  <div class="search-bar" id="search-bar" hidden>
+    <div class="search-bar-inner">
+      <svg><use href="#ic-search"/></svg>
+      <input type="search" id="search-input" placeholder="Загвар хайх... жишээ нь: сандаль" autocomplete="off">
+      <button class="icon-btn" id="btn-search-close" aria-label="Хаах"><svg><use href="#ic-close"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- ============ HOME ============ -->
+  <section id="view-home">
+    <div class="wrap hero">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow"><svg width="14" height="14"><use href="#ic-leaf"/></svg> Хүүхдийн хөлд ээлтэй</span>
+          <h1>Жижиг хөл бүрт <em>эрүүл</em> алхам</h1>
+          <p class="lead">Амьсгалдаг материал, уян хатан ул, тав тухтай хэлбэртэй — тэжээгдэж буй хөлд зориулсан гутал. Загвараа сонгоод, хэмжээгээ тааруулаад, хаалгаар хүлээж авахад бэлэн.</p>
+          <div class="hero-ctas">
+            <button class="btn btn-primary" id="btn-shop-now">Дэлгүүр үзэх</button>
+          </div>
+        </div>
+        <div class="hero-art">
+          <div class="hero-blob"></div>
+          <div class="hero-shoe"><svg id="hero-shoe-svg" viewBox="0 0 200 140" style="--s1:var(--brand);--s2:var(--brand-deep);--s3:var(--mint)"><use href="#shoe-sneaker"/></svg></div>
+          <div class="hero-chip c1"><svg><use href="#ic-shield"/></svg> Чанарын баталгаа</div>
+          <div class="hero-chip c2"><svg><use href="#ic-truck"/></svg> 7 хоногт хүргэнэ</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap" id="shop">
+      <div class="shop-head">
+        <h2 id="shop-title">Хүүхдийн гутал</h2>
+        <div class="shop-controls">
+          <button type="button" class="ghost-toggle" id="btn-toggle-filters"><svg><use href="#ic-sliders"/></svg> <span id="toggle-filters-label">Шүүлтүүр нуух</span></button>
+          <div class="sort-wrap">
+            <label for="sort-select" class="visually-hidden">Эрэмбэлэх</label>
+            <select id="sort-select">
+              <option value="featured">Санал болгож буй</option>
+              <option value="new">Шинээр ирсэн</option>
+              <option value="price-asc">Үнэ: багаас их рүү</option>
+              <option value="price-desc">Үнэ: ихээс бага руу</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="shop-layout" id="shop-layout">
+        <aside class="shop-sidebar" id="shop-sidebar">
+          <div class="sidebar-toggle-row">
+            <span>Зөвхөн шинэ ирсэн</span>
+            <button type="button" class="switch" id="switch-new" role="switch" aria-checked="false"><span class="switch-dot"></span></button>
+          </div>
+          <div class="sidebar-divider"></div>
+          <ul class="cat-list" id="cat-list"></ul>
+          <div class="sidebar-divider"></div>
+          <div class="accordion open" id="acc-size">
+            <button type="button" class="accordion-head" data-acc="size">Размер <svg><use href="#ic-chevron"/></svg></button>
+            <div class="accordion-body" id="size-filter-grid"></div>
+          </div>
+          <div class="accordion" id="acc-price">
+            <button type="button" class="accordion-head" data-acc="price">Үнийн ангилал <svg><use href="#ic-chevron"/></svg></button>
+            <div class="accordion-body price-list" id="price-filter-list" hidden></div>
+          </div>
+          <button type="button" class="btn btn-ghost btn-sm" id="btn-clear-filters" style="margin-top:14px;">Шүүлтүүр цэвэрлэх</button>
+        </aside>
+        <div class="shop-main">
+          <div class="product-grid" id="product-grid"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRODUCT DETAIL ============ -->
+  <section id="view-product" hidden>
+    <div class="wrap" style="padding-top:24px;">
+      <button class="back-link" id="btn-back-home"><svg><use href="#ic-arrow-left"/></svg> Буцах</button>
+      <div class="detail-grid" id="detail-content"></div>
+    </div>
+  </section>
+
+  <!-- ============ CART ============ -->
+  <section id="view-cart" hidden>
+    <div class="wrap" style="padding-top:24px;">
+      <div class="section-head"><h2>Таны сагс</h2></div>
+      <div id="cart-content"></div>
+    </div>
+  </section>
+
+  <!-- ============ CHECKOUT ============ -->
+  <section id="view-checkout" hidden>
+    <div class="wrap" style="padding-top:24px;">
+      <div class="step-trail" id="step-trail-checkout"></div>
+      <div class="checkout-layout">
+        <form class="form-card" id="checkout-form" novalidate>
+          <h3>Хүргэлтийн мэдээлэл</h3>
+          <p class="form-sub">Хүргэлт таны хаягт 7 хоногийн дотор очно. Бүх талбарыг үнэн зөв бөглөнө үү.</p>
+
+          <div class="form-grid">
+            <div class="form-field full">
+              <label for="f-name">Хүлээн авагчийн нэр <span class="req">*</span></label>
+              <input id="f-name" name="name" type="text" autocomplete="name" placeholder="Жишээ: Бат-Эрдэнэ">
+              <div class="field-err" data-err="name"></div>
+            </div>
+            <div class="form-field">
+              <label for="f-phone">Холбогдох дугаар <span class="req">*</span></label>
+              <input id="f-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="99112233" maxlength="8">
+              <div class="field-err" data-err="phone"></div>
+            </div>
+            <div class="form-field">
+              <label for="f-phone2">Нэмэлт дугаар</label>
+              <input id="f-phone2" name="phone2" type="tel" inputmode="numeric" placeholder="99001122" maxlength="8">
+              <div class="field-err" data-err="phone2"></div>
+            </div>
+            <div class="form-field full">
+              <label for="f-email">И-мэйл хаяг <span class="req">*</span></label>
+              <input id="f-email" name="email" type="email" autocomplete="email" placeholder="jishee@gmail.com">
+              <div class="field-err" data-err="email"></div>
+            </div>
+            <div class="form-field">
+              <label for="f-district">Дүүрэг <span class="req">*</span></label>
+              <select id="f-district" name="district">
+                <option value="">-- Сонгох --</option>
+                <option>Баянгол</option><option>Баянзүрх</option><option>Сүхбаатар</option>
+                <option>Хан-Уул</option><option>Чингэлтэй</option><option>Сонгинохайрхан</option>
+                <option>Налайх</option><option>Багануур</option><option>Багахангай</option>
+                <option value="other">Орон нутаг (бусад аймаг/хот)</option>
+              </select>
+              <div class="field-err" data-err="district"></div>
+            </div>
+            <div class="form-field">
+              <label for="f-khoroo">Хороо <span class="req">*</span></label>
+              <input id="f-khoroo" name="khoroo" type="text" inputmode="numeric" placeholder="Жишээ: 5">
+              <div class="field-err" data-err="khoroo"></div>
+            </div>
+            <div class="form-field full" id="f-otherregion-wrap" hidden>
+              <label for="f-otherregion">Аймаг / хотын нэр <span class="req">*</span></label>
+              <input id="f-otherregion" name="otherregion" type="text" placeholder="Жишээ: Дархан-Уул аймаг">
+              <div class="field-err" data-err="otherregion"></div>
+            </div>
+            <div class="form-field full">
+              <label for="f-khotkhon">Хотхон / гудамж, байрны нэр, дугаар <span class="req">*</span></label>
+              <input id="f-khotkhon" name="khotkhon" type="text" placeholder="Жишээ: Наран хотхон, 12-р байр">
+              <div class="field-err" data-err="khotkhon"></div>
+            </div>
+            <div class="form-field">
+              <label for="f-orts">Орц <span class="req">*</span></label>
+              <input id="f-orts" name="orts" type="text" inputmode="numeric" placeholder="Жишээ: 3">
+              <div class="field-err" data-err="orts"></div>
+            </div>
+            <div class="form-field">
+              <label for="f-toot">Тоот <span class="req">*</span></label>
+              <input id="f-toot" name="toot" type="text" inputmode="numeric" placeholder="Жишээ: 45">
+              <div class="field-err" data-err="toot"></div>
+            </div>
+            <div class="form-field full">
+              <label for="f-code">Орцны код</label>
+              <input id="f-code" name="code" type="text" placeholder="Жишээ: 45К эсвэл 1234">
+              <div class="field-err" data-err="code"></div>
+              <div class="field-help">Хаалганы код байвал хүргэгчид түргэн ажиллахад тусална.</div>
+            </div>
+            <div class="form-field full">
+              <label for="f-note">Нэмэлт тэмдэглэл</label>
+              <textarea id="f-note" name="note" rows="2" placeholder="Жишээ: Оройн 18:00-с хойш хүргэнэ үү"></textarea>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-ghost" id="btn-checkout-back">← Сагс руу буцах</button>
+            <button type="submit" class="btn btn-primary">Төлбөр рүү үргэлжлүүлэх →</button>
+          </div>
+        </form>
+
+        <div class="summary-card">
+          <h3>Захиалгын дүн</h3>
+          <div id="checkout-summary-body"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PAYMENT ============ -->
+  <section id="view-payment" hidden>
+    <div class="wrap" style="padding-top:24px;">
+      <div class="step-trail" id="step-trail-payment"></div>
+      <button class="back-link" id="btn-payment-back"><svg><use href="#ic-arrow-left"/></svg> Хүргэлтийн мэдээлэл рүү буцах</button>
+      <div class="checkout-layout">
+        <div>
+          <div class="form-card" style="margin-bottom:20px;">
+            <h3>Баримтын мэдээлэл</h3>
+            <p class="form-sub">И-баримт хэнд олгох вэ?</p>
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="f-invoice-type">НӨАТ баримт авах төрөл <span class="req">*</span></label>
+                <select id="f-invoice-type">
+                  <option value="person">Хувь хүн</option>
+                  <option value="org">Компани</option>
+                  <option value="person-ttd">Хувь хүн ТТД</option>
+                </select>
+              </div>
+              <div class="form-field" id="invoice-reg-wrap" hidden>
+                <label for="f-invoice-reg" id="invoice-reg-label">Татварын дугаар <span class="req">*</span></label>
+                <div class="input-with-btn">
+                  <input id="f-invoice-reg" type="text" placeholder="Татварын дугаар" style="text-transform:uppercase;">
+                  <button type="button" class="btn-fetch" id="btn-invoice-fetch">Илгээх</button>
+                </div>
+                <div class="field-err" data-err="invoice-reg"></div>
+              </div>
+              <div class="form-field full" id="invoice-orgname-wrap" hidden>
+                <label for="f-invoice-orgname">Байгууллагын нэр</label>
+                <input id="f-invoice-orgname" type="text" placeholder="Байгууллагын нэр" disabled>
+                <div class="field-help" id="invoice-orgname-hint" hidden>Автоматаар олдсон нэр (демо хайлт)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="qpay-panel">
+            <span class="qpay-logo"><svg width="16" height="16"><use href="#ic-bolt"/></svg> QPay</span>
+            <div class="qpay-sub">Төлөх дүн</div>
+            <div class="qpay-amount" id="qpay-amount">0₮</div>
+            <div class="qpay-sub" id="qpay-order-hint">Захиалга #</div>
+            <button class="btn btn-primary btn-block" id="btn-pay-qpay" style="max-width:320px; margin:0 auto;">QPay-р төлөх</button>
+            <div class="demo-note">
+              <svg><use href="#ic-info"/></svg>
+              <span>Энэ бол турших зориулалттай <b>демо</b> төлбөрийн урсгал. Жинхэнэ QPay мерчант эрх холбогдоогүй тул бодит мөнгөн гүйлгээ хийгдэхгүй.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="summary-card">
+          <h3>Захиалгын хураангуй</h3>
+          <div id="payment-summary-body"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SUCCESS ============ -->
+  <section id="view-success" hidden>
+    <div class="wrap success-wrap">
+      <div class="trail">
+        <svg><use href="#ic-footprint"/></svg><svg><use href="#ic-footprint"/></svg><svg><use href="#ic-footprint"/></svg><svg><use href="#ic-footprint"/></svg><svg><use href="#ic-footprint"/></svg>
+      </div>
+      <div class="success-icon"><svg><use href="#ic-check"/></svg></div>
+      <h2 style="font-size:1.7rem; margin-bottom:8px;">Захиалга баталгаажлаа!</h2>
+      <p style="color:var(--ink-soft); font-weight:700; margin-bottom:6px;">Таны захиалгын дугаар</p>
+      <div class="order-code" id="success-order-id">ЭА-000000</div>
+
+      <div class="delivery-banner">
+        <svg><use href="#ic-truck"/></svg>
+        <div><b id="success-delivery-date">7 хоногийн дотор хүргэгдэнэ</b><span>Хүргэгч хүрэхээс өмнө утсаар холбогдоно</span></div>
+      </div>
+
+      <div class="receipt-card">
+        <h4><svg><use href="#ic-map"/></svg> Хүргэлтийн хаяг</h4>
+        <div id="success-address-body"></div>
+      </div>
+
+      <div class="receipt-card">
+        <h4><svg><use href="#ic-doc"/></svg> Захиалгын дэлгэрэнгүй</h4>
+        <div id="success-order-body"></div>
+      </div>
+
+      <div class="success-actions">
+        <button class="btn btn-primary" id="btn-success-home">Дэлгүүр рүү буцах</button>
+        <button class="btn btn-outline" id="btn-success-orders">Захиалгын түүх үзэх</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ORDERS ============ -->
+  <section id="view-orders" hidden>
+    <div class="wrap" style="padding-top:24px;">
+      <div class="section-head"><h2>Захиалгын түүх</h2></div>
+      <div class="orders-list" id="orders-list"></div>
+    </div>
+  </section>
+
+  <!-- ============ WISHLIST ============ -->
+  <section id="view-wishlist" hidden>
+    <div class="wrap" style="padding-top:24px;">
+      <div class="section-head"><h2>Хадгалсан загвар</h2></div>
+      <div class="product-grid" id="wishlist-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============ ADMIN ============ -->
+  <section id="view-admin" hidden>
+    <div class="wrap" style="padding-top:24px; padding-bottom:70px;">
+      <div class="section-head">
+        <h2>Дэлгүүр удирдах</h2>
+      </div>
+      <div id="admin-message" class="admin-message" hidden></div>
+      <div id="admin-body"></div>
+    </div>
+  </section>
+
+  <!-- ============ LEGAL ============ -->
+  <section id="view-legal" hidden>
+    <div class="wrap" style="padding-top:24px; padding-bottom:70px; max-width:760px;">
+      <button class="back-link" id="btn-legal-back"><svg><use href="#ic-arrow-left"/></svg> Буцах</button>
+      <div id="legal-body"></div>
+    </div>
+  </section>
+</main>
+
+<section class="trust-strip">
+  <div class="wrap trust-strip-grid">
+    <div class="trust-item">
+      <svg><use href="#ic-shield"/></svg>
+      <div><b>Чанарын баталгаа</b><span>Материал болон хийцийг нарийн шалгуураар сонгодог</span></div>
+    </div>
+    <div class="trust-item">
+      <svg><use href="#ic-truck"/></svg>
+      <div><b>Хурдан хүргэлт</b><span>Улаанбаатар хотод 7 хоногийн дотор хүргэнэ</span></div>
+    </div>
+    <div class="trust-item">
+      <svg><use href="#ic-check-circle"/></svg>
+      <div><b>Хялбар буцаалт</b><span>Тохирохгүй бол 14 хоногийн дотор солиулна</span></div>
+    </div>
+    <div class="trust-item">
+      <svg><use href="#ic-bolt"/></svg>
+      <div><b>Аюулгүй төлбөр</b><span>QPay-р шуурхай, найдвартай төлнө</span></div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo-badge" style="width:38px;height:38px;"><img src="logo.jpg" alt="Эрүүл Алхам лого"></span>
+        <p>Эрүүл Алхам нь хүүхдийн хөлийн эрүүл мэндэд ээлтэй, чанартай гутал санал болгодог онлайн дэлгүүр юм. Бид загвар бүрийг тав тух, аюулгүй байдал, удаан эдэлгээний шаардлагад нийцүүлэн сонгодог.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Дэлгүүр</h5>
+        <ul><li>Спорт гутал</li><li>Сандаль</li><li>Мансан гутал</li><li>Ороолт гутал</li></ul>
+      </div>
+      <div class="footer-col" id="footer-contact">
+        <h5>Холбоо барих</h5>
+        <ul>
+          <li style="display:flex; align-items:center; gap:8px;"><svg width="16" height="16"><use href="#ic-phone"/></svg> 7000-1234</li>
+          <li style="display:flex; align-items:center; gap:8px;"><svg width="16" height="16"><use href="#ic-mail"/></svg> info@eruulalkham.mn</li>
+          <li style="display:flex; align-items:center; gap:8px;"><svg width="16" height="16"><use href="#ic-map"/></svg> Улаанбаатар хот</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Мэдээлэл</h5>
+        <ul>
+          <li><button type="button" class="footer-link" data-legal="returns">Буцаалт, солилтын нөхцөл</button></li>
+          <li><button type="button" class="footer-link" data-legal="terms">Үйлчилгээний нөхцөл</button></li>
+          <li><button type="button" class="footer-link" data-legal="privacy">Нууцлалын бодлого</button></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Эрүүл Алхам</span>
+      <button type="button" id="btn-admin-link" class="footer-admin-link" aria-label="Дэлгүүр удирдах"><svg width="14" height="14"><use href="#ic-lock"/></svg></button>
+    </div>
+  </div>
+</footer>
+
+<!-- payment demo modal -->
+<div class="modal-overlay" id="pay-modal" hidden>
+  <div class="modal-card" id="pay-modal-card"></div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ============ DATA ============ */
+  var CATEGORIES = [
+    { id:'all', label:'Бүгд' },
+    { id:'sneaker', label:'Спорт гутал' },
+    { id:'sandal', label:'Сандаль' },
+    { id:'boot', label:'Мансан гутал' },
+    { id:'slip', label:'Ороолт гутал' }
+  ];
+
+  var SHAPE_BY_CATEGORY = { sneaker:'sneaker', sandal:'sandal', boot:'boot', slip:'sneaker' };
+  var BADGE_LABELS = { '':'', new:'Шинэ', hot:'Эрэлттэй' };
+  var CATEGORY_LABELS = {};
+  CATEGORIES.forEach(function(c){ if(c.id!=='all') CATEGORY_LABELS[c.id] = c.label; });
+
+  function loadProducts(){
+    return fetch('products.json', { cache:'no-store' }).then(function(res){
+      if(!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    }).then(function(arr){
+      return Array.isArray(arr) ? arr : [];
+    });
+  }
+  var PRODUCTS = [];
+
+  var DISTRICT_LABEL_MAX = 24;
+
+  var PRICE_BUCKETS = [
+    { id:'all', label:'Бүгд' },
+    { id:'u50', label:'50,000₮-c доош', test:function(p){ return p.price < 50000; } },
+    { id:'50-70', label:'50,000₮ – 70,000₮', test:function(p){ return p.price >= 50000 && p.price <= 70000; } },
+    { id:'o70', label:'70,000₮-c дээш', test:function(p){ return p.price > 70000; } }
+  ];
+
+  /* ============ STATE ============ */
+  var state = {
+    cart: [],
+    wishlist: [],
+    view: 'home',
+    filters: { category:'all', sizes:[], newOnly:false, priceBucket:'all', sort:'featured', search:'' },
+    sidebarHidden: false,
+    currentProductId: null,
+    selectedSize: null,
+    qty: 1,
+    checkout: null,
+    invoiceType: 'person',
+    invoice: null,
+    currentOrderId: null,
+    currentDeliveryDate: null,
+    admin: { authed:false, editingId:null, formOpen:false, confirmDeleteId:null, busy:false, color:'#FA7685', sizes:[], stock:{}, photo:null }
+  };
+
+  /* ============ STORAGE ============ */
+  function loadStorage(){
+    try{
+      var c = localStorage.getItem('ea_cart');
+      if(c) state.cart = JSON.parse(c);
+    }catch(e){}
+  }
+  function saveCart(){
+    try{ localStorage.setItem('ea_cart', JSON.stringify(state.cart)); }catch(e){}
+  }
+  function loadWishlist(){
+    try{
+      var w = localStorage.getItem('ea_wishlist');
+      if(w) state.wishlist = JSON.parse(w);
+    }catch(e){}
+  }
+  function loadAdminAuth(){
+    try{ state.admin.authed = sessionStorage.getItem('ea_admin_authed') === '1'; }catch(e){ state.admin.authed = false; }
+  }
+  function saveWishlist(){
+    try{ localStorage.setItem('ea_wishlist', JSON.stringify(state.wishlist)); }catch(e){}
+  }
+  function loadOrders(){
+    try{
+      var o = localStorage.getItem('ea_orders');
+      return o ? JSON.parse(o) : [];
+    }catch(e){ return []; }
+  }
+  function saveOrder(order){
+    try{
+      var orders = loadOrders();
+      orders.push(order);
+      localStorage.setItem('ea_orders', JSON.stringify(orders));
+    }catch(e){}
+  }
+
+  /* ============ HELPERS ============ */
+  function $(sel, root){ return (root||document).querySelector(sel); }
+  function $all(sel, root){ return Array.prototype.slice.call((root||document).querySelectorAll(sel)); }
+  function el(tag, attrs, children){
+    var e = document.createElement(tag);
+    if(attrs) Object.keys(attrs).forEach(function(k){
+      var val = attrs[k];
+      if(val === null || val === undefined || val === false) return;
+      if(k === 'class') e.className = val;
+      else if(k === 'html') e.innerHTML = val;
+      else if(k.indexOf('on') === 0 && typeof val === 'function') e.addEventListener(k.slice(2), val);
+      else if(k === 'disabled'){ e.disabled = true; }
+      else e.setAttribute(k, val);
+    });
+    (children||[]).forEach(function(c){ if(c) e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); });
+    return e;
+  }
+  function formatPrice(n){
+    var s = Math.round(n).toString();
+    var out = '';
+    for(var i=0;i<s.length;i++){
+      if(i>0 && (s.length-i)%3===0) out += ',';
+      out += s[i];
+    }
+    return out + '₮';
+  }
+  function getStock(p, sz){
+    if(!p.stock) return 0;
+    var v = p.stock[sz];
+    return typeof v === 'number' && v > 0 ? v : 0;
+  }
+  function totalStock(p){
+    return (p.sizes||[]).reduce(function(sum, sz){ return sum + getStock(p, sz); }, 0);
+  }
+  function generateOrderId(d){
+    return 'ЭА-' + d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0') + '-' + Math.floor(1000+Math.random()*9000);
+  }
+  function findProduct(id){
+    for(var i=0;i<PRODUCTS.length;i++) if(PRODUCTS[i].id===id) return PRODUCTS[i];
+    return null;
+  }
+  function svgFor(shape, s1, s2, s3){
+    shape = escAttr(shape); s1 = escAttr(s1); s2 = escAttr(s2); s3 = escAttr(s3);
+    return '<svg viewBox="0 0 200 140" style="--s1:'+s1+';--s2:'+s2+';--s3:'+s3+'"><use href="#shoe-'+shape+'"/></svg>';
+  }
+  function escAttr(s){
+    return String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+  function mediaHtml(p){
+    if(p.photo) return '<img src="'+escAttr(p.photo)+'" alt="'+escAttr(p.name)+'" loading="lazy">';
+    return svgFor(p.shape, p.s1, p.s2, p.s3);
+  }
+  function mediaBg(s1){
+    return 'background:color-mix(in srgb, '+s1+' 14%, var(--surface-2));';
+  }
+  function resizeImageToDataUrl(file, maxDim, quality, cb, errCb){
+    var img = new Image();
+    var reader = new FileReader();
+    reader.onerror = function(){ if(errCb) errCb(); };
+    reader.onload = function(){
+      img.onerror = function(){ if(errCb) errCb(); };
+      img.onload = function(){
+        var w = img.naturalWidth, h = img.naturalHeight;
+        if(w<=0 || h<=0){ if(errCb) errCb(); return; }
+        var scale = Math.min(1, maxDim / Math.max(w, h));
+        var cw = Math.max(1, Math.round(w * scale)), ch = Math.max(1, Math.round(h * scale));
+        var canvas = document.createElement('canvas');
+        canvas.width = cw; canvas.height = ch;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, cw, ch);
+        try{ cb(canvas.toDataURL('image/jpeg', quality)); }
+        catch(e){ if(errCb) errCb(); }
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
+  var toastTimer = null;
+  function showToast(msg, iconId){
+    var t = $('#toast');
+    t.innerHTML = '';
+    var svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.innerHTML = '<use href="#'+(iconId||'ic-check')+'"/>';
+    var span = document.createElement('span');
+    span.textContent = msg;
+    t.appendChild(svg);
+    t.appendChild(span);
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 2600);
+  }
+  var MN_MONTHS = ['1-р сар','2-р сар','3-р сар','4-р сар','5-р сар','6-р сар','7-р сар','8-р сар','9-р сар','10-р сар','11-р сар','12-р сар'];
+  function formatMNDate(d){
+    return d.getFullYear() + ' оны ' + MN_MONTHS[d.getMonth()] + ' ' + d.getDate();
+  }
+
+  /* ============ CART LOGIC ============ */
+  function cartCount(){
+    return state.cart.reduce(function(sum,i){ return sum + i.qty; }, 0);
+  }
+  function cartLine(productId, size){
+    for(var i=0;i<state.cart.length;i++){
+      var it = state.cart[i];
+      if(it.productId===productId && it.size===size) return it;
+    }
+    return null;
+  }
+  function addToCart(productId, size, qty){
+    var line = cartLine(productId, size);
+    if(line){ line.qty += qty; }
+    else{ state.cart.push({ productId:productId, size:size, qty:qty }); }
+    saveCart();
+    renderCartBadge();
+  }
+  function updateCartQty(productId, size, delta){
+    var line = cartLine(productId, size);
+    if(!line) return;
+    line.qty += delta;
+    if(line.qty <= 0){
+      state.cart = state.cart.filter(function(i){ return i!==line; });
+    }
+    saveCart();
+    renderCartBadge();
+    renderCartView();
+  }
+  function removeFromCart(productId, size){
+    state.cart = state.cart.filter(function(i){ return !(i.productId===productId && i.size===size); });
+    saveCart();
+    renderCartBadge();
+    renderCartView();
+  }
+  function cartSubtotal(){
+    return state.cart.reduce(function(sum, item){
+      var p = findProduct(item.productId);
+      return sum + (p ? p.price * item.qty : 0);
+    }, 0);
+  }
+  var DELIVERY_FEE = 5000;
+
+  /* Захиалга ирэх бүрд танд и-мэйлээр мэдэгдэхийн тулд:
+     1) https://formspree.io дээр бүртгүүлж, и-мэйлээ баталгаажуулна.
+     2) Шинэ Form үүсгээд, өгсөн Form ID-г ("https://formspree.io/f/xxxxxxxx") доор бичнэ.
+     Хоосон орхивол мэдэгдэл илгээгдэхгүй — захиалга зөвхөн Захиалгын түүх/localStorage-д хадгалагдсаар байна. */
+  var ORDER_NOTIFY_ENDPOINT = '';
+  function notifyNewOrder(order){
+    if(!ORDER_NOTIFY_ENDPOINT) return;
+    var itemsText = order.items.map(function(it){ return it.name + ' (р.' + it.size + ') × ' + it.qty; }).join(', ');
+    var addressText = order.district + ', ' + order.khoroo + '-р хороо, ' + order.khotkhon + ', ' + order.orts + '-р орц, ' + order.toot + ' тоот' + (order.code ? ' (код: ' + order.code + ')' : '');
+    var payload = {
+      _subject: 'Шинэ захиалга — ' + order.id,
+      'Захиалгын дугаар': order.id,
+      'Бараа': itemsText,
+      'Нийт дүн': formatPrice(order.total),
+      'Хүлээн авагч': order.recipient,
+      'Утас': order.phone + (order.phone2 ? ' / ' + order.phone2 : ''),
+      'И-мэйл': order.email,
+      'Хаяг': addressText,
+      'Тэмдэглэл': order.note || '—'
+    };
+    fetch(ORDER_NOTIFY_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json', 'Accept':'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(function(){ /* best-effort — захиалга үргэлж дотооддоо хадгалагдсан хэвээр */ });
+  }
+  function cartTotal(){
+    return state.cart.length ? cartSubtotal() + DELIVERY_FEE : 0;
+  }
+  function renderCartBadge(){
+    var n = cartCount();
+    var badge = $('#cart-count');
+    if(n>0){ badge.hidden=false; badge.textContent = n; } else { badge.hidden = true; }
+  }
+
+  /* ============ WISHLIST LOGIC ============ */
+  function isWishlisted(id){ return state.wishlist.indexOf(id) !== -1; }
+  function toggleWishlist(id){
+    var idx = state.wishlist.indexOf(id);
+    if(idx===-1) state.wishlist.push(id); else state.wishlist.splice(idx,1);
+    saveWishlist();
+    renderWishlistBadge();
+    if(state.view==='home') renderProductGrid();
+    if(state.view==='product') renderProductDetail();
+    if(state.view==='wishlist') renderWishlistView();
+  }
+  function renderWishlistBadge(){
+    var n = state.wishlist.length;
+    var badge = $('#wishlist-count');
+    if(n>0){ badge.hidden=false; badge.textContent = n; } else { badge.hidden = true; }
+  }
+
+  /* ============ VIEW ROUTING ============ */
+  var VIEWS = ['home','product','cart','checkout','payment','success','orders','wishlist','admin','legal'];
+  function showView(name){
+    state.view = name;
+    VIEWS.forEach(function(v){
+      $('#view-'+v).hidden = (v!==name);
+    });
+    $all('.main-nav button').forEach(function(b){
+      b.classList.toggle('active', (name==='home' && b.dataset.nav==='home') || (name==='orders' && b.dataset.nav==='orders'));
+    });
+    window.scrollTo({ top:0, behavior:'instant' in window ? 'instant' : 'auto' });
+    if(name==='orders') renderOrdersView();
+    if(name==='wishlist') renderWishlistView();
+    if(name==='admin') renderAdmin();
+  }
+
+  /* ============ HOME / SIDEBAR / FILTERS / GRID ============ */
+  var ALL_SIZES = (function(){
+    var s = {};
+    PRODUCTS.forEach(function(p){ p.sizes.forEach(function(sz){ s[sz]=true; }); });
+    return Object.keys(s).map(Number).sort(function(a,b){ return a-b; });
+  })();
+
+  function renderSidebar(){
+    var sw = $('#switch-new');
+    sw.classList.toggle('on', state.filters.newOnly);
+    sw.setAttribute('aria-checked', state.filters.newOnly ? 'true':'false');
+
+    var catList = $('#cat-list');
+    catList.innerHTML = '';
+    CATEGORIES.forEach(function(c){
+      var li = el('li', {}, [
+        el('button', {
+          type:'button',
+          class: state.filters.category===c.id ? 'active':'',
+          onclick: function(){ state.filters.category = c.id; renderSidebar(); renderProductGrid(); }
+        }, [c.label])
+      ]);
+      catList.appendChild(li);
+    });
+
+    var sizeGrid = $('#size-filter-grid');
+    sizeGrid.className = 'accordion-body filter-size-chip-grid';
+    sizeGrid.innerHTML = '';
+    ALL_SIZES.forEach(function(sz){
+      var active = state.filters.sizes.indexOf(sz) !== -1;
+      sizeGrid.appendChild(el('button', {
+        type:'button',
+        class: 'filter-size-chip' + (active ? ' active':''),
+        onclick: function(){
+          var i = state.filters.sizes.indexOf(sz);
+          if(i===-1) state.filters.sizes.push(sz); else state.filters.sizes.splice(i,1);
+          renderSidebar(); renderProductGrid();
+        }
+      }, [String(sz)]));
+    });
+
+    var priceList = $('#price-filter-list');
+    priceList.innerHTML = '';
+    PRICE_BUCKETS.forEach(function(b){
+      var id = 'price-'+b.id;
+      var label = el('label', {}, [
+        el('input', { type:'radio', name:'price-bucket', id:id, checked: state.filters.priceBucket===b.id ? 'checked' : null, onchange:function(){ state.filters.priceBucket = b.id; renderProductGrid(); } }),
+        b.label
+      ]);
+      priceList.appendChild(label);
+    });
+  }
+
+  function applyFilters(){
+    var f = state.filters;
+    var list = PRODUCTS.filter(function(p){
+      if(f.category!=='all' && p.cat!==f.category) return false;
+      if(f.newOnly && p.badge!=='new') return false;
+      if(f.sizes.length>0 && !p.sizes.some(function(sz){ return f.sizes.indexOf(sz)!==-1; })) return false;
+      if(f.priceBucket!=='all'){
+        var bucket = PRICE_BUCKETS.filter(function(b){ return b.id===f.priceBucket; })[0];
+        if(bucket && bucket.test && !bucket.test(p)) return false;
+      }
+      if(f.search && f.search.trim()!==''){
+        var q = f.search.trim().toLowerCase();
+        if(p.name.toLowerCase().indexOf(q)===-1 && p.catLabel.toLowerCase().indexOf(q)===-1) return false;
+      }
+      return true;
+    });
+    if(f.sort==='price-asc') list = list.slice().sort(function(a,b){ return a.price-b.price; });
+    else if(f.sort==='price-desc') list = list.slice().sort(function(a,b){ return b.price-a.price; });
+    else if(f.sort==='new') list = list.slice().sort(function(a,b){ return (b.badge==='new'?1:0) - (a.badge==='new'?1:0); });
+    return list;
+  }
+
+  function productCard(p){
+    var minSize = Math.min.apply(null,p.sizes), maxSize = Math.max.apply(null,p.sizes);
+    var liked = isWishlisted(p.id);
+    var outOfStock = totalStock(p) <= 0;
+    var card = el('div', {
+      class:'product-card', tabindex:'0', role:'button', 'aria-label':p.name,
+      onclick:function(){ openProduct(p.id); },
+      onkeydown:function(e){ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openProduct(p.id); } }
+    }, [
+      el('div', { class:'product-media' + (outOfStock ? ' outofstock' : ''), style:mediaBg(p.s1) }, [
+        (function(){ var d=document.createElement('div'); var badgeHtml = outOfStock ? '<span class="product-badge outofstock">Дууссан</span>' : (p.badge ? '<span class="product-badge '+escAttr(p.badge)+'">'+escAttr(p.badgeLabel)+'</span>' : ''); d.innerHTML = badgeHtml + mediaHtml(p); var frag=document.createDocumentFragment(); while(d.firstChild) frag.appendChild(d.firstChild); return frag; })(),
+        el('button', {
+          type:'button', class:'product-heart' + (liked ? ' active':''), 'aria-label': liked ? 'Хадгалснаас хасах' : 'Хадгалах',
+          onclick:function(e){ e.stopPropagation(); toggleWishlist(p.id); }
+        }, [ (function(){ var s=document.createElementNS('http://www.w3.org/2000/svg','svg'); s.innerHTML='<use href="#ic-heart"/>'; return s; })() ])
+      ]),
+      el('div', { class:'product-info' }, [
+        el('span', { class:'product-cat' }, [p.catLabel]),
+        el('span', { class:'product-name' }, [p.name]),
+        el('span', { class:'product-price' }, [formatPrice(p.price)]),
+        el('span', { class:'product-sizes-hint' }, ['Размер ' + minSize + '–' + maxSize])
+      ])
+    ]);
+    return card;
+  }
+
+  function renderProductGrid(){
+    var grid = $('#product-grid');
+    grid.innerHTML = '';
+    var list = applyFilters();
+    $('#shop-title').textContent = 'Хүүхдийн гутал (' + list.length + ')';
+    if(list.length===0){
+      grid.appendChild(el('div', { class:'empty-state', style:'grid-column:1/-1;' }, [
+        (function(){ var s=document.createElementNS('http://www.w3.org/2000/svg','svg'); s.setAttribute('viewBox','0 0 24 24'); s.innerHTML='<use href="#ic-search"/>'; return s; })(),
+        el('h3', {}, ['Тохирох загвар олдсонгүй']),
+        el('p', {}, ['Шүүлтүүрээ өөрчлөөд дахин үзнэ үү.']),
+        el('button', { class:'btn btn-primary', style:'margin-top:20px;', onclick:function(){ clearFilters(); } }, ['Шүүлтүүр цэвэрлэх'])
+      ]));
+      return;
+    }
+    list.forEach(function(p){ grid.appendChild(productCard(p)); });
+  }
+
+  function clearFilters(){
+    state.filters = { category:'all', sizes:[], newOnly:false, priceBucket:'all', sort:'featured', search:'' };
+    var si = $('#search-input'); if(si) si.value = '';
+    var so = $('#sort-select'); if(so) so.value = 'featured';
+    renderSidebar();
+    renderProductGrid();
+  }
+
+  /* ============ PRODUCT DETAIL ============ */
+  function openProduct(id){
+    state.currentProductId = id;
+    state.selectedSize = null;
+    state.qty = 1;
+    renderProductDetail();
+    showView('product');
+  }
+  function renderProductDetail(){
+    var p = findProduct(state.currentProductId);
+    if(!p) return;
+    var host = $('#detail-content');
+    host.innerHTML = '';
+
+    var media = el('div', { class:'detail-media', style:mediaBg(p.s1), html: mediaHtml(p) });
+
+    var sizeGrid = el('div', { class:'size-grid' });
+    p.sizes.forEach(function(sz){
+      var stockForSize = getStock(p, sz);
+      var isSoldOut = stockForSize <= 0;
+      var btn = el('button', {
+        class: 'size-opt' + (state.selectedSize===sz ? ' selected':''),
+        type:'button',
+        disabled: isSoldOut,
+        onclick: function(){ if(isSoldOut) return; state.selectedSize = sz; state.qty = 1; renderProductDetail(); }
+      }, [String(sz)]);
+      sizeGrid.appendChild(btn);
+    });
+
+    var selectedStock = state.selectedSize!=null ? getStock(p, state.selectedSize) : null;
+    var sizeNoteText = 'Хайчилбар зурагт байгаа тохиолдолд харах боломжгүй.';
+    if(selectedStock!=null && selectedStock<=3){
+      sizeNoteText = 'Зөвхөн ' + selectedStock + ' ширхэг үлдсэн — яараарай!';
+    }
+
+    var errHost = el('div', { class:'inline-error', style:'display:none' });
+
+    var stepper = el('div', { class:'stepper' }, [
+      el('button', { type:'button', onclick:function(){ if(state.qty>1){ state.qty--; renderProductDetail(); } } }, ['−']),
+      el('span', {}, [String(state.qty)]),
+      el('button', { type:'button', disabled: selectedStock!=null && state.qty>=selectedStock, onclick:function(){ if(selectedStock!=null && state.qty>=selectedStock) return; state.qty++; renderProductDetail(); } }, ['+'])
+    ]);
+
+    var addBtn = el('button', { class:'btn btn-primary', type:'button', onclick:function(){
+      if(state.selectedSize==null){
+        errHost.style.display='flex';
+        errHost.innerHTML = '<svg width="16" height="16"><use href="#ic-info"/></svg> Эхлээд размераа сонгоно уу';
+        return;
+      }
+      addToCart(p.id, state.selectedSize, state.qty);
+      showToast(p.name + ' (р.' + state.selectedSize + ') сагсанд нэмэгдлээ', 'ic-check');
+    } }, ['Сагсанд нэмэх']);
+
+    var buyNowBtn = el('button', { class:'btn btn-outline', type:'button', onclick:function(){
+      if(state.selectedSize==null){
+        errHost.style.display='flex';
+        errHost.innerHTML = '<svg width="16" height="16"><use href="#ic-info"/></svg> Эхлээд размераа сонгоно уу';
+        return;
+      }
+      addToCart(p.id, state.selectedSize, state.qty);
+      showView('cart'); renderCartView();
+    } }, ['Одоо захиалах']);
+
+    var liked = isWishlisted(p.id);
+    var heartBtn = el('button', {
+      class:'detail-heart' + (liked ? ' active':''), type:'button',
+      onclick:function(){ toggleWishlist(p.id); }
+    }, [
+      (function(){ var s=document.createElementNS('http://www.w3.org/2000/svg','svg'); s.innerHTML='<use href="#ic-heart"/>'; return s; })(),
+      liked ? 'Хадгалсан' : 'Хадгалах'
+    ]);
+
+    var featuresHost = el('div', { class:'detail-features' });
+    (p.features||[]).forEach(function(f){
+      featuresHost.appendChild(el('div', { class:'feature' }, [ (function(){ var s=document.createElementNS('http://www.w3.org/2000/svg','svg'); s.innerHTML='<use href="#ic-check-circle"/>'; return s; })(), f ]));
+    });
+
+    var info = el('div', {}, [
+      el('span', { class:'detail-cat' }, [p.catLabel]),
+      el('h2', { class:'detail-title' }, [p.name]),
+      el('div', { class:'detail-price' }, [formatPrice(p.price)]),
+      el('p', { class:'detail-desc' }, [p.desc]),
+      el('span', { class:'field-label' }, ['Размер сонгох']),
+      sizeGrid,
+      el('div', { class:'size-note' + (selectedStock!=null && selectedStock<=3 ? ' low-stock-note' : '') }, [sizeNoteText]),
+      el('span', { class:'field-label' }, ['Тоо ширхэг']),
+      el('div', { class:'qty-row' }, [stepper]),
+      el('div', { class:'detail-actions' }, [addBtn, buyNowBtn, heartBtn]),
+      errHost,
+      featuresHost
+    ]);
+
+    host.appendChild(media);
+    host.appendChild(info);
+  }
+
+  /* ============ CART VIEW ============ */
+  function renderCartView(){
+    var host = $('#cart-content');
+    host.innerHTML = '';
+    if(state.cart.length===0){
+      host.appendChild(el('div', { class:'empty-state' }, [
+        (function(){ var s=document.createElementNS('http://www.w3.org/2000/svg','svg'); s.setAttribute('viewBox','0 0 24 24'); s.innerHTML='<use href="#ic-cart"/>'; return s; })(),
+        el('h3', {}, ['Таны сагс хоосон байна']),
+        el('p', {}, ['Дэлгүүрээс дуртай гутлаа сонгоод сагсандаа нэмнэ үү.']),
+        el('button', { class:'btn btn-primary', style:'margin-top:20px;', onclick:function(){ showView('home'); } }, ['Дэлгүүр рүү очих'])
+      ]));
+      return;
+    }
+    var layout = el('div', { class:'cart-layout' });
+    var list = el('div', { class:'cart-list' });
+    state.cart.forEach(function(item){
+      var p = findProduct(item.productId);
+      if(!p) return;
+      var row = el('div', { class:'cart-item' }, [
+        el('div', { class:'cart-item-media', style:mediaBg(p.s1), html: mediaHtml(p) }),
+        el('div', {}, [
+          el('div', { class:'cart-item-name' }, [p.name]),
+          el('div', { class:'cart-item-meta' }, ['Размер ' + item.size]),
+          el('div', { class:'cart-item-row' }, [
+            (function(){
+              var ms = el('div', { class:'mini-stepper' }, [
+                el('button', { type:'button', onclick:function(){ updateCartQty(item.productId,item.size,-1); } }, ['−']),
+                el('span', {}, [String(item.qty)]),
+                el('button', { type:'button', onclick:function(){ updateCartQty(item.productId,item.size,1); } }, ['+'])
+              ]);
+              return ms;
+            })()
+          ]),
+          el('button', { class:'cart-item-remove', type:'button', onclick:function(){ removeFromCart(item.productId,item.size); } }, ['Хасах'])
+        ]),
+        el('div', { class:'cart-item-price' }, [formatPrice(p.price * item.qty)])
+      ]);
+      list.appendChild(row);
+    });
+
+    var summary = el('div', { class:'summary-card' }, [
+      el('h3', {}, ['Дүн']),
+      el('div', { class:'summary-row' }, [el('span',{},['Барааны дүн']), el('span',{},[formatPrice(cartSubtotal())])]),
+      el('div', { class:'summary-row' }, [el('span',{},['Хүргэлтийн төлбөр']), el('span',{},[formatPrice(DELIVERY_FEE)])]),
+      el('div', { class:'summary-total' }, [el('span',{},['Нийт дүн']), el('span',{},[formatPrice(cartTotal())])]),
+      el('button', { class:'btn btn-primary btn-block', style:'margin-top:18px;', onclick:function(){ showView('checkout'); renderStepTrail('step-trail-checkout', 1); renderCheckoutSummary(); } }, ['Захиалах →']),
+      el('button', { class:'btn btn-ghost btn-block', style:'margin-top:6px;', onclick:function(){ showView('home'); } }, ['Дэлгүүрээс нэмэх'])
+    ]);
+
+    layout.appendChild(list);
+    layout.appendChild(summary);
+    host.appendChild(layout);
+  }
+
+  /* ============ STEP TRAIL ============ */
+  var STEPS = [
+    { key:'cart', label:'Сагс' },
+    { key:'delivery', label:'Хүргэлт' },
+    { key:'payment', label:'Төлбөр' },
+    { key:'done', label:'Баталгаажсан' }
+  ];
+  function renderStepTrail(hostId, currentIdx){
+    var host = document.getElementById(hostId);
+    if(!host) return;
+    host.innerHTML = '';
+    STEPS.forEach(function(s, idx){
+      var stepEl = el('div', { class:'step' + (idx<currentIdx ? ' done' : idx===currentIdx ? ' current' : '') }, [
+        el('div', { class:'dot', html: idx<currentIdx ? '<svg><use href="#ic-check"/></svg>' : '<svg><use href="#ic-footprint"/></svg>' }),
+        el('div', { class:'lbl' }, [s.label])
+      ]);
+      host.appendChild(stepEl);
+      if(idx < STEPS.length-1){
+        host.appendChild(el('div', { class:'connector' + (idx<currentIdx ? ' done':'') }));
+      }
+    });
+  }
+
+  /* ============ CHECKOUT ============ */
+  function renderCheckoutSummary(){
+    var host = $('#checkout-summary-body');
+    host.innerHTML = '';
+    state.cart.forEach(function(item){
+      var p = findProduct(item.productId);
+      if(!p) return;
+      host.appendChild(el('div', { class:'summary-row' }, [
+        el('span', {}, [p.name + ' × ' + item.qty + ' (р.' + item.size + ')']),
+        el('span', {}, [formatPrice(p.price*item.qty)])
+      ]));
+    });
+    host.appendChild(el('div', { class:'summary-row' }, [el('span',{},['Хүргэлт']), el('span',{},[formatPrice(DELIVERY_FEE)])]));
+    host.appendChild(el('div', { class:'summary-total' }, [el('span',{},['Нийт дүн']), el('span',{},[formatPrice(cartTotal())])]));
+  }
+
+  var PHONE_RE = /^[0-9]{8}$/;
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var NAME_RE = /^[A-Za-zА-Яа-яЁёӨөҮү][A-Za-zА-Яа-яЁёӨөҮү\s'-]{1,59}$/;
+  var KHOROO_RE = /^[0-9]{1,3}$/;
+  var ORTS_RE = /^[0-9]{1,3}$/;
+  var TOOT_RE = /^[0-9]{1,4}$/;
+  var KHOTKHON_RE = /^(?=.{4,120}$)(?=.*[A-Za-zА-Яа-яЁёӨөҮү]).*$/;
+  var CODE_RE = /^[0-9A-Za-zА-Яа-яЁёӨөҮү*#\s]{2,30}$/;
+
+  function setFieldError(name, msg){
+    var input = $('#f-'+name);
+    var errHost = $('.field-err[data-err="'+name+'"]');
+    if(errHost) errHost.textContent = msg || '';
+    if(input) input.classList.toggle('invalid', !!msg);
+  }
+
+  function validateCheckout(){
+    var v = {
+      name: $('#f-name').value.trim(),
+      phone: $('#f-phone').value.trim(),
+      phone2: $('#f-phone2').value.trim(),
+      email: $('#f-email').value.trim(),
+      district: $('#f-district').value,
+      khoroo: $('#f-khoroo').value.trim(),
+      otherregion: $('#f-otherregion').value.trim(),
+      khotkhon: $('#f-khotkhon').value.trim(),
+      orts: $('#f-orts').value.trim(),
+      toot: $('#f-toot').value.trim(),
+      code: $('#f-code').value.trim(),
+      note: $('#f-note').value.trim()
+    };
+    var ok = true;
+    function require(name, cond, msg){
+      if(!cond){ setFieldError(name, msg); ok = false; } else { setFieldError(name, ''); }
+    }
+    require('name', NAME_RE.test(v.name), 'Нэрээ зөв, зөвхөн үсгээр оруулна уу');
+    require('phone', PHONE_RE.test(v.phone), '8 оронтой утасны дугаар оруулна уу');
+    require('phone2', v.phone2==='' || PHONE_RE.test(v.phone2), '8 оронтой дугаар байх ёстой');
+    require('email', EMAIL_RE.test(v.email), 'И-мэйл хаягаа зөв оруулна уу');
+    require('district', v.district!=='', 'Дүүргээ сонгоно уу');
+    require('khoroo', KHOROO_RE.test(v.khoroo), 'Хорооны дугаарыг тоогоор оруулна уу');
+    if(v.district==='other'){
+      require('otherregion', NAME_RE.test(v.otherregion), 'Аймаг/хотын нэрээ зөв оруулна уу');
+    } else { setFieldError('otherregion',''); }
+    require('khotkhon', KHOTKHON_RE.test(v.khotkhon), 'Хотхон/байрны нэрээ дэлгэрэнгүй, зөв оруулна уу');
+    require('orts', ORTS_RE.test(v.orts), 'Орцны дугаарыг тоогоор оруулна уу');
+    require('toot', TOOT_RE.test(v.toot), 'Тоотны дугаарыг тоогоор оруулна уу');
+    require('code', v.code==='' || CODE_RE.test(v.code), 'Орцны кодоо зөв оруулна уу');
+    if(ok) state.checkout = v;
+    return ok;
+  }
+
+  $('#f-district').addEventListener('change', function(){
+    $('#f-otherregion-wrap').hidden = (this.value !== 'other');
+  });
+
+  $('#checkout-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    if(!validateCheckout()){
+      var firstInvalid = $('.invalid');
+      if(firstInvalid) firstInvalid.focus();
+      return;
+    }
+    state.invoiceType = 'person';
+    $('#f-invoice-type').value = 'person';
+    updateInvoiceTypeUI();
+    state.currentOrderId = generateOrderId(new Date());
+    renderPaymentSummary();
+    showView('payment');
+    renderStepTrail('step-trail-payment', 2);
+    $('#qpay-amount').textContent = formatPrice(cartTotal());
+    $('#qpay-order-hint').textContent = 'Захиалга #' + state.currentOrderId;
+  });
+
+  $('#btn-checkout-back').addEventListener('click', function(){ showView('cart'); });
+  $('#btn-payment-back').addEventListener('click', function(){ showView('checkout'); renderStepTrail('step-trail-checkout', 1); renderCheckoutSummary(); });
+
+  /* ============ PAYMENT ============ */
+  var TTD_RE = /^[0-9]{7,10}$/;
+  var ORG_REG_RE = /^[0-9]{5,10}$/;
+  var ORG_NAME_PARTS1 = ['Алтан','Мандах','Тэнгэр','Гүн','Өндөр','Наран','Ундрах','Соёмбо','Ирээдүй','Билэг'];
+  var ORG_NAME_PARTS2 = ['Од','Гүүр','Уул','Хас','Заяа','Туяа','Чандмань','Эрдэнэ','Хөгжил','Оргил'];
+  var ORG_SUFFIXES = ['ХХК','ХК','ТӨХК'];
+  function mockLookupOrgName(reg){
+    var digits = reg.replace(/[^0-9]/g,'');
+    if(!digits) return '';
+    var sum = 0;
+    for(var i=0;i<digits.length;i++) sum += digits.charCodeAt(i)*(i+1);
+    var p1 = ORG_NAME_PARTS1[sum % ORG_NAME_PARTS1.length];
+    var p2 = ORG_NAME_PARTS2[Math.floor(sum/7) % ORG_NAME_PARTS2.length];
+    var suf = ORG_SUFFIXES[sum % ORG_SUFFIXES.length];
+    return p1 + ' ' + p2 + ' ' + suf;
+  }
+  function fetchInvoiceOrgName(){
+    var t = state.invoiceType;
+    if(t==='person') return;
+    var reg = $('#f-invoice-reg').value.trim();
+    var re = t==='person-ttd' ? TTD_RE : ORG_REG_RE;
+    var emptyMsg = t==='person-ttd' ? 'Татварын дугаараа оруулна уу' : 'Регистрийн дугаараа оруулна уу';
+    var invalidMsg = t==='person-ttd' ? 'Зөв ТТД дугаар оруулна уу' : 'Зөв регистрийн дугаар оруулна уу';
+    if(reg===''){ setFieldError('invoice-reg', emptyMsg); $('#f-invoice-orgname').value=''; $('#invoice-orgname-hint').hidden = true; return; }
+    if(!re.test(reg)){ setFieldError('invoice-reg', invalidMsg); $('#f-invoice-orgname').value=''; $('#invoice-orgname-hint').hidden = true; return; }
+    setFieldError('invoice-reg','');
+    $('#f-invoice-orgname').value = mockLookupOrgName(reg);
+    $('#invoice-orgname-hint').hidden = false;
+  }
+  function updateInvoiceTypeUI(){
+    var t = state.invoiceType;
+    $('#invoice-reg-wrap').hidden = (t==='person');
+    $('#invoice-orgname-wrap').hidden = (t==='person');
+    $('#invoice-reg-label').firstChild.textContent = (t==='person-ttd' ? 'Татварын дугаар ' : 'Регистрийн дугаар ');
+    $('#f-invoice-reg').placeholder = (t==='person-ttd' ? 'Татварын дугаар' : 'Регистрийн дугаар оруулах');
+    if(t==='person'){
+      setFieldError('invoice-reg','');
+      $('#f-invoice-reg').value='';
+      $('#f-invoice-orgname').value='';
+      $('#invoice-orgname-hint').hidden = true;
+    }
+  }
+  $('#f-invoice-type').addEventListener('change', function(){
+    state.invoiceType = this.value;
+    updateInvoiceTypeUI();
+  });
+  $('#btn-invoice-fetch').addEventListener('click', fetchInvoiceOrgName);
+  $('#f-invoice-reg').addEventListener('keydown', function(e){
+    if(e.key==='Enter'){ e.preventDefault(); fetchInvoiceOrgName(); }
+  });
+
+  function renderPaymentSummary(){
+    var host = $('#payment-summary-body');
+    host.innerHTML = '';
+    state.cart.forEach(function(item){
+      var p = findProduct(item.productId);
+      if(!p) return;
+      host.appendChild(el('div', { class:'summary-row' }, [
+        el('span', {}, [p.name + ' × ' + item.qty + ' (р.' + item.size + ')']),
+        el('span', {}, [formatPrice(p.price*item.qty)])
+      ]));
+    });
+    host.appendChild(el('div', { class:'summary-row' }, [el('span',{},['Хүргэлт']), el('span',{},[formatPrice(DELIVERY_FEE)])]));
+    host.appendChild(el('div', { class:'summary-total' }, [el('span',{},['Нийт дүн']), el('span',{},[formatPrice(cartTotal())])]));
+    var c = state.checkout;
+    if(c){
+      var districtLabel = c.district==='other' ? c.otherregion : c.district;
+      host.appendChild(el('div', { style:'margin-top:16px; padding-top:16px; border-top:1px solid var(--border-soft); font-size:0.85rem; color:var(--ink-soft); font-weight:700; line-height:1.6;' }, [
+        el('div', {}, ['Хүлээн авагч: ' + c.name]),
+        el('div', {}, ['Утас: ' + c.phone]),
+        el('div', {}, ['Хаяг: ' + districtLabel + (c.district!=='other' ? ' дүүрэг' : '') + ', ' + c.khoroo + '-р хороо, ' + c.khotkhon + ', ' + c.orts + '-р орц, ' + c.toot + ' тоот'])
+      ]));
+    }
+  }
+
+  function validateInvoice(){
+    var t = state.invoiceType;
+    if(t==='person'){
+      setFieldError('invoice-reg','');
+      state.invoice = { type:'person', name:'', reg:'' };
+      return true;
+    }
+    var reg = $('#f-invoice-reg').value.trim();
+    var re = t==='person-ttd' ? TTD_RE : ORG_REG_RE;
+    var emptyMsg = t==='person-ttd' ? 'Татварын дугаараа оруулна уу' : 'Регистрийн дугаараа оруулна уу';
+    var invalidMsg = t==='person-ttd' ? 'Зөв ТТД дугаар оруулна уу' : 'Зөв регистрийн дугаар оруулна уу';
+    if(reg===''){ setFieldError('invoice-reg', emptyMsg); return false; }
+    if(!re.test(reg)){ setFieldError('invoice-reg', invalidMsg); return false; }
+    setFieldError('invoice-reg','');
+    if($('#f-invoice-orgname').value.trim()===''){
+      $('#f-invoice-orgname').value = mockLookupOrgName(reg);
+      $('#invoice-orgname-hint').hidden = false;
+    }
+    state.invoice = { type:t, name: $('#f-invoice-orgname').value.trim(), reg: reg.toUpperCase() };
+    return true;
+  }
+
+  $('#btn-pay-qpay').addEventListener('click', function(){
+    if(!validateInvoice()){
+      showToast('Баримтын мэдээллээ бөглөнө үү', 'ic-info');
+      return;
+    }
+    runPaymentModal();
+  });
+
+  function runPaymentModal(){
+    var overlay = $('#pay-modal');
+    var card = $('#pay-modal-card');
+    overlay.hidden = false;
+
+    var stages = [
+      { key:'invoice', label:'Нэхэмжлэл үүсгэж байна' },
+      { key:'bank', label:'Банкны апп руу шилжиж байна' },
+      { key:'wait', label:'Төлбөр хүлээгдэж байна' }
+    ];
+    var stageIdx = 0;
+
+    function renderStageCard(){
+      var html = '<div class="modal-spinner" aria-hidden="true"></div>' +
+        '<h3 style="margin-bottom:4px;">Төлбөр боловсруулж байна</h3>' +
+        '<p style="color:var(--ink-soft); font-weight:700; font-size:0.85rem; margin-bottom:6px;">QPay — ' + formatPrice(cartTotal()) + '</p>' +
+        '<div class="modal-stage-list">';
+      stages.forEach(function(s, i){
+        var cls = i<stageIdx ? 'done' : (i===stageIdx ? 'active' : '');
+        var icon = i<stageIdx ? 'ic-check' : 'ic-bolt';
+        html += '<div class="modal-stage ' + cls + '"><svg><use href="#'+icon+'"/></svg><span>' + s.label + '</span></div>';
+      });
+      html += '</div>';
+      if(stageIdx >= stages.length-1){
+        html += '<button class="btn btn-primary btn-block" id="btn-confirm-pay">Төлсөн гэж баталгаажуулах (Демо)</button>';
+      }
+      html += '<div class="demo-note" style="text-align:left;"><svg><use href="#ic-info"/></svg><span>Демо горим — бодит гүйлгээ хийгдэхгүй.</span></div>';
+      card.innerHTML = html;
+      var confirmBtn = document.getElementById('btn-confirm-pay');
+      if(confirmBtn) confirmBtn.addEventListener('click', finishPayment);
+    }
+
+    renderStageCard();
+    var advanceTimer = setInterval(function(){
+      stageIdx++;
+      if(stageIdx >= stages.length){
+        clearInterval(advanceTimer);
+        stageIdx = stages.length-1;
+        renderStageCard();
+        return;
+      }
+      renderStageCard();
+    }, 1100);
+
+    function finishPayment(){
+      clearInterval(advanceTimer);
+      card.innerHTML = '<div class="modal-success-icon"><svg><use href="#ic-check"/></svg></div>' +
+        '<h3>Төлбөр амжилттай!</h3>' +
+        '<p style="color:var(--ink-soft); font-weight:700; font-size:0.85rem; margin-top:6px;">Захиалгыг баталгаажуулж байна…</p>';
+      setTimeout(function(){
+        overlay.hidden = true;
+        completeOrder();
+      }, 900);
+    }
+  }
+
+  function completeOrder(){
+    var now = new Date();
+    var deliveryDate = new Date(now.getTime() + 7*24*60*60*1000);
+    var orderId = state.currentOrderId || generateOrderId(now);
+    var c = state.checkout;
+    var districtLabel = c.district==='other' ? c.otherregion : (c.district + ' дүүрэг');
+    var order = {
+      id: orderId,
+      createdAt: now.toISOString(),
+      deliveryDate: deliveryDate.toISOString(),
+      items: state.cart.map(function(item){
+        var p = findProduct(item.productId);
+        return { name:p.name, size:item.size, qty:item.qty, price:p.price };
+      }),
+      subtotal: cartSubtotal(),
+      deliveryFee: DELIVERY_FEE,
+      total: cartTotal(),
+      recipient: c.name,
+      phone: c.phone,
+      phone2: c.phone2,
+      email: c.email,
+      district: districtLabel,
+      khoroo: c.khoroo,
+      khotkhon: c.khotkhon,
+      orts: c.orts,
+      toot: c.toot,
+      code: c.code,
+      note: c.note,
+      invoice: state.invoice
+    };
+    saveOrder(order);
+    notifyNewOrder(order);
+    state.currentOrderId = orderId;
+    state.currentDeliveryDate = deliveryDate;
+    state.cart = [];
+    saveCart();
+    renderCartBadge();
+    renderSuccessView(order);
+    showView('success');
+  }
+
+  function renderSuccessView(order){
+    $('#success-order-id').textContent = order.id;
+    $('#success-delivery-date').textContent = formatMNDate(new Date(order.deliveryDate)) + ' гэхэд хүргэгдэнэ (7 хоногийн дотор)';
+
+    var addrHost = $('#success-address-body');
+    addrHost.innerHTML = '';
+    var addrRows = [
+      ['Хүлээн авагч', order.recipient],
+      ['Утас', order.phone + (order.phone2 ? ' / ' + order.phone2 : '')],
+      ['И-мэйл', order.email],
+      ['Хаяг', order.district + ', ' + order.khoroo + '-р хороо'],
+      ['Хотхон/байр', order.khotkhon],
+      ['Орц / Тоот', order.orts + ' / ' + order.toot]
+    ];
+    if(order.code) addrRows.push(['Орцны код', order.code]);
+    if(order.note) addrRows.push(['Тэмдэглэл', order.note]);
+    addrRows.forEach(function(r){
+      addrHost.appendChild(el('div', { class:'receipt-row' }, [el('span',{},[r[0]]), el('span',{},[r[1]])]));
+    });
+
+    var orderHost = $('#success-order-body');
+    orderHost.innerHTML = '';
+    order.items.forEach(function(it){
+      orderHost.appendChild(el('div', { class:'receipt-row' }, [
+        el('span', {}, [it.name + ' (р.' + it.size + ') × ' + it.qty]),
+        el('span', {}, [formatPrice(it.price*it.qty)])
+      ]));
+    });
+    orderHost.appendChild(el('div', { class:'receipt-row' }, [el('span',{},['Хүргэлт']), el('span',{},[formatPrice(order.deliveryFee)])]));
+    orderHost.appendChild(el('div', { class:'receipt-row' }, [el('span',{},[el('b',{},['Нийт дүн'])]), el('span',{},[formatPrice(order.total)])]));
+    var invLabel = '—';
+    if(order.invoice){
+      if(order.invoice.type==='person') invLabel = 'Хувь хүн';
+      else if(order.invoice.type==='person-ttd') invLabel = 'Хувь хүн ТТД — ' + order.invoice.name + ' (' + order.invoice.reg + ')';
+      else invLabel = 'Компани — ' + order.invoice.name + ' (' + order.invoice.reg + ')';
+    }
+    orderHost.appendChild(el('div', { class:'receipt-row' }, [el('span',{},['И-баримт']), el('span',{},[invLabel])]));
+  }
+
+  $('#btn-success-home').addEventListener('click', function(){ showView('home'); });
+  $('#btn-success-orders').addEventListener('click', function(){ showView('orders'); });
+
+  /* ============ ORDERS VIEW ============ */
+  function renderOrdersView(){
+    var host = $('#orders-list');
+    host.innerHTML = '';
+    var orders = loadOrders().slice().reverse();
+    if(orders.length===0){
+      host.appendChild(el('div', { class:'empty-state' }, [
+        (function(){ var s=document.createElementNS('http://www.w3.org/2000/svg','svg'); s.setAttribute('viewBox','0 0 24 24'); s.innerHTML='<use href="#ic-box"/>'; return s; })(),
+        el('h3', {}, ['Захиалга алга байна']),
+        el('p', {}, ['Та анхны захиалгаа хийгээгүй байна.']),
+        el('button', { class:'btn btn-primary', style:'margin-top:20px;', onclick:function(){ showView('home'); } }, ['Дэлгүүр рүү очих'])
+      ]));
+      return;
+    }
+    orders.forEach(function(o){
+      var itemsLine = o.items.map(function(it){ return it.name + ' (р.' + it.size + ') ×' + it.qty; }).join(', ');
+      host.appendChild(el('div', { class:'order-card' }, [
+        el('div', { class:'order-card-head' }, [
+          el('span', { class:'order-id' }, [o.id]),
+          el('span', { class:'order-status' }, ['Хүргэлтэнд бэлдэж байна'])
+        ]),
+        el('div', { class:'order-date' }, ['Захиалсан: ' + formatMNDate(new Date(o.createdAt)) + ' · Хүргэгдэх: ' + formatMNDate(new Date(o.deliveryDate))]),
+        el('div', { class:'order-items-line', style:'margin-top:8px;' }, [itemsLine]),
+        el('div', { class:'order-total-line' }, [formatPrice(o.total)])
+      ]));
+    });
+  }
+
+  /* ============ WISHLIST VIEW ============ */
+  function renderWishlistView(){
+    var grid = $('#wishlist-grid');
+    grid.innerHTML = '';
+    var items = state.wishlist.map(findProduct).filter(Boolean);
+    if(items.length===0){
+      grid.appendChild(el('div', { class:'empty-state', style:'grid-column:1/-1;' }, [
+        (function(){ var s=document.createElementNS('http://www.w3.org/2000/svg','svg'); s.setAttribute('viewBox','0 0 24 24'); s.innerHTML='<use href="#ic-heart"/>'; return s; })(),
+        el('h3', {}, ['Хадгалсан загвар алга байна']),
+        el('p', {}, ['Дуртай загварынхаа зүрхэн дүрс дээр дарж энд хадгална уу.']),
+        el('button', { class:'btn btn-primary', style:'margin-top:20px;', onclick:function(){ showView('home'); } }, ['Дэлгүүр рүү очих'])
+      ]));
+      return;
+    }
+    items.forEach(function(p){ grid.appendChild(productCard(p)); });
+  }
+
+  /* ============ COLOR HELPERS (admin) ============ */
+  function hexToRgb(hex){
+    hex = hex.replace('#','');
+    if(hex.length===3) hex = hex.split('').map(function(c){ return c+c; }).join('');
+    var num = parseInt(hex,16);
+    return { r:(num>>16)&255, g:(num>>8)&255, b:num&255 };
+  }
+  function rgbToHex(r,g,b){
+    function h(x){ x=Math.max(0,Math.min(255,Math.round(x))); var s=x.toString(16); return s.length===1 ? '0'+s : s; }
+    return '#'+h(r)+h(g)+h(b);
+  }
+  function rgbToHsl(r,g,b){
+    r/=255; g/=255; b/=255;
+    var max=Math.max(r,g,b), min=Math.min(r,g,b);
+    var h,s,l=(max+min)/2;
+    if(max===min){ h=0; s=0; }
+    else{
+      var d=max-min;
+      s = l>0.5 ? d/(2-max-min) : d/(max+min);
+      if(max===r) h=(g-b)/d+(g<b?6:0);
+      else if(max===g) h=(b-r)/d+2;
+      else h=(r-g)/d+4;
+      h/=6;
+    }
+    return { h:h*360, s:s*100, l:l*100 };
+  }
+  function hslToRgb(h,s,l){
+    h/=360; s/=100; l/=100;
+    var r,g,b;
+    if(s===0){ r=g=b=l; }
+    else{
+      var hue2rgb = function(p,q,t){
+        if(t<0) t+=1;
+        if(t>1) t-=1;
+        if(t<1/6) return p+(q-p)*6*t;
+        if(t<1/2) return q;
+        if(t<2/3) return p+(q-p)*(2/3-t)*6;
+        return p;
+      };
+      var q = l<0.5 ? l*(1+s) : l+s-l*s;
+      var p = 2*l-q;
+      r = hue2rgb(p,q,h+1/3);
+      g = hue2rgb(p,q,h);
+      b = hue2rgb(p,q,h-1/3);
+    }
+    return { r:r*255, g:g*255, b:b*255 };
+  }
+  function deriveShades(hex){
+    var rgb = hexToRgb(hex);
+    var hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+    var deep = hslToRgb(hsl.h, Math.min(100, hsl.s+8), Math.max(14, hsl.l-20));
+    var accentHue = (hsl.h + 150) % 360;
+    var accent = hslToRgb(accentHue, Math.min(70, Math.max(35, hsl.s)), Math.min(62, Math.max(40, hsl.l)));
+    return {
+      s1: hex,
+      s2: rgbToHex(deep.r, deep.g, deep.b),
+      s3: rgbToHex(accent.r, accent.g, accent.b)
+    };
+  }
+
+  /* ============ ADMIN ============ */
+  var ADMIN_SIZE_RANGE = [];
+  (function(){ for(var sz=19; sz<=40; sz++) ADMIN_SIZE_RANGE.push(sz); })();
+
+  var ADMIN_PASSWORD = 'SsmS&g%54Ts_M6uH';
+
+  function renderAdminLogin(){
+    return el('div', { class:'form-card', style:'max-width:380px; margin:40px auto;' }, [
+      el('h3', {}, ['Админ нэвтрэлт']),
+      el('p', { class:'form-sub' }, ['Дэлгүүр удирдах хэсэгт зөвхөн эзэмшигч нэвтэрч орно.']),
+      el('div', { class:'form-field full' }, [
+        el('label', { for:'f-admin-pw' }, ['Нууц үг']),
+        el('input', {
+          id:'f-admin-pw', type:'password', autocomplete:'current-password', placeholder:'Нууц үгээ оруулна уу',
+          onkeydown:function(e){ if(e.key==='Enter'){ e.preventDefault(); attemptAdminLogin(); } }
+        }),
+        el('div', { class:'field-err', 'data-err':'admin-pw' })
+      ]),
+      el('button', { class:'btn btn-primary btn-block', type:'button', onclick:attemptAdminLogin }, ['Нэвтрэх'])
+    ]);
+  }
+
+  function attemptAdminLogin(){
+    var input = $('#f-admin-pw');
+    var pw = input ? input.value : '';
+    if(pw === ADMIN_PASSWORD){
+      state.admin.authed = true;
+      try{ sessionStorage.setItem('ea_admin_authed', '1'); }catch(e){}
+      renderAdmin();
+    } else {
+      setFieldError('admin-pw', 'Нууц үг буруу байна');
+      if(input) input.focus();
+    }
+  }
+
+  function logoutAdmin(){
+    state.admin.authed = false;
+    state.admin.formOpen = false;
+    state.admin.editingId = null;
+    try{ sessionStorage.removeItem('ea_admin_authed'); }catch(e){}
+    showView('home');
+  }
+
+  function svgIcon(id){
+    var s = document.createElementNS('http://www.w3.org/2000/svg','svg');
+    s.innerHTML = '<use href="#'+id+'"/>';
+    return s;
+  }
+
+  function showAdminMessage(text, type){
+    var box = $('#admin-message');
+    if(!text){ box.hidden = true; return; }
+    box.hidden = false;
+    box.className = 'admin-message ' + (type||'info');
+    box.textContent = text;
+  }
+
+  function renderAdmin(){
+    var host = $('#admin-body');
+    host.innerHTML = '';
+    showAdminMessage('', '');
+
+    if(!state.admin.authed){
+      host.appendChild(renderAdminLogin());
+      return;
+    }
+
+    var toolbar = el('div', { class:'admin-toolbar' }, [
+      el('h3', { style:'font-size:1.1rem;' }, ['Бүтээгдэхүүний жагсаалт (' + PRODUCTS.length + ')']),
+      el('div', { style:'display:flex; gap:8px; align-items:center;' }, [
+        el('button', { class:'btn btn-ghost btn-sm', type:'button', onclick:logoutAdmin }, ['Гарах']),
+        el('button', { class:'btn btn-primary btn-sm', type:'button', onclick:function(){ openAdminForm(null); } }, ['+ Шинэ бүтээгдэхүүн'])
+      ])
+    ]);
+    host.appendChild(toolbar);
+
+    if(state.admin.formOpen){
+      host.appendChild(renderAdminForm());
+    }
+
+    renderAdminProductList(host, false);
+  }
+
+  function renderAdminProductList(host, readOnly){
+    if(PRODUCTS.length===0){
+      host.appendChild(el('div', { class:'admin-empty' }, ['Одоогоор бүтээгдэхүүн алга байна.']));
+      return;
+    }
+    PRODUCTS.forEach(function(p){
+      var actions;
+      if(readOnly){
+        actions = [];
+      } else if(state.admin.confirmDeleteId === p.id){
+        actions = [ el('span', { class:'admin-confirm' }, [
+          'Устгах уу?',
+          el('button', { class:'btn btn-sm', type:'button', style:'background:var(--error); color:#fff;', onclick:function(){ deleteAdminProduct(p.id); } }, ['Тийм']),
+          el('button', { class:'btn btn-ghost btn-sm', type:'button', onclick:function(){ state.admin.confirmDeleteId=null; renderAdmin(); } }, ['Болих'])
+        ]) ];
+      } else {
+        actions = [
+          el('button', { class:'icon-btn', type:'button', 'aria-label':'Засах', onclick:function(){ openAdminForm(p); } }, [svgIcon('ic-doc')]),
+          el('button', { class:'icon-btn', type:'button', 'aria-label':'Устгах', onclick:function(){ state.admin.confirmDeleteId=p.id; renderAdmin(); } }, [svgIcon('ic-close')])
+        ];
+      }
+      host.appendChild(el('div', { class:'admin-product-row' }, [
+        el('div', { class:'admin-product-thumb', style:mediaBg(p.s1), html: mediaHtml(p) }),
+        el('div', {}, [
+          el('div', { class:'admin-product-name' }, [p.name]),
+          el('div', { class:'admin-product-meta' }, [p.catLabel + ' · ' + formatPrice(p.price) + ' · Размер ' + Math.min.apply(null,p.sizes) + '–' + Math.max.apply(null,p.sizes) + ' · Нөөц: ' + totalStock(p) + 'ш' + (totalStock(p)<=0 ? ' (дууссан)' : '')])
+        ]),
+        el('div', { class:'admin-product-actions' }, actions)
+      ]));
+    });
+  }
+
+  function openAdminForm(product){
+    state.admin.editingId = product ? product.id : null;
+    state.admin.formOpen = true;
+    state.admin.color = product ? product.s1 : '#FA7685';
+    state.admin.sizes = product ? product.sizes.slice() : [];
+    state.admin.stock = product ? Object.assign({}, product.stock) : {};
+    state.admin.photo = product ? (product.photo || null) : null;
+    state.admin.confirmDeleteId = null;
+    renderAdmin();
+    setTimeout(function(){ var f = document.getElementById('admin-form-card'); if(f) f.scrollIntoView({ behavior:'smooth', block:'start' }); }, 50);
+  }
+  function closeAdminForm(){
+    state.admin.formOpen = false;
+    state.admin.editingId = null;
+    renderAdmin();
+  }
+
+  function renderAdminForm(){
+    var editing = state.admin.editingId ? findProduct(state.admin.editingId) : null;
+    var card = el('div', { class:'form-card', id:'admin-form-card', style:'margin-bottom:20px;' });
+    card.appendChild(el('h3', {}, [editing ? 'Бүтээгдэхүүн засах' : 'Шинэ бүтээгдэхүүн нэмэх']));
+    card.appendChild(el('p', { class:'form-sub' }, ['Хадгалахад шинэчилсэн products.json файлыг татаж авна. Дараа нь энэ файлыг төслийнхөө хавтас руу хуулж, Git-ээр push хийхэд л сайт шинэчлэгдэнэ.']));
+
+    var grid = el('div', { class:'form-grid' });
+
+    grid.appendChild(el('div', { class:'form-field full' }, [
+      el('label', {}, ['Нэр ', el('span',{class:'req'},['*'])]),
+      el('input', { id:'adm-name', type:'text', value: editing ? editing.name : '', placeholder:'Жишээ: Наран Цэцэг Сандаль' })
+    ]));
+
+    var catSelect = el('select', { id:'adm-cat', onchange:function(){ if(!state.admin.photo) renderPhotoPreview(); } });
+    Object.keys(CATEGORY_LABELS).forEach(function(catId){
+      var isSel = editing ? editing.cat===catId : catId==='sneaker';
+      catSelect.appendChild(el('option', { value:catId, selected: isSel ? 'selected' : null }, [CATEGORY_LABELS[catId]]));
+    });
+    grid.appendChild(el('div', { class:'form-field' }, [ el('label', {}, ['Ангилал ', el('span',{class:'req'},['*'])]), catSelect ]));
+
+    grid.appendChild(el('div', { class:'form-field' }, [
+      el('label', {}, ['Үнэ (₮) ', el('span',{class:'req'},['*'])]),
+      el('input', { id:'adm-price', type:'number', min:'1000', step:'1000', value: editing ? editing.price : '' })
+    ]));
+
+    var badgeSelect = el('select', { id:'adm-badge' });
+    [['', 'Байхгүй'], ['new','Шинэ ирсэн'], ['hot','Эрэлттэй']].forEach(function(pair){
+      var isSel = editing ? (editing.badge||'')===pair[0] : pair[0]==='';
+      badgeSelect.appendChild(el('option', { value:pair[0], selected: isSel ? 'selected' : null }, [pair[1]]));
+    });
+    grid.appendChild(el('div', { class:'form-field' }, [ el('label', {}, ['Тэмдэглэгээ']), badgeSelect ]));
+
+    var swatchPreview = el('div', { class:'admin-swatch-preview' });
+    function updateSwatch(hex){
+      var shades = deriveShades(hex);
+      swatchPreview.innerHTML = '';
+      [shades.s1, shades.s2, shades.s3].forEach(function(c){ swatchPreview.appendChild(el('span', { style:'background:'+c+';' })); });
+    }
+    var colorInput = el('input', { id:'adm-color', type:'color', value: state.admin.color, oninput:function(){ state.admin.color = this.value; updateSwatch(this.value); if(!state.admin.photo) renderPhotoPreview(); } });
+    updateSwatch(state.admin.color);
+    grid.appendChild(el('div', { class:'form-field' }, [
+      el('label', {}, ['Үндсэн өнгө']),
+      el('div', { class:'admin-color-row' }, [colorInput, swatchPreview])
+    ]));
+
+    var photoPreview = el('div', { class:'admin-photo-preview' });
+    function renderPhotoPreview(){
+      if(state.admin.photo){ photoPreview.innerHTML = '<img src="'+escAttr(state.admin.photo)+'" alt="">'; return; }
+      var shadesNow = deriveShades(state.admin.color);
+      var shapeNow = SHAPE_BY_CATEGORY[$('#adm-cat') ? $('#adm-cat').value : 'sneaker'] || 'sneaker';
+      photoPreview.innerHTML = svgFor(shapeNow, shadesNow.s1, shadesNow.s2, shadesNow.s3);
+    }
+    renderPhotoPreview();
+    var photoInput = el('input', {
+      id:'adm-photo', type:'file', accept:'image/*',
+      onchange:function(){
+        var file = this.files && this.files[0];
+        if(!file) return;
+        var self = this;
+        resizeImageToDataUrl(file, 640, 0.72, function(dataUrl){
+          state.admin.photo = dataUrl;
+          renderPhotoPreview();
+        }, function(){
+          self.value = '';
+          showAdminMessage('Зургийг уншиж чадсангүй. Өөр зураг сонгоно уу.', 'error');
+        });
+      }
+    });
+    var removePhotoBtn = el('button', {
+      class:'btn btn-ghost btn-sm', type:'button',
+      onclick:function(){ state.admin.photo = null; var fi = document.getElementById('adm-photo'); if(fi) fi.value=''; renderPhotoPreview(); }
+    }, ['Зураг хасах']);
+    grid.appendChild(el('div', { class:'form-field full' }, [
+      el('label', {}, ['Бүтээгдэхүүний зураг']),
+      el('div', { class:'admin-photo-row' }, [photoPreview, photoInput, removePhotoBtn]),
+      el('div', { class:'admin-photo-hint' }, ['Зураг оруулаагүй бол автоматаар зурсан дүрс харагдана.'])
+    ]));
+
+    var sizeChipGrid = el('div', { class:'filter-size-chip-grid' });
+    var stockSection = el('div', { class:'admin-stock-section' });
+    function renderSizeChips(){
+      sizeChipGrid.innerHTML = '';
+      ADMIN_SIZE_RANGE.forEach(function(sz){
+        var active = state.admin.sizes.indexOf(sz) !== -1;
+        sizeChipGrid.appendChild(el('button', {
+          type:'button', class:'filter-size-chip' + (active ? ' active':''),
+          onclick:function(){
+            var i = state.admin.sizes.indexOf(sz);
+            if(i===-1){ state.admin.sizes.push(sz); if(!state.admin.stock[sz]) state.admin.stock[sz] = 5; }
+            else{ state.admin.sizes.splice(i,1); delete state.admin.stock[sz]; }
+            renderSizeChips();
+            renderStockRows();
+          }
+        }, [String(sz)]));
+      });
+    }
+    function renderStockRows(){
+      stockSection.innerHTML = '';
+      var sortedSizes = state.admin.sizes.slice().sort(function(a,b){ return a-b; });
+      if(sortedSizes.length===0){
+        stockSection.appendChild(el('div', { class:'admin-stock-empty' }, ['Дээрээс размер сонгоно уу, дараа нь тухайн размерийн нөөцийн тоог оруулна.']));
+        return;
+      }
+      sortedSizes.forEach(function(sz){
+        var qtyInput = el('input', {
+          type:'number', min:'0', step:'1', value: state.admin.stock[sz]!=null ? state.admin.stock[sz] : 0,
+          oninput:function(){ state.admin.stock[sz] = Math.max(0, parseInt(this.value,10) || 0); }
+        });
+        stockSection.appendChild(el('div', { class:'admin-stock-row' }, [
+          el('label', {}, ['Размер ' + sz]),
+          qtyInput
+        ]));
+      });
+    }
+    renderSizeChips();
+    renderStockRows();
+    grid.appendChild(el('div', { class:'form-field full' }, [
+      el('label', {}, ['Байгаа размерууд ', el('span',{class:'req'},['*'])]),
+      sizeChipGrid
+    ]));
+    grid.appendChild(el('div', { class:'form-field full' }, [
+      el('label', {}, ['Размер тус бүрийн нөөцийн тоо ширхэг']),
+      stockSection
+    ]));
+
+    grid.appendChild(el('div', { class:'form-field full' }, [
+      el('label', {}, ['Тайлбар']),
+      el('textarea', { id:'adm-desc', rows:'3', placeholder:'Гутлын онцлог, материал гэх мэт...' }, [editing ? editing.desc : ''])
+    ]));
+
+    grid.appendChild(el('div', { class:'form-field full' }, [
+      el('label', {}, ['Онцлогууд (таслалаар тусгаарлана)']),
+      el('input', { id:'adm-features', type:'text', value: editing ? editing.features.join(', ') : '', placeholder:'Жишээ: Зөөлөн ул, Амьсгалдаг материал' })
+    ]));
+
+    card.appendChild(grid);
+    card.appendChild(el('div', { class:'field-err', id:'adm-form-err', style:'margin-bottom:10px;' }));
+    card.appendChild(el('div', { class:'form-actions' }, [
+      el('button', { class:'btn btn-ghost', type:'button', onclick:closeAdminForm }, ['Цуцлах']),
+      el('button', { class:'btn btn-primary', type:'button', onclick:saveAdminProduct }, [editing ? 'Хадгалах' : 'Нэмэх'])
+    ]));
+
+    return card;
+  }
+
+  function saveAdminProduct(){
+    var name = $('#adm-name').value.trim();
+    var cat = $('#adm-cat').value;
+    var price = parseInt($('#adm-price').value, 10);
+    var badge = $('#adm-badge').value;
+    var desc = $('#adm-desc').value.trim();
+    var featuresStr = $('#adm-features').value.trim();
+    var color = state.admin.color;
+    var sizes = state.admin.sizes.slice().sort(function(a,b){ return a-b; });
+
+    var errs = [];
+    if(name.length<2) errs.push('Нэрээ оруулна уу');
+    if(!price || price<1000) errs.push('Үнэ дор хаяж 1,000₮ байх ёстой');
+    if(sizes.length===0) errs.push('Дор хаяж нэг размер сонгоно уу');
+
+    var errHost = $('#adm-form-err');
+    if(errs.length){ errHost.textContent = errs.join(' · '); return; }
+    errHost.textContent = '';
+
+    var shape = SHAPE_BY_CATEGORY[cat] || 'sneaker';
+    var shades = deriveShades(color);
+    var features = featuresStr ? featuresStr.split(',').map(function(s){ return s.trim(); }).filter(Boolean) : [];
+    var stock = {};
+    sizes.forEach(function(sz){
+      stock[sz] = Math.max(0, parseInt(state.admin.stock[sz], 10) || 0);
+    });
+
+    var product = {
+      id: state.admin.editingId || ('p' + Date.now().toString(36)),
+      name: name, cat: cat, catLabel: CATEGORY_LABELS[cat] || cat, shape: shape, price: price,
+      s1: shades.s1, s2: shades.s2, s3: shades.s3,
+      badge: badge, badgeLabel: BADGE_LABELS[badge] || '',
+      sizes: sizes, stock: stock, photo: state.admin.photo || null,
+      desc: desc, features: features
+    };
+
+    var newArr = state.admin.editingId
+      ? PRODUCTS.map(function(p){ return p.id===product.id ? product : p; })
+      : PRODUCTS.concat([product]);
+
+    publishProducts(newArr);
+  }
+
+  function deleteAdminProduct(id){
+    var newArr = PRODUCTS.filter(function(p){ return p.id!==id; });
+    state.admin.confirmDeleteId = null;
+    publishProducts(newArr);
+  }
+
+  function publishProducts(newProducts){
+    if(state.admin.busy) return;
+    state.admin.busy = true;
+    showAdminMessage('products.json бэлдэж байна...', 'info');
+
+    try{
+      // Reflect the change immediately in this browser tab (in-place mutation —
+      // every part of the app reads the same PRODUCTS array reference).
+      PRODUCTS.length = 0;
+      Array.prototype.push.apply(PRODUCTS, newProducts);
+
+      var jsonStr = JSON.stringify(newProducts, null, 2);
+      var blob = new Blob([jsonStr], { type:'application/json' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'products.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+
+      state.admin.busy = false;
+      state.admin.formOpen = false;
+      state.admin.editingId = null;
+      state.admin.confirmDeleteId = null;
+      renderAdmin();
+      showAdminMessage('products.json файлыг татаж авлаа! Татсан файлаа төслийнхөө хавтас дахь products.json-той сольж, "git add . && git commit -m \"update products\" && git push" гүйцэтгэхэд ~30 секундэд сайт шинэчлэгдэнэ.', 'info');
+    }catch(err){
+      state.admin.busy = false;
+      showAdminMessage('Файл татахад алдаа гарлаа: ' + (err && err.message ? err.message : 'тодорхойгүй'), 'error');
+    }
+  }
+
+  /* ============ GLOBAL NAV ============ */
+  $('#btn-home').addEventListener('click', function(){ showView('home'); });
+  $all('.main-nav button').forEach(function(b){
+    b.addEventListener('click', function(){
+      if(b.dataset.nav==='home') showView('home');
+      if(b.dataset.nav==='orders') showView('orders');
+    });
+  });
+  $('#btn-cart').addEventListener('click', function(){ showView('cart'); renderCartView(); });
+  $('#btn-wishlist').addEventListener('click', function(){ showView('wishlist'); });
+  $('#btn-admin-link').addEventListener('click', function(){ showView('admin'); });
+  $('#btn-back-home').addEventListener('click', function(){ showView('home'); });
+  $('#btn-shop-now').addEventListener('click', function(){ document.getElementById('shop').scrollIntoView({ behavior:'smooth' }); });
+
+  /* ============ LEGAL PAGES ============ */
+  var LEGAL_PAGES = {
+    returns: {
+      title: 'Буцаалт, солилтын нөхцөл',
+      sections: [
+        { h:'Хэрхэн буцаах, солиулах вэ', p:[
+          'Хүлээн авснаас хойш 14 хоногийн дотор барааг ашиглаагүй, гэмтээгүй, анхны сав баглаа боодолтой нь буцаах эсвэл өөр размер/загвараар солиулах боломжтой.',
+          'Буцаалт хийхийн тулд захиалгын дугаараа бэлдээд "Холбоо барих" хэсэгт байрлах утас эсвэл имэйлээр манай багтай холбогдоно уу.'
+        ]},
+        { h:'Буцаах боломжгүй тохиолдол', p:[
+          'Хэрэглэсэн, гэмтээсэн, эсвэл эрүүл ахуйн шалтгаанаар (жишээ нь, оймс, дотоод бүрээс зэрэг) буцаах боломжгүй бараа.',
+          'Хямдралтай, эцсийн борлуулалтын (final sale) гэж тэмдэглэгдсэн бараа, өөрөөр заагаагүй бол буцаалтад хамрагдахгүй.'
+        ]},
+        { h:'Мөнгө буцаах', p:[
+          'Буцаасан барааг хүлээн авч, шалгасны дараа 3-7 ажлын өдрийн дотор төлбөрийг эх тооцооны аргаар буцаан олгоно.'
+        ]},
+        { h:'Гэмтэлтэй эсвэл буруу бараа ирсэн бол', p:[
+          'Хүргэлтийн үед гэмтсэн эсвэл захиалснаас өөр бараа ирсэн тохиолдолд 48 цагийн дотор бидэнтэй холбогдоно уу — солих эсвэл мөнгийг бүрэн буцаан олгоно.'
+        ]}
+      ]
+    },
+    terms: {
+      title: 'Үйлчилгээний нөхцөл',
+      sections: [
+        { h:'Ерөнхий', p:[
+          'Энэхүү сайтыг ашигласнаар та эдгээр нөхцөлийг хүлээн зөвшөөрч байгаа болно. Бид агуулга, үнэ, нөхцөлийг урьдчилан мэдэгдэлгүйгээр өөрчлөх эрхтэй.'
+        ]},
+        { h:'Захиалга ба үнэ', p:[
+          'Бүх үнэ монгол төгрөгөөр (₮) заагдсан бөгөөд НӨАТ багтсан. Захиалга баталгаажсанаар худалдан авах-худалдан авагдах гэрээ үүснэ.',
+          'Бараа дуусах, техникийн алдаа гарах зэрэг тохиолдолд бид захиалгыг цуцалж, төлбөрийг бүрэн буцаан олгох эрхтэй.'
+        ]},
+        { h:'Төлбөр', p:[
+          'Төлбөрийг QPay системээр хүлээн авна. Төлбөр амжилттай баталгаажсанаар захиалга боловсруулагдаж эхэлнэ.'
+        ]},
+        { h:'Хүргэлт', p:[
+          'Улаанбаатар хотод ойролцоогоор 7 хоногийн дотор хүргэнэ. Хот хоорондын болон алслагдсан бүс нутагт хугацаа уртсаж болно.'
+        ]},
+        { h:'Хариуцлагын хязгаарлалт', p:[
+          'Бид бүтээгдэхүүний зураг, тайлбарыг аль болох үнэн зөв харуулахыг эрмэлздэг ч дэлгэцийн өнгө, гэрэлтүүлгээс шалтгаалан бодит бараанаас бага зэрэг ялгаатай харагдаж болзошгүй.'
+        ]}
+      ]
+    },
+    privacy: {
+      title: 'Нууцлалын бодлого',
+      sections: [
+        { h:'Бид ямар мэдээлэл цуглуулдаг вэ', p:[
+          'Захиалга хийхэд та өөрийн нэр, утасны дугаар, и-мэйл хаяг, хүргэлтийн хаягаа өгдөг. Энэ мэдээллийг зөвхөн таны захиалгыг боловсруулж, хүргэхэд ашигладаг.'
+        ]},
+        { h:'Мэдээллээ хаана хадгалдаг вэ', p:[
+          'Энэхүү сайт нь өөрийн сервер, өгөгдлийн сан ашигладаггүй статик сайт юм. Таны захиалгын түүх, сагс, хадгалсан загвар зэрэг мэдээлэл зөвхөн таны өөрийн хөтчийн (browser) орон нутгийн санах ойд (localStorage) хадгалагддаг бөгөөд манай сервер рүү илгээгддэггүй.',
+          'Иймд та хөтчийнхөө өгөгдлийг цэвэрлэх (clear browsing data) замаар өөрийн захиалгын түүхийг хэдийд ч устгах боломжтой.'
+        ]},
+        { h:'Гуравдагч этгээдтэй хуваалцах эсэх', p:[
+          'Бид таны хувийн мэдээллийг зар сурталчилгааны зорилгоор гуравдагч этгээдэд зарж, түрээслүүлж, өгдөггүй. Захиалгыг хүргэхэд шаардлагатай тохиолдолд зөвхөн хүргэлтийн үйлчилгээ үзүүлэгчтэй хуваалцаж болно.'
+        ]},
+        { h:'Холбоо барих', p:[
+          'Өөрийн мэдээлэлтэй холбоотой асуулт, хүсэлт байвал "Холбоо барих" хэсэгт байрлах утас, и-мэйлээр бидэнтэй холбогдоно уу.'
+        ]}
+      ]
+    }
+  };
+
+  function renderLegalPage(key){
+    var page = LEGAL_PAGES[key];
+    var host = $('#legal-body');
+    host.innerHTML = '';
+    if(!page) return;
+    host.appendChild(el('h2', { style:'margin-bottom:22px;' }, [page.title]));
+    page.sections.forEach(function(sec){
+      host.appendChild(el('h3', { style:'font-size:1.05rem; margin:22px 0 8px;' }, [sec.h]));
+      sec.p.forEach(function(txt){
+        host.appendChild(el('p', { style:'color:var(--ink-soft); line-height:1.7; margin-bottom:10px;' }, [txt]));
+      });
+    });
+  }
+
+  $all('.footer-link[data-legal]').forEach(function(b){
+    b.addEventListener('click', function(){
+      renderLegalPage(b.dataset.legal);
+      showView('legal');
+    });
+  });
+  $('#btn-legal-back').addEventListener('click', function(){ showView('home'); });
+
+  /* ============ SEARCH BAR ============ */
+  $('#btn-search-toggle').addEventListener('click', function(){
+    var bar = $('#search-bar');
+    var willShow = bar.hidden;
+    bar.hidden = !willShow;
+    $('#btn-search-toggle').setAttribute('aria-expanded', willShow ? 'true':'false');
+    if(willShow) $('#search-input').focus();
+  });
+  $('#btn-search-close').addEventListener('click', function(){
+    $('#search-bar').hidden = true;
+    $('#btn-search-toggle').setAttribute('aria-expanded','false');
+    $('#search-input').value = '';
+    state.filters.search = '';
+    if(state.view==='home') renderProductGrid();
+  });
+  $('#search-input').addEventListener('input', function(){
+    state.filters.search = this.value;
+    if(state.view!=='home') showView('home');
+    renderProductGrid();
+  });
+
+  /* ============ SHOP CONTROLS ============ */
+  $('#sort-select').addEventListener('change', function(){ state.filters.sort = this.value; renderProductGrid(); });
+  $('#btn-toggle-filters').addEventListener('click', function(){
+    state.sidebarHidden = !state.sidebarHidden;
+    $('#shop-layout').classList.toggle('no-sidebar', state.sidebarHidden);
+    $('#toggle-filters-label').textContent = state.sidebarHidden ? 'Шүүлтүүр харуулах' : 'Шүүлтүүр нуух';
+  });
+  $('#btn-clear-filters').addEventListener('click', function(){ clearFilters(); });
+  $('#switch-new').addEventListener('click', function(){
+    state.filters.newOnly = !state.filters.newOnly;
+    renderSidebar();
+    renderProductGrid();
+  });
+  $all('.accordion-head').forEach(function(head){
+    head.addEventListener('click', function(){
+      var acc = head.closest('.accordion');
+      var body = acc.querySelector('.accordion-body');
+      var open = acc.classList.toggle('open');
+      body.hidden = !open;
+    });
+  });
+
+  /* ============ INIT ============ */
+  function init(){
+    loadStorage();
+    loadWishlist();
+    loadAdminAuth();
+    renderCartBadge();
+    renderWishlistBadge();
+    if(window.innerWidth < 900){
+      state.sidebarHidden = true;
+      $('#shop-layout').classList.add('no-sidebar');
+      $('#toggle-filters-label').textContent = 'Шүүлтүүр харуулах';
+    }
+    renderSidebar();
+    renderProductGrid();
+    updateInvoiceTypeUI();
+    showView('home');
+  }
+  function showLoadError(err){
+    document.body.innerHTML = '<div style="max-width:520px;margin:80px auto;padding:28px;font-family:system-ui,sans-serif;text-align:center;">'
+      + '<h2 style="margin-bottom:12px;">Бүтээгдэхүүний мэдээлэл ачааллаж чадсангүй</h2>'
+      + '<p style="color:#666;line-height:1.6;">products.json файл олдсонгүй эсвэл уншиж чадсангүй. Хэрвээ index.html-г шууд файлаас (file://) нээж байгаа бол зарим хөтчид дотоод аюулгүй байдлын шалтгаанаар fetch() ажилладаггүй.</p>'
+      + '<p style="color:#666;line-height:1.6;margin-top:8px;">VS Code дээр <b>Live Server</b> өргөтгөл суулгаад "Go Live" дараад нээнэ үү, эсвэл сайтаа Netlify/Cloudflare Pages дээр байршуулсны дараа тэндээс шалгана уу.</p>'
+      + '</div>';
+    console.error('Failed to load products.json', err);
+  }
+  loadProducts().then(function(arr){
+    PRODUCTS = arr;
+    init();
+  }).catch(showLoadError);
+})();
+</script>
+
+</body>
+</html>

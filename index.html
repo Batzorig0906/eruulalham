@@ -9,92 +9,92 @@
 <link rel="icon" type="image/jpeg" href="logo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,500;1,9..144,600&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
   /* ============ TOKENS ============ */
   :root{
-    --bg: #FFFFFF;
+    --bg: #FBF8F6;
     --surface: #FFFFFF;
-    --surface-2: #F5F5F5;
-    --surface-3: #FAFAFA;
-    --ink: #111111;
-    --ink-soft: #707072;
-    --ink-faint: #9E9E9E;
-    --brand: #FA5400;
-    --brand-hover: #D84900;
-    --brand-deep: #D84900;
-    --brand-ink: #ffffff;
-    --brand-tint: #FFE9DE;
-    --mint: #1B7A3D;
-    --mint-hover: #146430;
-    --mint-tint: #E3F3E8;
-    --gold: #B07A1E;
-    --gold-tint: #FBEBD2;
-    --error: #C0392B;
-    --error-tint: #FBE3E0;
-    --border: #E5E5E5;
-    --border-soft: #EEEEEE;
-    --shadow-color: 0 0% 0%;
-    --shadow-sm: 0 1px 2px hsl(var(--shadow-color) / 0.06), 0 1px 1px hsl(var(--shadow-color) / 0.04);
-    --shadow-md: 0 8px 24px hsl(var(--shadow-color) / 0.08), 0 2px 6px hsl(var(--shadow-color) / 0.05);
-    --shadow-lg: 0 20px 48px hsl(var(--shadow-color) / 0.14), 0 6px 16px hsl(var(--shadow-color) / 0.08);
-    --r-sm: 6px;
-    --r-md: 10px;
-    --r-lg: 14px;
+    --surface-2: #F2ECE7;
+    --surface-3: #F7F2EE;
+    --ink: #221C1F;
+    --ink-soft: #6B5F62;
+    --ink-faint: #9C9092;
+    --brand: #7A2340;
+    --brand-hover: #611A32;
+    --brand-deep: #611A32;
+    --brand-ink: #FFF6F1;
+    --brand-tint: #F1DFE3;
+    --mint: #3E6B4F;
+    --mint-hover: #2F5540;
+    --mint-tint: #E1EAE1;
+    --gold: #A9762C;
+    --gold-tint: #F1E3C9;
+    --error: #A63A2C;
+    --error-tint: #F5DEDA;
+    --border: #E7DFDA;
+    --border-soft: #EFE9E4;
+    --shadow-color: 20 25% 12%;
+    --shadow-sm: 0 1px 2px hsl(var(--shadow-color) / 0.08), 0 1px 1px hsl(var(--shadow-color) / 0.05);
+    --shadow-md: 0 8px 24px hsl(var(--shadow-color) / 0.10), 0 2px 6px hsl(var(--shadow-color) / 0.06);
+    --shadow-lg: 0 20px 48px hsl(var(--shadow-color) / 0.16), 0 6px 16px hsl(var(--shadow-color) / 0.09);
+    --r-sm: 5px;
+    --r-md: 9px;
+    --r-lg: 16px;
     --r-pill: 999px;
-    --font-display: 'Helvetica Neue', 'Inter', Arial, sans-serif;
-    --font-body: 'Helvetica Neue', 'Inter', Arial, sans-serif;
-    --font-mono: 'Helvetica Neue', 'Inter', Arial, sans-serif;
+    --font-display: 'Fraunces', 'Georgia', serif;
+    --font-body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    --font-mono: 'IBM Plex Mono', 'Menlo', monospace;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --bg: #111111;
-      --surface: #1A1A1A;
-      --surface-2: #242424;
-      --surface-3: #1F1F1F;
-      --ink: #FFFFFF;
-      --ink-soft: #B5B5B5;
-      --ink-faint: #7A7A7A;
-      --brand: #FF7A33;
-      --brand-hover: #FF925C;
-      --brand-deep: #FF925C;
-      --brand-ink: #1A1000;
-      --brand-tint: #3A2213;
-      --mint: #5FCB84;
-      --mint-hover: #7FDB9E;
-      --mint-tint: #1B3324;
-      --gold: #E7B65C;
-      --gold-tint: #423420;
-      --error: #FF8A7A;
-      --error-tint: #452420;
-      --border: #333333;
-      --border-soft: #262626;
+      --bg: #1D171A;
+      --surface: #251E21;
+      --surface-2: #2E262A;
+      --surface-3: #292225;
+      --ink: #F6EFEC;
+      --ink-soft: #C2B2B6;
+      --ink-faint: #8C7B7F;
+      --brand: #E68CA8;
+      --brand-hover: #EFA6BD;
+      --brand-deep: #EFA6BD;
+      --brand-ink: #3B0F1E;
+      --brand-tint: #402029;
+      --mint: #8FC2A0;
+      --mint-hover: #A9D3B6;
+      --mint-tint: #24352A;
+      --gold: #D9AE63;
+      --gold-tint: #3B2F1C;
+      --error: #E28A78;
+      --error-tint: #3C241F;
+      --border: #3A3134;
+      --border-soft: #2C2528;
       --shadow-color: 0 0% 0%;
     }
   }
   :root[data-theme="dark"]{
-    --bg: #111111;
-    --surface: #1A1A1A;
-    --surface-2: #242424;
-    --surface-3: #1F1F1F;
-    --ink: #FFFFFF;
-    --ink-soft: #B5B5B5;
-    --ink-faint: #7A7A7A;
-    --brand: #FF7A33;
-    --brand-hover: #FF925C;
-    --brand-deep: #FF925C;
-    --brand-ink: #1A1000;
-    --brand-tint: #3A2213;
-    --mint: #5FCB84;
-    --mint-hover: #7FDB9E;
-    --mint-tint: #1B3324;
-    --gold: #E7B65C;
-    --gold-tint: #423420;
-    --error: #FF8A7A;
-    --error-tint: #452420;
-    --border: #333333;
-    --border-soft: #262626;
+    --bg: #1D171A;
+    --surface: #251E21;
+    --surface-2: #2E262A;
+    --surface-3: #292225;
+    --ink: #F6EFEC;
+    --ink-soft: #C2B2B6;
+    --ink-faint: #8C7B7F;
+    --brand: #E68CA8;
+    --brand-hover: #EFA6BD;
+    --brand-deep: #EFA6BD;
+    --brand-ink: #3B0F1E;
+    --brand-tint: #402029;
+    --mint: #8FC2A0;
+    --mint-hover: #A9D3B6;
+    --mint-tint: #24352A;
+    --gold: #D9AE63;
+    --gold-tint: #3B2F1C;
+    --error: #E28A78;
+    --error-tint: #3C241F;
+    --border: #3A3134;
+    --border-soft: #2C2528;
     --shadow-color: 0 0% 0%;
   }
 
@@ -106,7 +106,7 @@
     font-family:var(--font-body); font-size:16px; line-height:1.55;
     -webkit-font-smoothing:antialiased;
   }
-  h1,h2,h3,h4{ font-family:var(--font-display); font-weight:700; margin:0; text-wrap:balance; color:var(--ink); }
+  h1,h2,h3,h4{ font-family:var(--font-display); font-weight:600; margin:0; text-wrap:balance; color:var(--ink); letter-spacing:-0.01em; }
   p{ margin:0; }
   a{ color:inherit; }
   button{ font-family:inherit; color:inherit; }
@@ -160,22 +160,28 @@
   main{ min-height:60vh; }
 
   /* ============ HERO ============ */
-  .hero{ padding:56px 0 40px; position:relative; overflow:hidden; }
+  .hero{ padding:64px 0 30px; position:relative; overflow:hidden; }
   .hero-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center; }
-  .eyebrow{ display:inline-flex; align-items:center; gap:8px; background:var(--mint-tint); color:var(--mint); font-weight:800; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; padding:7px 14px; border-radius:var(--r-pill); }
-  .hero h1{ font-size:clamp(2.1rem, 4.4vw, 3.1rem); line-height:1.08; margin:18px 0 16px; }
-  .hero h1 em{ font-style:normal; color:var(--brand); }
-  .hero p.lead{ font-size:1.1rem; color:var(--ink-soft); max-width:46ch; margin-bottom:26px; }
-  .hero-ctas{ display:flex; gap:12px; flex-wrap:wrap; }
+  .eyebrow{ display:inline-flex; align-items:center; gap:9px; color:var(--mint); font-family:var(--font-mono); font-weight:600; font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; padding:0; }
+  .eyebrow svg{ width:14px; height:14px; }
+  .hero h1{ font-size:clamp(2.2rem, 4.6vw, 3.4rem); line-height:1.05; margin:16px 0 18px; }
+  .hero h1 em{ font-style:italic; font-weight:500; color:var(--brand); }
+  .hero p.lead{ font-size:1.08rem; color:var(--ink-soft); max-width:44ch; margin-bottom:28px; }
+  .hero-ctas{ display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
+  .hero-trail{ display:flex; align-items:center; gap:5px; color:var(--border); }
+  .hero-trail svg{ width:15px; height:15px; }
+  .hero-trail svg:nth-child(2){ color:var(--gold); transform:translateY(3px) rotate(8deg); }
+  .hero-trail svg:nth-child(3){ color:var(--mint); transform:translateY(-2px) rotate(-6deg); }
+  .hero-trail svg:nth-child(4){ color:var(--brand); transform:translateY(2px) rotate(10deg); }
   .hero-art{ position:relative; aspect-ratio:1/1; }
   .hero-art .footprint-orbit{ position:absolute; inset:0; }
-  .hero-blob{ position:absolute; inset:6%; background:var(--brand-tint); border-radius:44% 56% 62% 38% / 48% 42% 58% 52%; }
+  .hero-blob{ position:absolute; inset:9%; background:var(--surface-2); border-radius:var(--r-lg); }
+  .hero-blob::before{ content:""; position:absolute; inset:14px; border:1px solid var(--border); border-radius:calc(var(--r-lg) - 6px); }
   .hero-shoe{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
-  .hero-shoe svg{ width:72%; height:72%; filter:drop-shadow(0 18px 30px hsl(var(--shadow-color) / 0.22)); }
-  .hero-chip{ position:absolute; background:var(--surface); border-radius:var(--r-md); padding:10px 14px; box-shadow:var(--shadow-md); display:flex; align-items:center; gap:8px; font-weight:800; font-size:0.85rem; }
-  .hero-chip.c1{ top:6%; right:2%; color:var(--mint); }
-  .hero-chip.c2{ bottom:10%; left:0%; color:var(--brand-deep); }
-  .hero-chip svg{ width:18px; height:18px; }
+  .hero-shoe svg{ width:68%; height:68%; filter:drop-shadow(0 18px 30px hsl(var(--shadow-color) / 0.18)); }
+  .hero-chip{ position:absolute; background:var(--surface); border-radius:var(--r-md); padding:10px 14px; box-shadow:var(--shadow-md); display:flex; align-items:center; gap:8px; font-weight:700; font-size:0.83rem; border:1px solid var(--border-soft); }
+  .hero-chip.c2{ bottom:8%; left:-2%; color:var(--ink); }
+  .hero-chip svg{ width:17px; height:17px; color:var(--mint); }
   @media (max-width:860px){ .hero-grid{ grid-template-columns:1fr; } .hero-art{ order:-1; width:100%; max-width:340px; margin:0 auto; } }
 
   /* ============ BUTTONS ============ */
@@ -584,17 +590,19 @@
     <div class="wrap hero">
       <div class="hero-grid">
         <div>
-          <span class="eyebrow"><svg width="14" height="14"><use href="#ic-leaf"/></svg> Хүүхдийн хөлд ээлтэй</span>
+          <span class="eyebrow"><svg><use href="#ic-leaf"/></svg> Хүүхдийн хөлд ээлтэй</span>
           <h1>Жижиг хөл бүрт <em>эрүүл</em> алхам</h1>
           <p class="lead">Амьсгалдаг материал, уян хатан ул, тав тухтай хэлбэртэй — тэжээгдэж буй хөлд зориулсан гутал. Загвараа сонгоод, хэмжээгээ тааруулаад, хаалгаар хүлээж авахад бэлэн.</p>
           <div class="hero-ctas">
             <button class="btn btn-primary" id="btn-shop-now">Дэлгүүр үзэх</button>
+            <span class="hero-trail" aria-hidden="true">
+              <svg><use href="#ic-footprint"/></svg><svg><use href="#ic-footprint"/></svg><svg><use href="#ic-footprint"/></svg><svg><use href="#ic-footprint"/></svg>
+            </span>
           </div>
         </div>
         <div class="hero-art">
           <div class="hero-blob"></div>
           <div class="hero-shoe"><svg id="hero-shoe-svg" viewBox="0 0 200 140" style="--s1:var(--brand);--s2:var(--brand-deep);--s3:var(--mint)"><use href="#shoe-sneaker"/></svg></div>
-          <div class="hero-chip c1"><svg><use href="#ic-shield"/></svg> Чанарын баталгаа</div>
           <div class="hero-chip c2"><svg><use href="#ic-truck"/></svg> 7 хоногт хүргэнэ</div>
         </div>
       </div>

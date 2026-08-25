@@ -929,7 +929,6 @@
     </div>
     <div class="footer-bottom">
       <span>© 2026 Эрүүл Алхам</span>
-      <button type="button" id="btn-admin-link" class="footer-admin-link" aria-label="Дэлгүүр удирдах"><svg width="14" height="14"><use href="#ic-lock"/></svg></button>
     </div>
   </div>
 </footer>
@@ -2000,35 +1999,31 @@
   /* ============ ADMIN ============ */
   var ADMIN_SIZE_RANGE = STORE_SIZES;
 
-  var ADMIN_PASSWORD = 'SsmS&g%54Ts_M6uH';
+  /* Админ хэсэгт нууц үгийн талбараар биш, нууц хаягаар (URL) ордог.
+     Статик сайтад нууц үг шалгах код нь эх кодод ил байдаг тул жинхэнэ
+     хамгаалалт болдоггүй; харин "нууц үг асуух маягт" нь фишинг илрүүлэгч
+     системүүдийг дэмий сэрэмжлүүлдэг. Тиймээс нууц хаяг ашиглав. */
+  var ADMIN_KEY = 'SsmSg54TsM6uH';
+
+  function hasAdminKey(){
+    var h = (location.hash || '').replace(/^#/, '');
+    return h === 'admin-' + ADMIN_KEY;
+  }
 
   function renderAdminLogin(){
-    return el('div', { class:'form-card', style:'max-width:380px; margin:40px auto;' }, [
-      el('h3', {}, ['Админ нэвтрэлт']),
-      el('p', { class:'form-sub' }, ['Дэлгүүр удирдах хэсэгт зөвхөн эзэмшигч нэвтэрч орно.']),
-      el('div', { class:'form-field full' }, [
-        el('label', { for:'f-admin-pw' }, ['Нууц үг']),
-        el('input', {
-          id:'f-admin-pw', type:'password', autocomplete:'current-password', placeholder:'Нууц үгээ оруулна уу',
-          onkeydown:function(e){ if(e.key==='Enter'){ e.preventDefault(); attemptAdminLogin(); } }
-        }),
-        el('div', { class:'field-err', 'data-err':'admin-pw' })
-      ]),
-      el('button', { class:'btn btn-primary btn-block', type:'button', onclick:attemptAdminLogin }, ['Нэвтрэх'])
+    return el('div', { class:'form-card', style:'max-width:420px; margin:40px auto;' }, [
+      el('h3', {}, ['Хаалттай хэсэг']),
+      el('p', { class:'form-sub' }, ['Дэлгүүр удирдах хэсэгт зөвхөн эзэмшигчийн нууц хаягаар ордог.']),
+      el('button', { class:'btn btn-primary btn-block', type:'button', style:'margin-top:14px;',
+        onclick:function(){ showView('home'); } }, ['Дэлгүүр рүү буцах'])
     ]);
   }
 
-  function attemptAdminLogin(){
-    var input = $('#f-admin-pw');
-    var pw = input ? input.value : '';
-    if(pw === ADMIN_PASSWORD){
-      state.admin.authed = true;
-      try{ sessionStorage.setItem('ea_admin_authed', '1'); }catch(e){}
-      renderAdmin();
-    } else {
-      setFieldError('admin-pw', 'Нууц үг буруу байна');
-      if(input) input.focus();
-    }
+  function tryAdminUnlock(){
+    if(!hasAdminKey()) return false;
+    state.admin.authed = true;
+    try{ sessionStorage.setItem('ea_admin_authed', '1'); }catch(e){}
+    return true;
   }
 
   function logoutAdmin(){
@@ -2036,6 +2031,7 @@
     state.admin.formOpen = false;
     state.admin.editingId = null;
     try{ sessionStorage.removeItem('ea_admin_authed'); }catch(e){}
+    if(location.hash) history.replaceState(null, '', location.pathname + location.search);
     showView('home');
   }
 
@@ -2366,7 +2362,6 @@
   });
   $('#btn-cart').addEventListener('click', function(){ showView('cart'); renderCartView(); });
   $('#btn-wishlist').addEventListener('click', function(){ showView('wishlist'); });
-  $('#btn-admin-link').addEventListener('click', function(){ showView('admin'); });
   $('#btn-back-home').addEventListener('click', function(){ showView('home'); });
   (function(){
     var shopNow = $('#btn-shop-now');
@@ -2515,8 +2510,13 @@
     renderSidebar();
     renderProductGrid();
     updateInvoiceTypeUI();
-    showView('home');
+    // Нууц админ хаягаар орж ирсэн бол шууд удирдах хэсгийг нээнэ
+    if(tryAdminUnlock()){ showView('admin'); renderAdmin(); }
+    else showView('home');
   }
+  window.addEventListener('hashchange', function(){
+    if(tryAdminUnlock()){ showView('admin'); renderAdmin(); }
+  });
   function showLoadError(err){
     document.body.innerHTML = '<div style="max-width:520px;margin:80px auto;padding:28px;font-family:system-ui,sans-serif;text-align:center;">'
       + '<h2 style="margin-bottom:12px;">Бүтээгдэхүүний мэдээллийг ачаалж чадсангүй</h2>'

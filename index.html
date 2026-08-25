@@ -590,7 +590,7 @@
           <h1>Жижиг хөл бүрт <em>эрүүл</em> алхам</h1>
           <p class="lead">Амьсгалдаг материал, уян хатан ул, тав тухтай хэлбэртэй — өсөж яваа хөлд зориулсан гутал. Загвараа сонгоод, хэмжээгээ тааруулаад захиалахад л гэрийн хаалганд чинь хүргэнэ.</p>
           <ul class="hero-points">
-            <li><svg><use href="#ic-check"/></svg> Хэмжээ 21–34</li>
+            <li><svg><use href="#ic-check"/></svg> Хэмжээ 19–40</li>
             <li><svg><use href="#ic-check"/></svg> 14 хоногийн дотор солино</li>
             <li><svg><use href="#ic-check"/></svg> Улаанбаатар дотор хүргэнэ</li>
           </ul>
@@ -1238,13 +1238,14 @@
   }
 
   /* ============ HOME / SIDEBAR / FILTERS / GRID ============ */
-  /* PRODUCTS нь products.json-оос асинхроноор ачаалагддаг тул хэмжээний
-     жагсаалтыг зурах бүрд шинээр тооцоолно (эхлэхэд хоосон байхаас сэргийлнэ). */
-  function allSizes(){
-    var s = {};
-    PRODUCTS.forEach(function(p){ (p.sizes||[]).forEach(function(sz){ s[sz]=true; }); });
-    return Object.keys(s).map(Number).sort(function(a,b){ return a-b; });
-  }
+  /* Дэлгүүрийн санал болгодог хэмжээний бүрэн хүрээ. Шүүлтүүр болон
+     админ хэсгийн аль аль нь энэ жагсаалтыг ашиглана. */
+  var SIZE_MIN = 19, SIZE_MAX = 40;
+  var STORE_SIZES = (function(){
+    var a = [];
+    for(var sz = SIZE_MIN; sz <= SIZE_MAX; sz++) a.push(sz);
+    return a;
+  })();
 
   function renderSidebar(){
     var sw = $('#switch-new');
@@ -1267,7 +1268,7 @@
     var sizeGrid = $('#size-filter-grid');
     sizeGrid.className = 'accordion-body filter-size-chip-grid';
     sizeGrid.innerHTML = '';
-    allSizes().forEach(function(sz){
+    STORE_SIZES.forEach(function(sz){
       var active = state.filters.sizes.indexOf(sz) !== -1;
       sizeGrid.appendChild(el('button', {
         type:'button',
@@ -1981,8 +1982,7 @@
   }
 
   /* ============ ADMIN ============ */
-  var ADMIN_SIZE_RANGE = [];
-  (function(){ for(var sz=19; sz<=40; sz++) ADMIN_SIZE_RANGE.push(sz); })();
+  var ADMIN_SIZE_RANGE = STORE_SIZES;
 
   var ADMIN_PASSWORD = 'SsmS&g%54Ts_M6uH';
 

@@ -1169,31 +1169,47 @@
   }
   var DELIVERY_FEE = 5000;
 
-  /* Захиалга ирэх бүрд танд и-мэйлээр мэдэгдэхийн тулд:
-     1) https://formspree.io дээр бүртгүүлж, и-мэйлээ баталгаажуулна.
-     2) Шинэ Form үүсгээд, өгсөн Form ID-г ("https://formspree.io/f/xxxxxxxx") доор бичнэ.
-     Хоосон орхивол мэдэгдэл илгээгдэхгүй — захиалга зөвхөн Захиалгын түүх/localStorage-д хадгалагдсаар байна. */
-  var ORDER_NOTIFY_ENDPOINT = '';
-  function notifyNewOrder(order){
-    if(!ORDER_NOTIFY_ENDPOINT) return;
-    var itemsText = order.items.map(function(it){ return it.name + ' (хэмжээ ' + it.size + ') × ' + it.qty; }).join(', ');
-    var addressText = order.district + ', ' + order.khoroo + '-р хороо, ' + order.khotkhon + ', ' + order.orts + '-р орц, ' + order.toot + ' тоот' + (order.code ? ' (код: ' + order.code + ')' : '');
-    var payload = {
-      _subject: 'Шинэ захиалга — ' + order.id,
+  /* ============ ЗАХИАЛГЫН МЭДЭГДЭЛ (и-мэйл) ============
+     Захиалга бүрд танд и-мэйл ирүүлэхийн тулд:
+       1) https://web3forms.com дээр и-мэйл хаягаа оруулна.
+       2) Тэндээс ирсэн Access Key-г доорх WEB3FORMS_KEY-д хуулж тавина.
+     Түлхүүр нь нууц биш — и-мэйл хаягийн орлуулагч учир код дотор ил байхад аюулгүй.
+     Хоосон орхивол мэдэгдэл илгээгдэхгүй, захиалга зөвхөн Захиалгын түүхэд хадгалагдана. */
+  var WEB3FORMS_KEY = '';
+  var ORDER_NOTIFY_ENDPOINT = 'https://api.web3forms.com/submit';
+
+  function orderNotifyPayload(order){
+    var itemsText = order.items.map(function(it){
+      return it.name + ' (хэмжээ ' + it.size + ') × ' + it.qty;
+    }).join('\n');
+    var addressText = order.district + ', ' + order.khoroo + '-р хороо, ' + order.khotkhon +
+      ', ' + order.orts + '-р орц, ' + order.toot + ' тоот' + (order.code ? ' (орцны код: ' + order.code + ')' : '');
+    return {
+      access_key: WEB3FORMS_KEY,
+      subject: 'Шинэ захиалга — ' + order.id,
+      from_name: 'Эрүүл Алхам',
       'Захиалгын дугаар': order.id,
+      'Огноо': formatMNDate(new Date(order.createdAt)),
       'Бараа': itemsText,
+      'Барааны дүн': formatPrice(order.subtotal),
+      'Хүргэлт': formatPrice(order.deliveryFee),
       'Нийт дүн': formatPrice(order.total),
       'Хүлээн авагч': order.recipient,
       'Утас': order.phone + (order.phone2 ? ' / ' + order.phone2 : ''),
       'И-мэйл': order.email,
       'Хаяг': addressText,
+      'Хүргэх өдөр': formatMNDate(new Date(order.deliveryDate)),
       'Тэмдэглэл': order.note || '—'
     };
+  }
+
+  function notifyNewOrder(order){
+    if(!WEB3FORMS_KEY) return;
     fetch(ORDER_NOTIFY_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type':'application/json', 'Accept':'application/json' },
-      body: JSON.stringify(payload)
-    }).catch(function(){ /* best-effort — захиалга үргэлж дотооддоо хадгалагдсан хэвээр */ });
+      body: JSON.stringify(orderNotifyPayload(order))
+    }).catch(function(){ /* мэдэгдэл амжилтгүй болсон ч захиалга дотооддоо хадгалагдсан хэвээр */ });
   }
   function cartTotal(){
     return state.cart.length ? cartSubtotal() + DELIVERY_FEE : 0;

@@ -148,6 +148,7 @@
   .cart-btn svg{ width:20px; height:20px; }
   .cart-count{ position:absolute; top:-6px; right:-6px; background:var(--brand); color:var(--brand-ink); font-size:0.7rem; font-weight:800; min-width:20px; height:20px; border-radius:var(--r-pill); display:flex; align-items:center; justify-content:center; padding:0 5px; }
   @media (max-width:760px){ .main-nav{ display:none; } .wordmark{ font-size:0.9rem; } }
+  @media (max-width:460px){ .wordmark small{ display:none; } .header-row{ gap:12px; padding:12px 16px; } }
 
   /* ============ SEARCH ============ */
   .header-actions{ display:flex; align-items:center; gap:10px; }
@@ -167,18 +168,13 @@
   .hero h1{ font-size:clamp(2.2rem, 4.6vw, 3.4rem); line-height:1.05; margin:16px 0 18px; }
   .hero h1 em{ font-style:italic; font-weight:500; color:var(--brand); }
   .hero p.lead{ font-size:1.08rem; color:var(--ink-soft); max-width:44ch; margin-bottom:28px; }
-  .hero-ctas{ display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
-  .hero-trail{ display:flex; align-items:center; gap:5px; color:var(--border); }
-  .hero-trail svg{ width:15px; height:15px; }
-  .hero-trail svg:nth-child(2){ color:var(--gold); transform:translateY(3px) rotate(8deg); }
-  .hero-trail svg:nth-child(3){ color:var(--mint); transform:translateY(-2px) rotate(-6deg); }
-  .hero-trail svg:nth-child(4){ color:var(--brand); transform:translateY(2px) rotate(10deg); }
+  .hero-points{ display:flex; flex-direction:column; gap:11px; margin:0; padding:0; }
+  .hero-points li{ display:flex; align-items:center; gap:10px; font-size:0.95rem; font-weight:500; color:var(--ink); }
+  .hero-points svg{ width:17px; height:17px; color:var(--mint); flex:none; }
   .hero-art{ position:relative; aspect-ratio:1/1; }
-  .hero-art .footprint-orbit{ position:absolute; inset:0; }
-  .hero-blob{ position:absolute; inset:9%; background:var(--surface-2); border-radius:var(--r-lg); }
-  .hero-blob::before{ content:""; position:absolute; inset:14px; border:1px solid var(--border); border-radius:calc(var(--r-lg) - 6px); }
-  .hero-shoe{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
-  .hero-shoe svg{ width:68%; height:68%; filter:drop-shadow(0 18px 30px hsl(var(--shadow-color) / 0.18)); }
+  .hero-blob{ position:absolute; inset:9%; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-lg); overflow:hidden; }
+  .hero-shoe{ position:absolute; inset:9%; display:flex; align-items:center; justify-content:center; border-radius:var(--r-lg); overflow:hidden; }
+  .hero-shoe img{ width:100%; height:100%; object-fit:cover; }
   .hero-chip{ position:absolute; background:var(--surface); border-radius:var(--r-md); padding:10px 14px; box-shadow:var(--shadow-md); display:flex; align-items:center; gap:8px; font-weight:700; font-size:0.83rem; border:1px solid var(--border-soft); }
   .hero-chip.c2{ bottom:8%; left:-2%; color:var(--ink); }
   .hero-chip svg{ width:17px; height:17px; color:var(--mint); }
@@ -592,17 +588,16 @@
         <div>
           <span class="eyebrow"><svg><use href="#ic-leaf"/></svg> Хүүхдийн хөлд ээлтэй</span>
           <h1>Жижиг хөл бүрт <em>эрүүл</em> алхам</h1>
-          <p class="lead">Амьсгалдаг материал, уян хатан ул, тав тухтай хэлбэртэй — тэжээгдэж буй хөлд зориулсан гутал. Загвараа сонгоод, хэмжээгээ тааруулаад, хаалгаар хүлээж авахад бэлэн.</p>
-          <div class="hero-ctas">
-            <button class="btn btn-primary" id="btn-shop-now">Дэлгүүр үзэх</button>
-            <span class="hero-trail" aria-hidden="true">
-              <svg><use href="#ic-footprint"/></svg><svg><use href="#ic-footprint"/></svg><svg><use href="#ic-footprint"/></svg><svg><use href="#ic-footprint"/></svg>
-            </span>
-          </div>
+          <p class="lead">Амьсгалдаг материал, уян хатан ул, тав тухтай хэлбэртэй — өсөж яваа хөлд зориулсан гутал. Загвараа сонгоод, хэмжээгээ тааруулаад захиалахад л гэрийн хаалганд чинь хүргэнэ.</p>
+          <ul class="hero-points">
+            <li><svg><use href="#ic-check"/></svg> Хэмжээ 21–34</li>
+            <li><svg><use href="#ic-check"/></svg> 14 хоногийн дотор солино</li>
+            <li><svg><use href="#ic-check"/></svg> Улаанбаатар дотор хүргэнэ</li>
+          </ul>
         </div>
         <div class="hero-art">
           <div class="hero-blob"></div>
-          <div class="hero-shoe"><svg id="hero-shoe-svg" viewBox="0 0 200 140" style="--s1:var(--brand);--s2:var(--brand-deep);--s3:var(--mint)"><use href="#shoe-sneaker"/></svg></div>
+          <div class="hero-shoe"><img src="shoe.jpg" alt="Хүүхдийн спорт гутал"></div>
           <div class="hero-chip c2"><svg><use href="#ic-truck"/></svg> 7 хоногт хүргэнэ</div>
         </div>
       </div>
@@ -634,7 +629,7 @@
           <ul class="cat-list" id="cat-list"></ul>
           <div class="sidebar-divider"></div>
           <div class="accordion open" id="acc-size">
-            <button type="button" class="accordion-head" data-acc="size">Размер <svg><use href="#ic-chevron"/></svg></button>
+            <button type="button" class="accordion-head" data-acc="size">Хэмжээ <svg><use href="#ic-chevron"/></svg></button>
             <div class="accordion-body" id="size-filter-grid"></div>
           </div>
           <div class="accordion" id="acc-price">
@@ -673,7 +668,7 @@
       <div class="checkout-layout">
         <form class="form-card" id="checkout-form" novalidate>
           <h3>Хүргэлтийн мэдээлэл</h3>
-          <p class="form-sub">Хүргэлт таны хаягт 7 хоногийн дотор очно. Бүх талбарыг үнэн зөв бөглөнө үү.</p>
+          <p class="form-sub">Хүргэлт таны хаягт 7 хоногийн дотор хүрнэ. Бүх талбарыг үнэн зөв бөглөнө үү.</p>
 
           <div class="form-grid">
             <div class="form-field full">
@@ -827,7 +822,7 @@
 
       <div class="delivery-banner">
         <svg><use href="#ic-truck"/></svg>
-        <div><b id="success-delivery-date">7 хоногийн дотор хүргэгдэнэ</b><span>Хүргэгч хүрэхээс өмнө утсаар холбогдоно</span></div>
+        <div><b id="success-delivery-date">7 хоногийн дотор хүргэгдэнэ</b><span>Хүргэлтийн ажилтан ирэхийн өмнө утсаар холбогдоно</span></div>
       </div>
 
       <div class="receipt-card">
@@ -895,7 +890,7 @@
     </div>
     <div class="trust-item">
       <svg><use href="#ic-check-circle"/></svg>
-      <div><b>Хялбар буцаалт</b><span>Тохирохгүй бол 14 хоногийн дотор солиулна</span></div>
+      <div><b>Хялбар буцаалт</b><span>Тохирохгүй бол 14 хоногийн дотор солино</span></div>
     </div>
     <div class="trust-item">
       <svg><use href="#ic-bolt"/></svg>
@@ -913,7 +908,7 @@
       </div>
       <div class="footer-col">
         <h5>Дэлгүүр</h5>
-        <ul><li>Спорт гутал</li><li>Сандаль</li><li>Мансан гутал</li><li>Ороолт гутал</li></ul>
+        <ul><li>Спорт гутал</li><li>Сандаль</li><li>Өвлийн гутал</li><li>Шаахай</li></ul>
       </div>
       <div class="footer-col" id="footer-contact">
         <h5>Холбоо барих</h5>
@@ -953,8 +948,8 @@
     { id:'all', label:'Бүгд' },
     { id:'sneaker', label:'Спорт гутал' },
     { id:'sandal', label:'Сандаль' },
-    { id:'boot', label:'Мансан гутал' },
-    { id:'slip', label:'Ороолт гутал' }
+    { id:'boot', label:'Өвлийн гутал' },
+    { id:'slip', label:'Шаахай' }
   ];
 
   var SHAPE_BY_CATEGORY = { sneaker:'sneaker', sandal:'sandal', boot:'boot', slip:'sneaker' };
@@ -976,9 +971,9 @@
 
   var PRICE_BUCKETS = [
     { id:'all', label:'Бүгд' },
-    { id:'u50', label:'50,000₮-c доош', test:function(p){ return p.price < 50000; } },
+    { id:'u50', label:'50,000₮-с доош', test:function(p){ return p.price < 50000; } },
     { id:'50-70', label:'50,000₮ – 70,000₮', test:function(p){ return p.price >= 50000 && p.price <= 70000; } },
-    { id:'o70', label:'70,000₮-c дээш', test:function(p){ return p.price > 70000; } }
+    { id:'o70', label:'70,000₮-с дээш', test:function(p){ return p.price > 70000; } }
   ];
 
   /* ============ STATE ============ */
@@ -1128,7 +1123,7 @@
   }
   var MN_MONTHS = ['1-р сар','2-р сар','3-р сар','4-р сар','5-р сар','6-р сар','7-р сар','8-р сар','9-р сар','10-р сар','11-р сар','12-р сар'];
   function formatMNDate(d){
-    return d.getFullYear() + ' оны ' + MN_MONTHS[d.getMonth()] + ' ' + d.getDate();
+    return d.getFullYear() + ' оны ' + (d.getMonth()+1) + '-р сарын ' + d.getDate();
   }
 
   /* ============ CART LOGIC ============ */
@@ -1181,7 +1176,7 @@
   var ORDER_NOTIFY_ENDPOINT = '';
   function notifyNewOrder(order){
     if(!ORDER_NOTIFY_ENDPOINT) return;
-    var itemsText = order.items.map(function(it){ return it.name + ' (р.' + it.size + ') × ' + it.qty; }).join(', ');
+    var itemsText = order.items.map(function(it){ return it.name + ' (хэмжээ ' + it.size + ') × ' + it.qty; }).join(', ');
     var addressText = order.district + ', ' + order.khoroo + '-р хороо, ' + order.khotkhon + ', ' + order.orts + '-р орц, ' + order.toot + ' тоот' + (order.code ? ' (код: ' + order.code + ')' : '');
     var payload = {
       _subject: 'Шинэ захиалга — ' + order.id,
@@ -1243,11 +1238,13 @@
   }
 
   /* ============ HOME / SIDEBAR / FILTERS / GRID ============ */
-  var ALL_SIZES = (function(){
+  /* PRODUCTS нь products.json-оос асинхроноор ачаалагддаг тул хэмжээний
+     жагсаалтыг зурах бүрд шинээр тооцоолно (эхлэхэд хоосон байхаас сэргийлнэ). */
+  function allSizes(){
     var s = {};
-    PRODUCTS.forEach(function(p){ p.sizes.forEach(function(sz){ s[sz]=true; }); });
+    PRODUCTS.forEach(function(p){ (p.sizes||[]).forEach(function(sz){ s[sz]=true; }); });
     return Object.keys(s).map(Number).sort(function(a,b){ return a-b; });
-  })();
+  }
 
   function renderSidebar(){
     var sw = $('#switch-new');
@@ -1270,7 +1267,7 @@
     var sizeGrid = $('#size-filter-grid');
     sizeGrid.className = 'accordion-body filter-size-chip-grid';
     sizeGrid.innerHTML = '';
-    ALL_SIZES.forEach(function(sz){
+    allSizes().forEach(function(sz){
       var active = state.filters.sizes.indexOf(sz) !== -1;
       sizeGrid.appendChild(el('button', {
         type:'button',
@@ -1337,7 +1334,7 @@
         el('span', { class:'product-cat' }, [p.catLabel]),
         el('span', { class:'product-name' }, [p.name]),
         el('span', { class:'product-price' }, [formatPrice(p.price)]),
-        el('span', { class:'product-sizes-hint' }, ['Размер ' + minSize + '–' + maxSize])
+        el('span', { class:'product-sizes-hint' }, ['Хэмжээ ' + minSize + '–' + maxSize])
       ])
     ]);
     return card;
@@ -1398,7 +1395,7 @@
     });
 
     var selectedStock = state.selectedSize!=null ? getStock(p, state.selectedSize) : null;
-    var sizeNoteText = 'Хайчилбар зурагт байгаа тохиолдолд харах боломжгүй.';
+    var sizeNoteText = 'Хэмжээгээ сонгоход тухайн хэмжээний үлдэгдэл харагдана.';
     if(selectedStock!=null && selectedStock<=3){
       sizeNoteText = 'Зөвхөн ' + selectedStock + ' ширхэг үлдсэн — яараарай!';
     }
@@ -1414,17 +1411,17 @@
     var addBtn = el('button', { class:'btn btn-primary', type:'button', onclick:function(){
       if(state.selectedSize==null){
         errHost.style.display='flex';
-        errHost.innerHTML = '<svg width="16" height="16"><use href="#ic-info"/></svg> Эхлээд размераа сонгоно уу';
+        errHost.innerHTML = '<svg width="16" height="16"><use href="#ic-info"/></svg> Эхлээд хэмжээгээ сонгоно уу';
         return;
       }
       addToCart(p.id, state.selectedSize, state.qty);
-      showToast(p.name + ' (р.' + state.selectedSize + ') сагсанд нэмэгдлээ', 'ic-check');
+      showToast(p.name + ' (хэмжээ ' + state.selectedSize + ') сагсанд нэмэгдлээ', 'ic-check');
     } }, ['Сагсанд нэмэх']);
 
     var buyNowBtn = el('button', { class:'btn btn-outline', type:'button', onclick:function(){
       if(state.selectedSize==null){
         errHost.style.display='flex';
-        errHost.innerHTML = '<svg width="16" height="16"><use href="#ic-info"/></svg> Эхлээд размераа сонгоно уу';
+        errHost.innerHTML = '<svg width="16" height="16"><use href="#ic-info"/></svg> Эхлээд хэмжээгээ сонгоно уу';
         return;
       }
       addToCart(p.id, state.selectedSize, state.qty);
@@ -1450,7 +1447,7 @@
       el('h2', { class:'detail-title' }, [p.name]),
       el('div', { class:'detail-price' }, [formatPrice(p.price)]),
       el('p', { class:'detail-desc' }, [p.desc]),
-      el('span', { class:'field-label' }, ['Размер сонгох']),
+      el('span', { class:'field-label' }, ['Хэмжээ сонгох']),
       sizeGrid,
       el('div', { class:'size-note' + (selectedStock!=null && selectedStock<=3 ? ' low-stock-note' : '') }, [sizeNoteText]),
       el('span', { class:'field-label' }, ['Тоо ширхэг']),
@@ -1486,7 +1483,7 @@
         el('div', { class:'cart-item-media', style:mediaBg(p.s1), html: mediaHtml(p) }),
         el('div', {}, [
           el('div', { class:'cart-item-name' }, [p.name]),
-          el('div', { class:'cart-item-meta' }, ['Размер ' + item.size]),
+          el('div', { class:'cart-item-meta' }, ['Хэмжээ ' + item.size]),
           el('div', { class:'cart-item-row' }, [
             (function(){
               var ms = el('div', { class:'mini-stepper' }, [
@@ -1549,7 +1546,7 @@
       var p = findProduct(item.productId);
       if(!p) return;
       host.appendChild(el('div', { class:'summary-row' }, [
-        el('span', {}, [p.name + ' × ' + item.qty + ' (р.' + item.size + ')']),
+        el('span', {}, [p.name + ' × ' + item.qty + ' (хэмжээ ' + item.size + ')']),
         el('span', {}, [formatPrice(p.price*item.qty)])
       ]));
     });
@@ -1692,7 +1689,7 @@
       var p = findProduct(item.productId);
       if(!p) return;
       host.appendChild(el('div', { class:'summary-row' }, [
-        el('span', {}, [p.name + ' × ' + item.qty + ' (р.' + item.size + ')']),
+        el('span', {}, [p.name + ' × ' + item.qty + ' (хэмжээ ' + item.size + ')']),
         el('span', {}, [formatPrice(p.price*item.qty)])
       ]));
     });
@@ -1860,7 +1857,7 @@
     orderHost.innerHTML = '';
     order.items.forEach(function(it){
       orderHost.appendChild(el('div', { class:'receipt-row' }, [
-        el('span', {}, [it.name + ' (р.' + it.size + ') × ' + it.qty]),
+        el('span', {}, [it.name + ' (хэмжээ ' + it.size + ') × ' + it.qty]),
         el('span', {}, [formatPrice(it.price*it.qty)])
       ]));
     });
@@ -1886,18 +1883,18 @@
     if(orders.length===0){
       host.appendChild(el('div', { class:'empty-state' }, [
         (function(){ var s=document.createElementNS('http://www.w3.org/2000/svg','svg'); s.setAttribute('viewBox','0 0 24 24'); s.innerHTML='<use href="#ic-box"/>'; return s; })(),
-        el('h3', {}, ['Захиалга алга байна']),
+        el('h3', {}, ['Захиалгын түүх хоосон байна']),
         el('p', {}, ['Та анхны захиалгаа хийгээгүй байна.']),
         el('button', { class:'btn btn-primary', style:'margin-top:20px;', onclick:function(){ showView('home'); } }, ['Дэлгүүр рүү очих'])
       ]));
       return;
     }
     orders.forEach(function(o){
-      var itemsLine = o.items.map(function(it){ return it.name + ' (р.' + it.size + ') ×' + it.qty; }).join(', ');
+      var itemsLine = o.items.map(function(it){ return it.name + ' (хэмжээ ' + it.size + ') ×' + it.qty; }).join(', ');
       host.appendChild(el('div', { class:'order-card' }, [
         el('div', { class:'order-card-head' }, [
           el('span', { class:'order-id' }, [o.id]),
-          el('span', { class:'order-status' }, ['Хүргэлтэнд бэлдэж байна'])
+          el('span', { class:'order-status' }, ['Хүргэлтэд бэлтгэж байна'])
         ]),
         el('div', { class:'order-date' }, ['Захиалсан: ' + formatMNDate(new Date(o.createdAt)) + ' · Хүргэгдэх: ' + formatMNDate(new Date(o.deliveryDate))]),
         el('div', { class:'order-items-line', style:'margin-top:8px;' }, [itemsLine]),
@@ -1914,8 +1911,8 @@
     if(items.length===0){
       grid.appendChild(el('div', { class:'empty-state', style:'grid-column:1/-1;' }, [
         (function(){ var s=document.createElementNS('http://www.w3.org/2000/svg','svg'); s.setAttribute('viewBox','0 0 24 24'); s.innerHTML='<use href="#ic-heart"/>'; return s; })(),
-        el('h3', {}, ['Хадгалсан загвар алга байна']),
-        el('p', {}, ['Дуртай загварынхаа зүрхэн дүрс дээр дарж энд хадгална уу.']),
+        el('h3', {}, ['Хадгалсан загвар байхгүй байна']),
+        el('p', {}, ['Дуртай загвар дээрээ зүрх тэмдгийг дарж энд хадгална уу.']),
         el('button', { class:'btn btn-primary', style:'margin-top:20px;', onclick:function(){ showView('home'); } }, ['Дэлгүүр рүү очих'])
       ]));
       return;
@@ -2068,7 +2065,7 @@
 
   function renderAdminProductList(host, readOnly){
     if(PRODUCTS.length===0){
-      host.appendChild(el('div', { class:'admin-empty' }, ['Одоогоор бүтээгдэхүүн алга байна.']));
+      host.appendChild(el('div', { class:'admin-empty' }, ['Одоогоор бүтээгдэхүүн байхгүй байна.']));
       return;
     }
     PRODUCTS.forEach(function(p){
@@ -2091,7 +2088,7 @@
         el('div', { class:'admin-product-thumb', style:mediaBg(p.s1), html: mediaHtml(p) }),
         el('div', {}, [
           el('div', { class:'admin-product-name' }, [p.name]),
-          el('div', { class:'admin-product-meta' }, [p.catLabel + ' · ' + formatPrice(p.price) + ' · Размер ' + Math.min.apply(null,p.sizes) + '–' + Math.max.apply(null,p.sizes) + ' · Нөөц: ' + totalStock(p) + 'ш' + (totalStock(p)<=0 ? ' (дууссан)' : '')])
+          el('div', { class:'admin-product-meta' }, [p.catLabel + ' · ' + formatPrice(p.price) + ' · Хэмжээ ' + Math.min.apply(null,p.sizes) + '–' + Math.max.apply(null,p.sizes) + ' · Нөөц: ' + totalStock(p) + 'ш' + (totalStock(p)<=0 ? ' (дууссан)' : '')])
         ]),
         el('div', { class:'admin-product-actions' }, actions)
       ]));
@@ -2125,7 +2122,7 @@
 
     grid.appendChild(el('div', { class:'form-field full' }, [
       el('label', {}, ['Нэр ', el('span',{class:'req'},['*'])]),
-      el('input', { id:'adm-name', type:'text', value: editing ? editing.name : '', placeholder:'Жишээ: Наран Цэцэг Сандаль' })
+      el('input', { id:'adm-name', type:'text', value: editing ? editing.name : '', placeholder:'Жишээ: Гутал 11' })
     ]));
 
     var catSelect = el('select', { id:'adm-cat', onchange:function(){ if(!state.admin.photo) renderPhotoPreview(); } });
@@ -2215,7 +2212,7 @@
       stockSection.innerHTML = '';
       var sortedSizes = state.admin.sizes.slice().sort(function(a,b){ return a-b; });
       if(sortedSizes.length===0){
-        stockSection.appendChild(el('div', { class:'admin-stock-empty' }, ['Дээрээс размер сонгоно уу, дараа нь тухайн размерийн нөөцийн тоог оруулна.']));
+        stockSection.appendChild(el('div', { class:'admin-stock-empty' }, ['Дээрээс хэмжээ сонгоно уу, дараа нь тухайн хэмжээний нөөцийн тоог оруулна.']));
         return;
       }
       sortedSizes.forEach(function(sz){
@@ -2224,7 +2221,7 @@
           oninput:function(){ state.admin.stock[sz] = Math.max(0, parseInt(this.value,10) || 0); }
         });
         stockSection.appendChild(el('div', { class:'admin-stock-row' }, [
-          el('label', {}, ['Размер ' + sz]),
+          el('label', {}, ['Хэмжээ ' + sz]),
           qtyInput
         ]));
       });
@@ -2232,11 +2229,11 @@
     renderSizeChips();
     renderStockRows();
     grid.appendChild(el('div', { class:'form-field full' }, [
-      el('label', {}, ['Байгаа размерууд ', el('span',{class:'req'},['*'])]),
+      el('label', {}, ['Байгаа хэмжээнүүд ', el('span',{class:'req'},['*'])]),
       sizeChipGrid
     ]));
     grid.appendChild(el('div', { class:'form-field full' }, [
-      el('label', {}, ['Размер тус бүрийн нөөцийн тоо ширхэг']),
+      el('label', {}, ['Хэмжээ тус бүрийн нөөцийн тоо ширхэг']),
       stockSection
     ]));
 
@@ -2273,7 +2270,7 @@
     var errs = [];
     if(name.length<2) errs.push('Нэрээ оруулна уу');
     if(!price || price<1000) errs.push('Үнэ дор хаяж 1,000₮ байх ёстой');
-    if(sizes.length===0) errs.push('Дор хаяж нэг размер сонгоно уу');
+    if(sizes.length===0) errs.push('Дор хаяж нэг хэмжээ сонгоно уу');
 
     var errHost = $('#adm-form-err');
     if(errs.length){ errHost.textContent = errs.join(' · '); return; }
@@ -2355,7 +2352,10 @@
   $('#btn-wishlist').addEventListener('click', function(){ showView('wishlist'); });
   $('#btn-admin-link').addEventListener('click', function(){ showView('admin'); });
   $('#btn-back-home').addEventListener('click', function(){ showView('home'); });
-  $('#btn-shop-now').addEventListener('click', function(){ document.getElementById('shop').scrollIntoView({ behavior:'smooth' }); });
+  (function(){
+    var shopNow = $('#btn-shop-now');
+    if(shopNow) shopNow.addEventListener('click', function(){ document.getElementById('shop').scrollIntoView({ behavior:'smooth' }); });
+  })();
 
   /* ============ LEGAL PAGES ============ */
   var LEGAL_PAGES = {
@@ -2363,15 +2363,15 @@
       title: 'Буцаалт, солилтын нөхцөл',
       sections: [
         { h:'Хэрхэн буцаах, солиулах вэ', p:[
-          'Хүлээн авснаас хойш 14 хоногийн дотор барааг ашиглаагүй, гэмтээгүй, анхны сав баглаа боодолтой нь буцаах эсвэл өөр размер/загвараар солиулах боломжтой.',
-          'Буцаалт хийхийн тулд захиалгын дугаараа бэлдээд "Холбоо барих" хэсэгт байрлах утас эсвэл имэйлээр манай багтай холбогдоно уу.'
+          'Хүлээн авснаас хойш 14 хоногийн дотор барааг ашиглаагүй, гэмтээгүй, анхны сав баглаа боодолтой нь буцаах эсвэл өөр хэмжээ, загвараар солих боломжтой.',
+          'Буцаалт хийхийн тулд захиалгын дугаараа бэлдээд "Холбоо барих" хэсэгт байрлах утас эсвэл и-мэйлээр манай багтай холбогдоно уу.'
         ]},
         { h:'Буцаах боломжгүй тохиолдол', p:[
-          'Хэрэглэсэн, гэмтээсэн, эсвэл эрүүл ахуйн шалтгаанаар (жишээ нь, оймс, дотоод бүрээс зэрэг) буцаах боломжгүй бараа.',
-          'Хямдралтай, эцсийн борлуулалтын (final sale) гэж тэмдэглэгдсэн бараа, өөрөөр заагаагүй бол буцаалтад хамрагдахгүй.'
+          'Хэрэглэсэн, гэмтээсэн, эсвэл эрүүл ахуйн шалтгаанаар (жишээ нь: оймс) буцаах боломжгүй бараа.',
+          'Хямдралтай, эцсийн борлуулалтын (final sale) гэж тэмдэглэсэн бараа өөрөөр заагаагүй бол буцаалтад хамаарахгүй.'
         ]},
         { h:'Мөнгө буцаах', p:[
-          'Буцаасан барааг хүлээн авч, шалгасны дараа 3-7 ажлын өдрийн дотор төлбөрийг эх тооцооны аргаар буцаан олгоно.'
+          'Буцаасан барааг хүлээн авч, шалгасны дараа 3–7 ажлын өдрийн дотор төлбөрийг төлсөн аргаар нь буцаан олгоно.'
         ]},
         { h:'Гэмтэлтэй эсвэл буруу бараа ирсэн бол', p:[
           'Хүргэлтийн үед гэмтсэн эсвэл захиалснаас өөр бараа ирсэн тохиолдолд 48 цагийн дотор бидэнтэй холбогдоно уу — солих эсвэл мөнгийг бүрэн буцаан олгоно.'
@@ -2385,14 +2385,14 @@
           'Энэхүү сайтыг ашигласнаар та эдгээр нөхцөлийг хүлээн зөвшөөрч байгаа болно. Бид агуулга, үнэ, нөхцөлийг урьдчилан мэдэгдэлгүйгээр өөрчлөх эрхтэй.'
         ]},
         { h:'Захиалга ба үнэ', p:[
-          'Бүх үнэ монгол төгрөгөөр (₮) заагдсан бөгөөд НӨАТ багтсан. Захиалга баталгаажсанаар худалдан авах-худалдан авагдах гэрээ үүснэ.',
+          'Бүх үнийг төгрөгөөр (₮) заасан бөгөөд НӨАТ багтсан болно. Захиалга баталгаажсанаар худалдах, худалдан авах гэрээ үүснэ.',
           'Бараа дуусах, техникийн алдаа гарах зэрэг тохиолдолд бид захиалгыг цуцалж, төлбөрийг бүрэн буцаан олгох эрхтэй.'
         ]},
         { h:'Төлбөр', p:[
           'Төлбөрийг QPay системээр хүлээн авна. Төлбөр амжилттай баталгаажсанаар захиалга боловсруулагдаж эхэлнэ.'
         ]},
         { h:'Хүргэлт', p:[
-          'Улаанбаатар хотод ойролцоогоор 7 хоногийн дотор хүргэнэ. Хот хоорондын болон алслагдсан бүс нутагт хугацаа уртсаж болно.'
+          'Улаанбаатар хотод ойролцоогоор 7 хоногийн дотор хүргэнэ. Хот хоорондын болон алслагдсан бүс нутагт хугацаа нэмэгдэж болзошгүй.'
         ]},
         { h:'Хариуцлагын хязгаарлалт', p:[
           'Бид бүтээгдэхүүний зураг, тайлбарыг аль болох үнэн зөв харуулахыг эрмэлздэг ч дэлгэцийн өнгө, гэрэлтүүлгээс шалтгаалан бодит бараанаас бага зэрэг ялгаатай харагдаж болзошгүй.'
@@ -2406,11 +2406,11 @@
           'Захиалга хийхэд та өөрийн нэр, утасны дугаар, и-мэйл хаяг, хүргэлтийн хаягаа өгдөг. Энэ мэдээллийг зөвхөн таны захиалгыг боловсруулж, хүргэхэд ашигладаг.'
         ]},
         { h:'Мэдээллээ хаана хадгалдаг вэ', p:[
-          'Энэхүү сайт нь өөрийн сервер, өгөгдлийн сан ашигладаггүй статик сайт юм. Таны захиалгын түүх, сагс, хадгалсан загвар зэрэг мэдээлэл зөвхөн таны өөрийн хөтчийн (browser) орон нутгийн санах ойд (localStorage) хадгалагддаг бөгөөд манай сервер рүү илгээгддэггүй.',
+          'Энэхүү сайт нь өөрийн сервер, өгөгдлийн сан ашигладаггүй статик сайт юм. Таны захиалгын түүх, сагс, хадгалсан загвар зэрэг мэдээлэл зөвхөн таны өөрийн хөтчийн (browser) дотоод санах ойд (localStorage) хадгалагддаг бөгөөд манай сервер рүү илгээгддэггүй.',
           'Иймд та хөтчийнхөө өгөгдлийг цэвэрлэх (clear browsing data) замаар өөрийн захиалгын түүхийг хэдийд ч устгах боломжтой.'
         ]},
         { h:'Гуравдагч этгээдтэй хуваалцах эсэх', p:[
-          'Бид таны хувийн мэдээллийг зар сурталчилгааны зорилгоор гуравдагч этгээдэд зарж, түрээслүүлж, өгдөггүй. Захиалгыг хүргэхэд шаардлагатай тохиолдолд зөвхөн хүргэлтийн үйлчилгээ үзүүлэгчтэй хуваалцаж болно.'
+          'Бид таны хувийн мэдээллийг зар сурталчилгааны зорилгоор гуравдагч этгээдэд зарж, түрээслүүлж, дамжуулдаггүй. Захиалгыг хүргэхэд шаардлагатай тохиолдолд зөвхөн хүргэлтийн үйлчилгээ үзүүлэгчтэй хуваалцаж болно.'
         ]},
         { h:'Холбоо барих', p:[
           'Өөрийн мэдээлэлтэй холбоотой асуулт, хүсэлт байвал "Холбоо барих" хэсэгт байрлах утас, и-мэйлээр бидэнтэй холбогдоно уу.'
@@ -2503,8 +2503,8 @@
   }
   function showLoadError(err){
     document.body.innerHTML = '<div style="max-width:520px;margin:80px auto;padding:28px;font-family:system-ui,sans-serif;text-align:center;">'
-      + '<h2 style="margin-bottom:12px;">Бүтээгдэхүүний мэдээлэл ачааллаж чадсангүй</h2>'
-      + '<p style="color:#666;line-height:1.6;">products.json файл олдсонгүй эсвэл уншиж чадсангүй. Хэрвээ index.html-г шууд файлаас (file://) нээж байгаа бол зарим хөтчид дотоод аюулгүй байдлын шалтгаанаар fetch() ажилладаггүй.</p>'
+      + '<h2 style="margin-bottom:12px;">Бүтээгдэхүүний мэдээллийг ачаалж чадсангүй</h2>'
+      + '<p style="color:#666;line-height:1.6;">products.json файл олдсонгүй эсвэл уншиж чадсангүй. Хэрэв index.html-г шууд файлаас (file://) нээж байгаа бол зарим хөтчид дотоод аюулгүй байдлын шалтгаанаар fetch() ажилладаггүй.</p>'
       + '<p style="color:#666;line-height:1.6;margin-top:8px;">VS Code дээр <b>Live Server</b> өргөтгөл суулгаад "Go Live" дараад нээнэ үү, эсвэл сайтаа Netlify/Cloudflare Pages дээр байршуулсны дараа тэндээс шалгана уу.</p>'
       + '</div>';
     console.error('Failed to load products.json', err);
